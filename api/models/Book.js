@@ -16,6 +16,7 @@ const BookSchema = new Schema({
   },
   registerDate: {
     type: Date,
+    default: Date.now,
     required: true
   },
   status: {
