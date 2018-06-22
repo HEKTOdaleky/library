@@ -46,6 +46,14 @@ const createRouter = () => {
     }
   });
 
+  router.delete("/:id", async (req, res) => {
+    try {
+      await Book.deleteOne({ _id: req.params.id })
+    } catch (error) {
+      return res.status(500).send({error});
+    }
+  });
+
 
   return router;
 };
