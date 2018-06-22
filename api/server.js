@@ -21,11 +21,11 @@ db.once("open", () => {
     console.log("Mongoose connected!");
 
     app.use('/books', books());
-
+    app.use('/reader', reader());
 
 
     app.listen(port, () => {
-        app.use('/reader', reader());
+
         console.log(`Server started on ${port} port!`);
     });
 
