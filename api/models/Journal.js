@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const JournalSchema = new Schema({
-  bookID: {
+  bookId: {
     type: Schema.Types.ObjectId,
     ref: 'Book',
     required: true
 },
-  userID: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: 'Reader',
     required: true
