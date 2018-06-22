@@ -24,7 +24,7 @@ const BookSchema = new Schema({
     default: 'onStock',
     enum: ['onStock', 'issued', 'decommissioned']
   },
-  category: {
+  categoryId: {
     type: Schema.Types.ObjectId,
     ref: 'Category',
     required: true
