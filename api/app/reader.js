@@ -1,6 +1,7 @@
 const express = require('express');
 
-const User = require('../models/User');
+
+const Reader = require('../models/Reader');
 const config = require('../config');
 const nanoid = require("nanoid");
 
@@ -8,17 +9,29 @@ const createRouter = () => {
     const router = express.Router();
 
     router.get('/', (req, res) => {
-        res.send('GET')
+        Reader.find().then(results => {
+            res.send(results)
+        })
+            .catch(() => res.sendStatus(500));
 
     });
+
+
     router.post('/', (req, res) => {
-        console.log("post");
+        const data = req.body;
+        res.send(data);
     });
-    router.delete('/', (req, res) => {
-        console.log("delete");
+    router.delete('/:id', (req, res) => {
+        const id = req.params.id;
+        console.log(id);
+        Reader.deleteOne({_id: id}).then(results => {
+            res.send(results)
+        })
+            .catch(() => res.sendStatus(500));
     });
     router.put('/', (req, res) => {
-        console.log("put");
+        const data = req.body;
+        res.send(data);
     });
 
     return router;
