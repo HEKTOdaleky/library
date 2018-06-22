@@ -17,6 +17,11 @@ const ReaderSchema = new Schema({
   group: {
     type: String,
     required: true
+  },
+  registerDate: {
+    type: Date,
+    default: Date.now,
+    required: true
   }
 });
 
