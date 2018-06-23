@@ -18,20 +18,6 @@ const createRouter = () => {
     }
   });
 
-  router.get('/:id', async (req, res) => {
-    const id = req.params.id;
-
-    try {
-      const book = await Book.findById(id);
-      if (book) {
-        res.send(book);
-      }
-      else res.sendStatus(404);
-    } catch (error) {
-      return res.status(500).send({error});
-    }
-  });
-
   router.post('/', async (req, res) => {
     const bookData = req.body;
 
@@ -43,6 +29,20 @@ const createRouter = () => {
       await book.save();
     } catch (error) {
       return res.status(400).send({error});
+    }
+  });
+
+  router.get('/:id', async (req, res) => {
+    const id = req.params.id;
+
+    try {
+      const book = await Book.findById(id);
+      if (book) {
+        res.send(book);
+      }
+      else res.sendStatus(404);
+    } catch (error) {
+      return res.status(500).send({error});
     }
   });
 
