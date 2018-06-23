@@ -5,6 +5,7 @@ import createHistory from "history/createBrowserHistory";
 import createSagaMiddleware from 'redux-saga';
 
 import {rootSaga} from './sagas'
+import { loadState, saveState } from "./localStorage";
 
 
 const rootReducer = combineReducers({
@@ -27,9 +28,17 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancers = composeEnhancers(applyMiddleware(...middleware));
 
 
-const store = createStore(rootReducer, enhancers);
+const persistedState = loadState();
+
+const store = createStore(rootReducer, persistedState, enhancers);
 
 sagaMiddleware.run(rootSaga);
+
+store.subscribe(() => {
+  saveState({
+    users: store.getState().users
+  });
+});
 
 
 export default store;
