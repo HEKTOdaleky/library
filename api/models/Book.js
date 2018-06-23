@@ -19,15 +19,14 @@ const BookSchema = new Schema({
     default: Date.now,
     required: true
   },
-  status: {
-    type: String,
-    required: true,
-    default: 'onStock',
-    enum: ['onStock', 'issued', 'decommissioned']
-  },
   categoryId: {
     type: Schema.Types.ObjectId,
     ref: 'Category',
+    required: true
+  },
+  statusId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Status',
     required: true
   },
   publishingHouse: {
