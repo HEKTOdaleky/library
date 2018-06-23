@@ -10,12 +10,17 @@ const ReaderSchema = new Schema({
     type: String,
     required: true
   },
-  document: {
+  documentNumber: {
     type: String,
     required: true
   },
-  group: {
-    type: String,
+  documentDate: {
+    type: Date,
+    required: true
+  },
+  groupId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Group',
     required: true
   },
   registerDate: {
