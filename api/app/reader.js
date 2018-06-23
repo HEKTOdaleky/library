@@ -1,14 +1,16 @@
 const express = require('express');
+const nanoid = require("nanoid");
 
 
 const Reader = require('../models/Reader');
 const config = require('../config');
-const nanoid = require("nanoid");
+const auth = require('../middleware/auth');
+
 
 const createRouter = () => {
     const router = express.Router();
 
-    router.get('/', (req, res) => {
+    router.get('/', auth, (req, res) => {
         Reader.find().then(results => {
             res.send(results)
         })
