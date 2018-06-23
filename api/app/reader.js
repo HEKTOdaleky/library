@@ -48,9 +48,9 @@ const createRouter = () => {
     catch (error) {
       res.status(500).send(error);
     }
-    ;
 
-    for (i in req.body) {
+
+    for (let i in req.body) {
       reader[i] ? reader[i] = req.body[i] : null
     }
     await reader.save();
