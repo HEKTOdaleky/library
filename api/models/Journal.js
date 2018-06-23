@@ -13,12 +13,16 @@ const JournalSchema = new Schema({
     ref: 'Reader',
     required: true
   },
-  startDate: {
+  openDate: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    required: true
   },
-  endDate: {
+  closeDate: {
     type: Date
+  },
+  estimatedDate: {
+    type: String
   }
 });
 
