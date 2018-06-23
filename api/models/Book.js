@@ -29,6 +29,19 @@ const BookSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Category',
     required: true
+  },
+  publishingHouse: {
+    type: String,
+    required: true
+  },
+  language: {
+    type: String,
+    required: true,
+    default: 'Русский',
+    enum: ['Русский', 'Кыргызский', 'Английский']
+  },
+  price: {
+    type: Number
   }
 });
 
