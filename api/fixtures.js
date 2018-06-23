@@ -4,6 +4,8 @@ const config = require('./config');
 const Category = require('./models/Category');
 const Book = require('./models/Book');
 const Reader = require('./models/Reader');
+const User = require('./models/User');
+
 
 
 mongoose.connect(config.db.url + '/' + config.db.name);
@@ -15,6 +17,8 @@ db.once('open', async () => {
         await db.dropCollection('categories');
         await db.dropCollection('books');
         await db.dropCollection('readers');
+        await db.dropCollection('users');
+
 
     } catch (e) {
         console.log('Collections were not present, skipping drop...');
@@ -68,6 +72,21 @@ db.once('open', async () => {
             lastName: "Petrov",
             document: "sudy",
             group: "js2"
+        }
+    ]);
+
+    const [Admin, Librarian] = await User.create([
+        {
+            username: "Admin",
+            role: 'admin',
+            password:'1',
+            token: '1'
+        },
+        {
+            username: "Librarian",
+            role: 'employee',
+            password:'2',
+            token: '2'
         }
     ]);
 
