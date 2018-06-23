@@ -46,20 +46,6 @@ const createRouter = () => {
     }
   });
 
-  router.get('/categories/:id', async (req, res) => {
-    const id = req.params.id;
-
-    try {
-      const book = await Book.find({category: id});
-      if (book) {
-        res.send(book);
-      }
-      else res.sendStatus(404);
-    } catch (error) {
-      return res.status(500).send({error});
-    }
-  });
-
   router.delete("/:id", async (req, res) => {
     try {
       await Book.deleteOne({ _id: req.params.id })
