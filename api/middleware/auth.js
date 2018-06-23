@@ -9,8 +9,7 @@ const auth = async (req, res, next) => {
 
 
 
-    const user = await User.findById(token);
-    console.log(user)
+    const user = await User.findOne({token});
 
     if (!user) {
         return res.status(401).send({message: 'This user does not exist'});
