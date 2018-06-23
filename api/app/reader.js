@@ -7,6 +7,7 @@ const config = require('../config');
 const auth = require('../middleware/auth');
 
 
+
 const createRouter = () => {
     const router = express.Router();
 
@@ -19,21 +20,34 @@ const createRouter = () => {
     });
 
 
-    router.post('/', (req, res) => {
-        const data = req.body;
-        res.send(data);
+    router.post('/', auth, async (req, res) => {
+        let data={};
+        data.firstName = req.body.firstName;
+        data.lastName = req.body.lastName;
+        data.document = req.body.document;
+        data.group = req.body.group;
+        const reader = new Reader(data);
+
+        await reader.save();
+
+
+
+
+        res.send(reader);
     });
-    router.delete('/:id', (req, res) => {
+    router.delete('/:id', auth, (req, res) => {
         const id = req.params.id;
-        console.log(id);
         Reader.deleteOne({_id: id}).then(results => {
             res.send(results)
         })
             .catch(() => res.sendStatus(500));
     });
-    router.put('/', (req, res) => {
-        const data = req.body;
-        res.send(data);
+    router.put('/:id', auth, async (req, res) => {
+        const id = req.params.id;
+        const reader = await Reader.findOne({_id:id});
+        if(!reader)
+            res.sendStatus(500);
+        res.send(id);
     });
 
     return router;
