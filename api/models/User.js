@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 const nanoid = require('nanoid');
 const SALT_WORK_FACTOR = 10;
+
 const UserSchema = new Schema({
     username:  {
         type: String,
@@ -28,7 +29,6 @@ const UserSchema = new Schema({
         default: 'user',
         enum: ['admin','employee','user']
     },
-
     token: String
 });
 

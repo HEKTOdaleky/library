@@ -16,7 +16,6 @@ const ReaderSchema = new Schema({
   },
   documentDate: {
     type: Date,
-    required: true
   },
   groupId: {
     type: Schema.Types.ObjectId,

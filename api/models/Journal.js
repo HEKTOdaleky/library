@@ -1,16 +1,15 @@
-const mongoose = require('mongoose');
-
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const JournalSchema = new Schema({
   bookId: {
     type: Schema.Types.ObjectId,
-    ref: 'Book',
+    ref: "Book",
     required: true
-},
+  },
   userId: {
     type: Schema.Types.ObjectId,
-    ref: 'Reader',
+    ref: "Reader",
     required: true
   },
   openDate: {
@@ -26,6 +25,5 @@ const JournalSchema = new Schema({
   }
 });
 
-const Journal = mongoose.model('Journal', JournalSchema);
-
+const Journal = mongoose.model("Journal", JournalSchema);
 module.exports = Journal;

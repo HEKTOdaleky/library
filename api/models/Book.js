@@ -29,7 +29,7 @@ const BookSchema = new Schema({
     ref: 'Status',
     required: true
   },
-  publishingHouse: {
+  publishHouse: {
     type: String,
     required: true
   },

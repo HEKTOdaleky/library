@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const StatusSchema = new Schema({
@@ -12,6 +12,5 @@ const StatusSchema = new Schema({
   }
 });
 
-const Status = mongoose.model('Status', StatusSchema);
-
-model.exports = Status;
+const Status = mongoose.model("Status", StatusSchema);
+module.exports = Status;
