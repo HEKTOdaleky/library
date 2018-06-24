@@ -14,7 +14,11 @@ const Routes = ({ user }) => {
   return (
     <Switch>
       <Route path="/" exact component={Library} />
-      <Route path="/librarian" exact component={Librarian} />
+      <ProtectedRoute
+        isAllowed={user && user.role === "librarian"}
+        path="/librarian"
+        exact
+        component={Librarian} />
       <ProtectedRoute
         isAllowed={user && user.role === "admin"}
         path="/admin"

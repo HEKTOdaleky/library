@@ -6,7 +6,7 @@ class Library extends Component {
   render() {
     return (
       <div>
-        Library search
+        Library main page
       </div>
     );
   }
