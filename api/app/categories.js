@@ -1,6 +1,7 @@
 const express = require('express');
 
 const Category = require('../models/Category');
+const auth = require('../middleware/auth');
 
 const createRouter = () => {
   const router = express.Router();
@@ -14,6 +15,20 @@ const createRouter = () => {
     } catch (error) {
       return res.status(500).send({error});
     }
+  });
+
+  router.post('/', auth, (req, res) => {
+    const category = new Category(req.body);
+
+    category.save()
+      .then(response => res.send(response))
+      .catch(error => res.status(500).send(error));
+  });
+
+  router.delete('/', auth, (req, res) => {
+    Category.findByIdAndDelete(req.body.id)
+      .then(() => res.send({message: 'Category removed'}))
+      .catch(error => res.status(500).send(error));
   });
 
   router.get('/:id', async (req, res) => {
