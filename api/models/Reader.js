@@ -26,6 +26,11 @@ const ReaderSchema = new Schema({
     type: Date,
     default: Date.now,
     required: true
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
+    required: true
   }
 });
 
