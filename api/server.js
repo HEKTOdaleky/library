@@ -5,6 +5,7 @@ const config = require("./config");
 
 const reader = require('./app/reader');
 const books = require('./app/books');
+const group = require('./app/group');
 
 const app = express();
 
@@ -22,6 +23,7 @@ db.once("open", () => {
 
     app.use('/books', books());
     app.use('/reader', reader());
+    app.use('/group', group());
 
 
     app.listen(port, () => {
