@@ -34,10 +34,9 @@ const BookSchema = new Schema({
     required: true
   },
   language: {
-    type: String,
-    required: true,
-    default: 'Русский',
-    enum: ['Русский', 'Кыргызский', 'Английский']
+    type: Schema.Types.ObjectId,
+    ref: 'Language',
+    required: true
   },
   price: {
     type: Number
