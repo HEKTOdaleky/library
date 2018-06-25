@@ -8,6 +8,7 @@ const User = require("./models/User");
 const Status = require("./models/Status");
 const Group = require("./models/Group");
 const Journal = require("./models/Journal");
+const Language = require("./models/Language");
 
 mongoose.connect(config.db.url + "/" + config.db.name);
 
@@ -125,6 +126,22 @@ db.once("open", async () => {
         }
     );
 
+  const [l1, l2, l3] = await Language.create(
+    {
+      title: "Русский"
+    },
+    {
+      title: "Кыргызский"
+    },
+    {
+      title: "Английский"
+    },
+    {
+      title: "Немецкий"
+    }
+  );
+
+
     const [b1, b2, b3, b4] = await Book.create(
         {
             title: "Таблица Брадиса",
@@ -133,6 +150,7 @@ db.once("open", async () => {
             categoryId: c9._id,
             statusId: status1._id,
             publishHouse: "Астра",
+            language: l1._id
         },
         {
             title: "Учебник по математике 6 класс",
@@ -141,6 +159,7 @@ db.once("open", async () => {
             categoryId: c6._id,
             statusId: status2._id,
             publishHouse: "Альтаир",
+            language: l1._id
         },
         {
             title: "И дольше века длиться день",
@@ -149,6 +168,7 @@ db.once("open", async () => {
             categoryId: c2._id,
             statusId: status1._id,
             publishHouse: "Нова плюс",
+            language: l1._id
         },
         {
             title: "Физика. Методическое руководство для поступающих в ВУЗы",
@@ -157,6 +177,7 @@ db.once("open", async () => {
             categoryId: c9._id,
             statusId: status3._id,
             publishHouse: "Манн, Иванов и Фербер",
+            language: l1._id
         }
     );
 
