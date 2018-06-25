@@ -47,8 +47,18 @@ const createRouter = () => {
   });
 
   router.delete("/:id", async (req, res) => {
+    const id = req.params.id;
+
     try {
-      await Book.deleteOne({ _id: req.params.id })
+      const bookData = await Book.findById(id);
+      if (bookData) {
+        bookData.statusId = req.body.statusId;
+
+        const book = new Book(bookData);
+        book.save();
+      } else {
+        return res.sendStatus(400);
+      }
     } catch (error) {
       return res.status(500).send({error});
     }
