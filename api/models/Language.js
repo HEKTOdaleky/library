@@ -8,5 +8,5 @@ const LanguageSchema = new Schema({
   }
 });
 
-const Status = mongoose.model("Language", LanguageSchema);
+const Language = mongoose.model("Language", LanguageSchema);
 module.exports = Language;

@@ -34,7 +34,7 @@ const BookSchema = new Schema({
     required: true
   },
   language: {
-    type: Schema.Types.Object,
+    type: Schema.Types.ObjectId,
     ref: 'Language',
     required: true
   },
