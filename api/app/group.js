@@ -7,13 +7,10 @@ const router = express.Router();
 
 const createRouter = () => {
 
-
     router.get('/', auth, (req, res) => {
         Group.find().then(results => {
             res.send(results)
-        })
-            .catch(() => res.sendStatus(500));
-
+        }).catch(() => res.sendStatus(500));
     });
 
     router.delete('/:id', auth, (req, res) => {

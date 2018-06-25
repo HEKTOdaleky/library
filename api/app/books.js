@@ -1,11 +1,8 @@
 const express = require("express");
-
 const Book = require("../models/Book");
 
-
-const router = express.Router();
-
 const createRouter = () => {
+const router = express.Router();
 
   router.get('/', async (req, res) => {
     try {
@@ -48,16 +45,16 @@ const createRouter = () => {
 
   router.delete("/:id", async (req, res) => {
     const id = req.params.id;
-
     try {
       const bookData = await Book.findById(id);
-      if (bookData) {
-        bookData.statusId = req.body.statusId;
 
-        const book = new Book(bookData);
-        book.save();
+      if (bookData) {
+        const newBookData = await bookData.set({statusId: req.body.statusId});
+        const book = new Book(newBookData);
+        await book.save();
+        res.send({message: "Статус книги изменен"});
       } else {
-        return res.sendStatus(400);
+        return res.status(400).send({message: "Не удалось изменить статус книги. Проверьте правильность данных."});
       }
     } catch (error) {
       return res.status(500).send({error});
