@@ -16,7 +16,6 @@ const createRouter = () => {
   });
 
   router.post('/sessions', async (req, res) => {
-    console.log(req.body);
     const user = await User.findOne({username: req.body.username});
 
     if (!user) {
@@ -37,7 +36,7 @@ const createRouter = () => {
 
   router.delete('/sessions', async (req, res) => {
     const token = req.get('Token');
-    const success = {message: 'Выход успешно произведен!'};
+    const success = {message: 'Вы успешно вышли из приложения!'};
 
     if (!token) return res.send(success);
 

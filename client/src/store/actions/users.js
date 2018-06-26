@@ -1,6 +1,6 @@
 import axios from '../../axios-api';
 import {NotificationManager} from 'react-notifications';
-import {push} from 'react-router-redux';
+import {push, replace} from 'react-router-redux';
 import {LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER} from "./actionTypes";
 
 
@@ -16,9 +16,9 @@ export const loginUser = userData => {
   return dispatch => {
     return axios.post('users/sessions', userData).then(
       response => {
-        console.log(response);
         dispatch(loginUserSuccess(response.data.user, response.data.token));
-        dispatch(push('/'));
+        if (response.data.user.role === 'librarian') dispatch(replace('/librarian'));
+        if (response.data.user.role === 'admin') dispatch(replace('/admin'));
         NotificationManager.success('Успешно!', response.data.message);
       },
       error => {
