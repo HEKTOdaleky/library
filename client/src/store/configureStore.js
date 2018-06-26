@@ -6,9 +6,11 @@ import createHistory from "history/createBrowserHistory";
 import {loadState, saveState} from "./localStorage";
 
 import userReducer from './reducers/users';
+import bookReducer from './reducers/books';
 
 const rootReducer = combineReducers({
   users: userReducer,
+  books: bookReducer,
   routing: routerReducer
 });
 

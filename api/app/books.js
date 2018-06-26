@@ -2,44 +2,55 @@ const express = require("express");
 const Book = require("../models/Book");
 
 const createRouter = () => {
-const router = express.Router();
-
-  router.get('/', async (req, res) => {
+  const router = express.Router();
+  //
+  // router.get("/", async (req, res) => {
+  //   try {
+  //     const books = await Book.find();
+  //     if (books) {
+  //       res.send(books);
+  //     }
+  //   } catch (error) {
+  //     return res.status(500).send({ error });
+  //   }
+  // });
+  
+  router.post('/search', async (req, res) => {
+    if (req.body.searchKey === '') {
+      res.status(400).send({error: "Поле поиска не должно быть пустым!"});
+    }
     try {
-      const books = await Book.find();
-      if (books) {
+      const books = await Book.find({title: {$regex: req.body.searchKey, $option:"$i"}});
+      if (books && books.length > 0) {
         res.send(books);
+      } else {
+        res.status(404).send({message: "По вашему запросу ничего не найдено."})
       }
-    } catch(error) {
-      return res.status(500).send({error});
+    } catch (e) {
+      res.status(500).send({message: e});
     }
   });
 
-  router.post('/', async (req, res) => {
+  router.post("/", async (req, res) => {
     const bookData = req.body;
-
-    bookData.categoryId = req.categoryId._id;
-
     const book = new Book(bookData);
-
     try {
       await book.save();
     } catch (error) {
-      return res.status(400).send({error});
+      return res.status(400).send({ error });
     }
   });
 
-  router.get('/:id', async (req, res) => {
+  router.get("/:id", async (req, res) => {
     const id = req.params.id;
 
     try {
       const book = await Book.findById(id);
       if (book) {
         res.send(book);
-      }
-      else res.sendStatus(404);
+      } else res.sendStatus(404);
     } catch (error) {
-      return res.status(500).send({error});
+      return res.status(500).send({ error });
     }
   });
 
@@ -49,18 +60,22 @@ const router = express.Router();
       const bookData = await Book.findById(id);
 
       if (bookData) {
-        const newBookData = await bookData.set({statusId: req.body.statusId});
+        const newBookData = await bookData.set({ statusId: req.body.statusId });
         const book = new Book(newBookData);
         await book.save();
-        res.send({message: "Статус книги изменен"});
+        res.send({ message: "Статус книги изменен" });
       } else {
-        return res.status(400).send({message: "Не удалось изменить статус книги. Проверьте правильность данных."});
+        return res
+          .status(400)
+          .send({
+            message:
+              "Не удалось изменить статус книги. Проверьте правильность данных."
+          });
       }
     } catch (error) {
-      return res.status(500).send({error});
+      return res.status(500).send({ error });
     }
   });
-
 
   return router;
 };
