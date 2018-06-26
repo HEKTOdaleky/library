@@ -23,7 +23,7 @@ db.once("open", async () => {
     await db.dropCollection("status");
     await db.dropCollection("groups");
     await db.dropCollection("journals");
-    await db.dropCollection("Languages");
+    await db.dropCollection("languages");
   } catch (e) {
     console.log("Collections were not present, skipping drop...");
   }
