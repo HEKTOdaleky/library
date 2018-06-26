@@ -8,7 +8,7 @@ const User = require("./models/User");
 const Status = require("./models/Status");
 const Group = require("./models/Group");
 const Journal = require("./models/Journal");
-const Language = require("./models/Language");
+const Languages = require("./models/Language");
 
 mongoose.connect(config.db.url + "/" + config.db.name);
 
@@ -23,7 +23,7 @@ db.once("open", async () => {
     await db.dropCollection("status");
     await db.dropCollection("groups");
     await db.dropCollection("journals");
-    await db.dropCollection("Language");
+    await db.dropCollection("Languages");
   } catch (e) {
     console.log("Collections were not present, skipping drop...");
   }
@@ -127,7 +127,7 @@ db.once("open", async () => {
     }
   );
 
-  const [l1, l2, l3] = await Language.create(
+  const [l1, l2, l3] = await Languages.create(
     {
       title: "Русский"
     },
