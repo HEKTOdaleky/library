@@ -7,9 +7,11 @@ import createSagaMiddleware from 'redux-saga';
 import {rootSaga} from './sagas'
 import { loadState, saveState } from "./localStorage";
 
+import userReducer from './reducers/users';
+
 
 const rootReducer = combineReducers({
-
+  users: userReducer,
   routing: routerReducer
 });
 
