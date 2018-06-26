@@ -7,7 +7,13 @@ const reader = require('./app/reader');
 const books = require('./app/books');
 const group = require('./app/group');
 const categories = require('./app/categories');
+
 const users = require('./app/users');
+
+const language = require('./app/languages');
+const bookschange = require('./app/bookschange');
+
+
 
 const app = express();
 
@@ -28,6 +34,8 @@ db.once("open", () => {
     app.use('/group', group());
     app.use('/users', users());
     app.use('/categories', categories());
+    app.use('/language', language());
+    app.use('/bookschange', bookschange());
 
     app.listen(port, () => {
         console.log(`Server started on ${port} port!`);
