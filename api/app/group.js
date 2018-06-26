@@ -2,19 +2,21 @@ const express = require('express');
 const Group = require('../models/Group');
 const auth = require('../middleware/auth');
 const Reader = require('../models/Reader');
+const permit = require('../middleware/permit');
+
 
 
 const router = express.Router();
 
 const createRouter = () => {
 
-    router.get('/', auth, (req, res) => {
+    router.get('/', [auth, permit('admin','employee')], (req, res) => {
         Group.find().then(results => {
             res.send(results)
         }).catch(() => res.sendStatus(500));
     });
 
-    router.delete('/:id', auth, async (req, res) => {
+    router.delete('/:id', [auth, permit('admin')], async (req, res) => {
         const id = req.params.id;
         const currentGroup = await Reader.findOne({groupId: id});
         console.log(currentGroup);
@@ -25,7 +27,7 @@ const createRouter = () => {
 
     });
 
-    router.post('/', auth, (req, res) => {
+    router.post('/', [auth, permit('admin')], (req, res) => {
         const newGroup = new Group({name: req.body.groupName});
         console.log(newGroup);
         newGroup.save().then(response => {

@@ -1,6 +1,7 @@
 const express = require('express');
 const Language = require('../models/Language');
 const auth = require('../middleware/auth');
+const permit = require('../middleware/permit');
 const Book = require('../models/Book');
 
 
@@ -8,13 +9,13 @@ const router = express.Router();
 
 const createRouter = () => {
 
-    router.get('/', auth, (req, res) => {
+    router.get('/', [auth, permit('admin','employee')], (req, res) => {
         Language.find().then(results => {
             res.send(results)
         }).catch(() => res.sendStatus(500));
     });
 
-    router.delete('/:id', auth, async (req, res) => {
+    router.delete('/:id', [auth, permit('admin','employee')], async (req, res) => {
         const id = req.params.id;
         const currentLang = await Book.findOne({language: id});
         console.log(currentLang);
@@ -25,7 +26,7 @@ const createRouter = () => {
 
     });
 
-    router.post('/', auth, (req, res) => {
+    router.post('/', [auth, permit('admin','employee')], (req, res) => {
         const newLang = new Language({title: req.body.language});
         newLang.save().then(response => {
             res.send(newLang);

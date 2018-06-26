@@ -3,13 +3,14 @@ const nanoid = require("nanoid");
 
 const Reader = require('../models/Reader');
 const config = require('../config');
+
 const auth = require('../middleware/auth');
 const permit = require('../middleware/permit');
 
 const createRouter = () => {
   const router = express.Router();
 
-  router.get('/', auth, (req, res) => {
+  router.get('/', [auth, permit('admin','employee')], (req, res) => {
     Reader.find().then(results => {
       res.send(results)
     })
@@ -17,7 +18,7 @@ const createRouter = () => {
 
   });
 
-  router.post('/', auth, async (req, res) => {
+  router.post('/',[auth, permit('admin')], auth, async (req, res) => {
     let data = {};
     data.firstName = req.body.firstName;
     data.lastName = req.body.lastName;
@@ -47,7 +48,7 @@ const createRouter = () => {
     res.send(reader);
   });
 
-  router.put('/:id', auth, async (req, res) => {
+  router.put('/:id',[auth, permit('admin')], auth, async (req, res) => {
     const id = req.params.id;
     let reader;
 
