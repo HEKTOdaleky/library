@@ -3,12 +3,13 @@ import {NotificationContainer} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import { connect } from "react-redux";
 import Toolbar from "../../components/UI/Toolbar/Toolbar";
+import {logoutUser} from "../../store/actions/users";
 
 const Layout = props => (
   <Fragment>
     <NotificationContainer/>
     <header>
-      <Toolbar />
+      <Toolbar user={props.user} logout={props.logoutUser}/>
     </header>
     <main className="container">
       {props.children}
@@ -16,14 +17,12 @@ const Layout = props => (
   </Fragment>
 );
 
-const mapStateToProps = state => {
-  return {
-  }
-};
+const mapStateToProps = state => ({
+  user: state.users.user
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-  }
-};
+const mapDispatchToProps = dispatch => ({
+  logoutUser: () => dispatch(logoutUser())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Alert, Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
 
 import FormElement from "../../components/UI/Form/FormElement";
+import {loginUser} from "../../store/actions/users";
 
 class Login extends Component {
   state = {
@@ -25,7 +26,7 @@ class Login extends Component {
   render() {
     return (
       <Fragment>
-        <PageHeader>Login</PageHeader>
+        <PageHeader>Форма авторизации</PageHeader>
         <Form horizontal onSubmit={this.submitFormHandler}>
           {this.props.error &&
           <Alert bsStyle="danger">{this.props.error.error}</Alert>
@@ -33,8 +34,8 @@ class Login extends Component {
 
           <FormElement
             propertyName="username"
-            title="Username"
-            placeholder="Enter username"
+            title="Имя пользователя"
+            placeholder="Введите имя пользователя"
             type="text"
             value={this.state.username}
             changeHandler={this.inputChangeHandler}
@@ -43,8 +44,8 @@ class Login extends Component {
 
           <FormElement
             propertyName="password"
-            title="Password"
-            placeholder="Enter password"
+            title="Пароль"
+            placeholder="Введите пароль"
             type="password"
             value={this.state.password}
             changeHandler={this.inputChangeHandler}
@@ -56,7 +57,7 @@ class Login extends Component {
               <Button
                 bsStyle="primary"
                 type="submit"
-              >Login</Button>
+              >Войти</Button>
             </Col>
           </FormGroup>
         </Form>

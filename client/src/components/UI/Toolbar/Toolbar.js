@@ -2,7 +2,7 @@ import React from "react";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-const Toolbar = () => {
+const Toolbar = ({user, logout}) => {
   return (
     <Navbar>
       <Navbar.Header>
@@ -16,13 +16,20 @@ const Toolbar = () => {
       <Navbar.Collapse>
         <Nav>
           <LinkContainer to="/" exact>
-            <NavItem>Поиск</NavItem>
+            <NavItem>Новый поиск</NavItem>
           </LinkContainer>
         </Nav>
         <Nav pullRight>
-          <LinkContainer to="/login" exact>
-            <NavItem>Login</NavItem>
-          </LinkContainer>
+
+          {user ?
+
+              <NavItem onClick={() => logout()}>Выйти</NavItem>
+            :
+
+            <LinkContainer to="/login" exact>
+              <NavItem>Войти</NavItem>
+            </LinkContainer>
+          }
         </Nav>
       </Navbar.Collapse>
     </Navbar>

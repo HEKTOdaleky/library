@@ -8,6 +8,19 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import store, {history} from "./store/configureStore";
 
+import axios from './axios-api';
+
+axios.interceptors.request.use(config => {
+  try {
+    config.headers['Token'] = store.getState().users.token;
+  } catch (e) {
+    // do nothing
+  }
+
+  return config;
+});
+
+
 
 const app = (
   <Provider store={store}>
