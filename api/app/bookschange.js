@@ -15,6 +15,24 @@ const createRouter = () => {
     }
   });
 
+  router.post('/', async (req, res) => {
+    const data = req.body;
+
+    const change = new BookChange({
+      oldBookId: data.oldBookId,
+      newBookId: data.newBookId,
+      readerId: data.readerId,
+      dateOfReplacement: data.dateOfReplacement
+    });
+
+    try {
+      await change.save();
+      res.send({message: "Данные по списанной книге добавлены"});
+    } catch (error) {
+      return res.status(400).send({error});
+    }
+  });
+
   return router;
 };
 
