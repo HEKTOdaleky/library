@@ -2,6 +2,8 @@ import React, {Component, Fragment} from "react";
 import {connect} from 'react-redux';
 import {Alert, Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
 
+import FormElement from "../../components/UI/Form/FormElement";
+
 class Login extends Component {
   state = {
     username: '',
