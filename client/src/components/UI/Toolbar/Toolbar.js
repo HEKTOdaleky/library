@@ -1,5 +1,5 @@
 import React from "react";
-import {Image, Nav, Navbar, NavItem, Thumbnail} from "react-bootstrap";
+import {Image, Nav, Navbar, NavItem} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 import logoImg from '../../../assets/images/library-logo.png';

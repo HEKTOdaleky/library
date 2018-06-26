@@ -35,6 +35,7 @@ const Routes = ({ user }) => {
 
 const mapStateToProps = state => {
   return {
+    user: state.users.user
   };
 };
 

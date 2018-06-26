@@ -216,7 +216,7 @@ db.once("open", async () => {
     },
     {
       username: "Librarian",
-      role: "employee",
+      role: "librarian",
       password: "123"
     }
   ]);
