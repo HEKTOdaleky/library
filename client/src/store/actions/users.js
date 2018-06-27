@@ -16,7 +16,6 @@ export const loginUser = userData => {
   return dispatch => {
     return axios.post('users/sessions', userData).then(
       response => {
-        console.log(response);
         dispatch(loginUserSuccess(response.data.user, response.data.token));
         dispatch(push('/'));
         NotificationManager.success('Успешно!', response.data.message);
