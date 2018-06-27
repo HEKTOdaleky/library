@@ -1,19 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-  Button,
+  Button, Col, Collapse,
   Form,
   FormControl,
   FormGroup,
-  InputGroup, ListGroup, ListGroupItem,
-  Panel
+  InputGroup,
+  ListGroup,
+  ListGroupItem,
+  PageHeader,
+  Panel, Well
 } from "react-bootstrap";
-import { Header } from "semantic-ui-react";
-import {getBooksFromSearch} from "../../store/actions/books";
+import { getBooksFromSearch } from "../../store/actions/books";
+import FormElement from "../../components/UI/Form/FormElement";
 
 class Library extends Component {
   state = {
-    searchKey: ""
+    searchKey: "",
+    open: false,
+    title: '',
+    author: '',
+    publishHouse: ''
   };
 
   inputChangeHandler = event => {
@@ -22,18 +29,21 @@ class Library extends Component {
     });
   };
 
+  toggleHandler = () => {
+    this.setState({open: !this.state.open});
+  };
+
   submitFormHandler = event => {
     event.preventDefault();
-    this.props.getBooksFromSearch(this.state);
-    this.setState({searchKey: ''});
+    const key = {searchKey: this.state.searchKey};
+    this.props.getBooksFromSearch(key);
+    this.setState({ searchKey: "" });
   };
 
   render() {
     return (
       <div className="container">
-        <Header as="h1" dividing style={{ color: "#333", marginBottom: '20px' }}>
-          Поиск книг
-        </Header>
+        <PageHeader>Поиск книг</PageHeader>
         <Panel>
           <Panel.Body>
             <Form onSubmit={this.submitFormHandler}>
@@ -52,15 +62,57 @@ class Library extends Component {
                 </InputGroup>
               </FormGroup>
             </Form>
+            <span onClick={this.toggleHandler} style={{}}>Расширенный поиск</span>
           </Panel.Body>
+          <Collapse in={this.state.open}>
+            <Well>
+              <Form horizontal>
+                <FormElement
+                  size="small"
+                  propertyName="title"
+                  title="Название книги"
+                  placeholder="Название книги"
+                  type="text"
+                  value={this.state.title}
+                  changeHandler={this.inputChangeHandler}
+                  autoComplete="current-username"
+                />
+                <FormElement
+                  size="small"
+                  propertyName="author"
+                  title="Автор"
+                  placeholder="Автор книги"
+                  type="text"
+                  value={this.state.author}
+                  changeHandler={this.inputChangeHandler}
+                  autoComplete="current-username"
+                />
+                <FormElement
+                  size="small"
+                  propertyName="publishHouse"
+                  title="Издательский дом"
+                  placeholder="Издательский дом"
+                  type="text"
+                  value={this.state.publishHouse}
+                  changeHandler={this.inputChangeHandler}
+                  autoComplete="current-username"
+                />
+              </Form>
+            </Well>
+          </Collapse>
         </Panel>
 
         <ListGroup>
-          {this.props.books && this.props.books.map(item => (
-            <ListGroupItem key={item._id}>
-              {`Название: "${item.title}", Автор: "${item.author}", Год издания: "${item.year}", Издательство: "${item.publishHouse}"`}
-            </ListGroupItem>
-          ))}
+          {this.props.books &&
+            this.props.books.map(item => (
+              <ListGroupItem key={item._id}>
+                {`Название: "${item.title}", Автор: "${
+                  item.author
+                }", Год издания: "${item.year}", Издательство: "${
+                  item.publishHouse
+                }"`}
+              </ListGroupItem>
+            ))}
         </ListGroup>
       </div>
     );
@@ -80,4 +132,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Library);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Library);

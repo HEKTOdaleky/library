@@ -21,6 +21,7 @@ const FormElement = props => {
 
   return (
     <FormGroup
+      bsSize={props.size}
       controlId={props.propertyName}
       validationState={props.error && 'error'}
     >
@@ -51,6 +52,7 @@ const FormElement = props => {
 FormElement.propTypes = {
   propertyName: PropTypes.string.isRequired,
   error: PropTypes.string,
+  size: PropTypes.string,
   title: PropTypes.string,
   type: PropTypes.string.isRequired,
   required: PropTypes.bool,

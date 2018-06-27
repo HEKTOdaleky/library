@@ -16,11 +16,12 @@ const createRouter = () => {
   // });
   
   router.post('/search', async (req, res) => {
+    console.log(':________', req.body);
     if (req.body.searchKey === '') {
       res.status(400).send({error: "Поле поиска не должно быть пустым!"});
     }
     try {
-      const books = await Book.find({title: {$regex: req.body.searchKey, $option:"$i"}});
+      const books = await Book.find({title: {$regex: req.body.searchKey, $options:"$i"}});
       if (books && books.length > 0) {
         res.send(books);
       } else {
