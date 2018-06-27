@@ -9,16 +9,6 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        validate: {
-            validator: async function (value) {
-                if (!this.isModified('username')) return true;
-
-                const user = await User.findOne({username: value});
-                if (user) throw new Error('This user already exists');
-                return true;
-            },
-            message: 'This username already exists'
-        }
     },
     password: {
         type: String,
@@ -27,7 +17,7 @@ const UserSchema = new Schema({
     role: {
         type: String,
         default: 'user',
-        enum: ['admin','employee','user']
+        enum: ['admin','librarian','user']
     },
     token: String
 });

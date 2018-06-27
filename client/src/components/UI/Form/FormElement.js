@@ -51,7 +51,7 @@ const FormElement = props => {
 FormElement.propTypes = {
   propertyName: PropTypes.string.isRequired,
   error: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   type: PropTypes.string.isRequired,
   required: PropTypes.bool,
   placeholder: PropTypes.string,
