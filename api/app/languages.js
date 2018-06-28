@@ -10,7 +10,6 @@ const router = express.Router();
 const createRouter = () => {
 
     router.get('/', [auth, permit('admin','employee')], (req, res) => {
-        console.log("Helllo");
         Language.find().then(results => {
             res.send(results)
         }).catch(() => res.sendStatus(500));
