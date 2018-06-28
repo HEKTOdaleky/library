@@ -15,4 +15,13 @@ module.exports = function () {
     return button.click();
   });
 
+  this.Then(/^я вижу сообщение об успешной аутентификации пользователя$/, function () {
+    const notification = browser.element('.notification-message .title');
+    notification.waitForExist(5000);
+
+    const notificationText = browser.element('.notification-message .title').getText();
+
+    return expect(notificationText).toBe('Пользователь и пароль правильные!');
+  });
+
 };
