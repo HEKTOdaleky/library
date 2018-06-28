@@ -10,4 +10,9 @@ module.exports = function () {
     return input.setValue(value);
   });
 
+  this.When(/^нажимаю на кнопку "([^"]*)"$/, function (text) {
+    const button = browser.element(`button=${text}`);
+    return button.click();
+  });
+
 };
