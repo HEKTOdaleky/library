@@ -8,12 +8,15 @@ import {loadState, saveState} from "./localStorage";
 import userReducer from './reducers/users';
 import bookReducer from './reducers/books';
 import languagesReducer from './reducers/languages';
+import statusReducer from './reducers/status';
+
 
 const rootReducer = combineReducers({
     users: userReducer,
     books: bookReducer,
     routing: routerReducer,
-    languages: languagesReducer
+    languages: languagesReducer,
+    status: statusReducer
 });
 
 export const history = createHistory();
