@@ -7,19 +7,26 @@ import {loadState, saveState} from "./localStorage";
 
 import userReducer from './reducers/users';
 import bookReducer from './reducers/books';
+import languagesReducer from './reducers/languages';
+import statusReducer from './reducers/status';
+import categoriesReducer from './reducers/categories';
+
 
 const rootReducer = combineReducers({
-  users: userReducer,
-  books: bookReducer,
-  routing: routerReducer
+    users: userReducer,
+    books: bookReducer,
+    routing: routerReducer,
+    languages: languagesReducer,
+    status: statusReducer,
+    categories: categoriesReducer
 });
 
 export const history = createHistory();
 
 
 const middleware = [
-  thunkMiddleware,
-  routerMiddleware(history),
+    thunkMiddleware,
+    routerMiddleware(history),
 ];
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -33,9 +40,9 @@ const store = createStore(rootReducer, persistedState, enhancers);
 
 
 store.subscribe(() => {
-  saveState({
-    users: store.getState().users
-  });
+    saveState({
+        users: store.getState().users
+    });
 });
 
 export default store;
