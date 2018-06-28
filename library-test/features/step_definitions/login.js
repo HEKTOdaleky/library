@@ -5,4 +5,9 @@ module.exports = function () {
     return browser.url(urls.loginUrl);
   });
 
+  this.When(/^я ввожу в поле "([^"]*)" значение "([^"]*)"$/, function (fieldName, value) {
+    const input = browser.element(`input[name='${fieldName}']`);
+    return input.setValue(value);
+  });
+
 };
