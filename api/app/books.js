@@ -1,5 +1,6 @@
 const express = require("express");
 const Book = require("../models/Book");
+const Status = require("../models/Status");
 
 const createRouter = () => {
   const router = express.Router();
@@ -16,12 +17,13 @@ const createRouter = () => {
   // });
   
   router.post('/search', async (req, res) => {
-    console.log(':________',req.body);
     if (req.body.searchKey === '') {
       res.status(400).send({error: "Поле поиска не должно быть пустым!"});
     }
     try {
-      const books = await Book.find({title: {$regex: req.body.searchKey, $options:"$i"}});
+      const status = await Status.findOne({name: "В наличии"});
+      const books = await Book.find({title: {$regex: req.body.searchKey, $options: "$i"}, statusId: status._id});
+
       if (books && books.length > 0) {
         res.send(books);
       } else {
@@ -38,19 +40,18 @@ const createRouter = () => {
       author: req.body.author,
       publishHouse: req.body.publishHouse
     };
-    if (data.title === '' && data.author === '' && data.publishHouse === '') {
+    if (data.title === '' || data.author === '' || data.publishHouse === '') {
       res.status(400).send({error: "Поля для поиска не должны быть пустыми!"});
     }
     try {
       const books = await Book.find({$text: {$search: `${data.title} ${data.author} ${data.publishHouse}`}});
-      console.log(books);
-      if (books) {
+      if (books && books.length > 0) {
         res.send(books);
       } else {
         res.status(404).send({message: 'По вашему запросу ничего не найдено'})
       }
     } catch (e) {
-      res.status(500).send({message: e})
+      res.status(500).send({message: e});
     }
   });
 
