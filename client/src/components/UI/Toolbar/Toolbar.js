@@ -9,9 +9,9 @@ const Toolbar = ({user, logout}) => {
     <Navbar>
       <Navbar.Header>
         <Navbar.Brand>
-          {/*<a href="/" style={{padding: '5px 15px'}}>*/}
-            {/*<Image src={logoImg} width={40}/>*/}
-          {/*</a>*/}
+          <LinkContainer to="/" exact>
+            <a>Библиотека ПЛ №10</a>
+          </LinkContainer>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
