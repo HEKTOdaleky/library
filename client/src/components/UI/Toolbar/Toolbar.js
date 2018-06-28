@@ -9,18 +9,13 @@ const Toolbar = ({user, logout}) => {
     <Navbar>
       <Navbar.Header>
         <Navbar.Brand>
-          <a href="/" style={{padding: '5px 15px'}}>
-            <Image src={logoImg} width={40}/>
-          </a>
+          {/*<a href="/" style={{padding: '5px 15px'}}>*/}
+            {/*<Image src={logoImg} width={40}/>*/}
+          {/*</a>*/}
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
-        <Nav>
-          <LinkContainer to="/" exact>
-            <NavItem>Новый поиск</NavItem>
-          </LinkContainer>
-        </Nav>
         <Nav pullRight>
           {user ?
             <NavItem onClick={() => logout()}>Выйти</NavItem>

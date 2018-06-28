@@ -2,6 +2,8 @@ import axios from "../../axios-api";
 import { NotificationManager } from "react-notifications";
 
 import {
+  GET_BOOKS_FROM_FULLSEARCH_FAILURE,
+  GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
   GET_BOOKS_FROM_SEARCH_FAILURE,
   GET_BOOKS_FROM_SEARCH_SUCCESS
 } from "./actionTypes";
@@ -27,4 +29,28 @@ export const getBooksFromSearch = searchData => {
       }
     });
   };
+};
+
+const getBooksFromFullSearchSuccess = bookData => {
+  return { type: GET_BOOKS_FROM_FULLSEARCH_SUCCESS, bookData };
+};
+
+const getBooksFromFullSearchFailure = error => {
+  return { type: GET_BOOKS_FROM_FULLSEARCH_FAILURE, error };
+};
+
+export const getBooksFromFullSearch = searchData => dispatch => {
+  return axios.post("books/full-search", searchData).then(
+    response => {
+      dispatch(getBooksFromFullSearchSuccess(response.data));
+    },
+    error => {
+      dispatch(getBooksFromFullSearchFailure(error.response.data));
+      if (error.response.data.error) {
+        NotificationManager.error(error.response.data.error);
+      } else {
+        NotificationManager.info(error.response.data.message);
+      }
+    }
+  )
 };

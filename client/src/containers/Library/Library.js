@@ -11,7 +11,7 @@ import {
   PageHeader,
   Panel, Well
 } from "react-bootstrap";
-import { getBooksFromSearch } from "../../store/actions/books";
+import {getBooksFromFullSearch, getBooksFromSearch} from "../../store/actions/books";
 import FormElement from "../../components/UI/Form/FormElement";
 
 class Library extends Component {
@@ -40,10 +40,17 @@ class Library extends Component {
     this.setState({ searchKey: "" });
   };
 
+  submitSearchFormHandler = event => {
+    event.preventDefault();
+    const searchData = {title: this.state.title, author: this.state.author, publishHouse: this.state.publishHouse};
+    this.props.getBooksFromFullSearch(searchData);
+    this.setState({title: '', author: '', publishHouse: ''});
+  };
+
   render() {
     return (
       <div className="container">
-        <PageHeader>Поиск книг</PageHeader>
+        <PageHeader>Поиск</PageHeader>
         <Panel>
           <Panel.Body>
             <Form onSubmit={this.submitFormHandler}>
@@ -57,7 +64,9 @@ class Library extends Component {
                     onChange={this.inputChangeHandler}
                   />
                   <InputGroup.Button>
-                    <Button type="submit">Поиск</Button>
+                    <Button type="submit" bsStyle="primary">
+                      Поиск
+                    </Button>
                   </InputGroup.Button>
                 </InputGroup>
               </FormGroup>
@@ -66,7 +75,7 @@ class Library extends Component {
           </Panel.Body>
           <Collapse in={this.state.open}>
             <Well>
-              <Form horizontal>
+              <Form horizontal onSubmit={this.submitSearchFormHandler}>
                 <FormElement
                   size="small"
                   propertyName="title"
@@ -90,13 +99,21 @@ class Library extends Component {
                 <FormElement
                   size="small"
                   propertyName="publishHouse"
-                  title="Издательский дом"
-                  placeholder="Издательский дом"
+                  title="Издательство"
+                  placeholder="Издательство"
                   type="text"
                   value={this.state.publishHouse}
                   changeHandler={this.inputChangeHandler}
                   autoComplete="current-username"
                 />
+                <FormGroup>
+                  <Col smOffset={2} sm={10}>
+                    <Button
+                      bsStyle="primary"
+                      type="submit"
+                    >Найти</Button>
+                  </Col>
+                </FormGroup>
               </Form>
             </Well>
           </Collapse>
@@ -128,7 +145,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getBooksFromSearch: searchData => dispatch(getBooksFromSearch(searchData))
+    getBooksFromSearch: searchData => dispatch(getBooksFromSearch(searchData)),
+    getBooksFromFullSearch: searchData => dispatch(getBooksFromFullSearch(searchData))
   };
 };
 
