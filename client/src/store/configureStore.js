@@ -9,6 +9,7 @@ import userReducer from './reducers/users';
 import bookReducer from './reducers/books';
 import languagesReducer from './reducers/languages';
 import statusReducer from './reducers/status';
+import categoriesReducer from './reducers/categories';
 
 
 const rootReducer = combineReducers({
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     books: bookReducer,
     routing: routerReducer,
     languages: languagesReducer,
-    status: statusReducer
+    status: statusReducer,
+    categories: categoriesReducer
 });
 
 export const history = createHistory();
