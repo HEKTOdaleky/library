@@ -3,8 +3,9 @@ import {connect} from "react-redux";
 import {getLanguage} from "../../store/actions/languages";
 import {getStatus} from "../../store/actions/status";
 import {getCategories} from "../../store/actions/categories";
-import {ControlLabel, FormControl, FormGroup} from "react-bootstrap";
+import {ControlLabel, FormGroup} from "react-bootstrap";
 import dateFormat from 'dateformat';
+import FormElement from "../../components/UI/Form/FormElement";
 
 
 class AddBook extends Component {
@@ -18,7 +19,8 @@ class AddBook extends Component {
         title: "",
         author: "",
         date: new Date().getFullYear(),
-        registerDate:dateFormat(new Date(), "yyyy-mm-dd")
+        registerDate: dateFormat(new Date(), "yyyy-mm-dd"),
+        category: ""
     };
     onChangeHandler = event => {
         this.setState({
@@ -33,37 +35,58 @@ class AddBook extends Component {
     }
 
     render() {
+        const categories = this.props.categories.map(category => {
+            return {id: category._id, title: category.title};
+        });
         return (
             <FormGroup validationState={this.getValidationState()}>
                 <ControlLabel>Добавить новую книгу</ControlLabel>
-                <FormControl
+
+                <FormElement
+                    propertyName="title"
+                    title="Название книги"
+                    placeholder="Введите Название книги"
                     type="text"
-                    name="title"
                     value={this.state.title}
-                    placeholder="Название книги"
-                    onChange={this.onChangeHandler}
+                    changeHandler={this.onChangeHandler}
                 />
-                <FormControl
+
+                <FormElement
+                    propertyName="author"
+                    title="Автор"
+                    placeholder="Введите автора"
                     type="text"
-                    name="author"
-                    placeholder="Автор"
                     value={this.state.author}
-                    onChange={this.onChangeHandler}
+                    changeHandler={this.onChangeHandler}
                 />
-                <FormControl
-                    type="number"
-                    name="date"
-                    placeholder="Год издания"
-                    value={this.state.date}
-                    onChange={this.onChangeHandler}
-                />
-                <FormControl
+
+                <FormElement
+                    propertyName="date"
+                    title="Год издания"
+                    placeholder="Введите год издания"
                     type="date"
-                    name="registerDate"
-                    placeholder="Дата регистрации книги"
-                    value={this.state.registerDate}
-                    onChange={this.onChangeHandler}
+                    value={this.state.date}
+                    changeHandler={this.onChangeHandler}
                 />
+                <FormElement
+                    propertyName="category"
+                    title="Категория"
+                    type="select"
+                    options={categories}
+                    value={this.state.category}
+                    changeHandler={this.onChangeHandler}
+                />
+                <FormElement
+                    propertyName="registerDate"
+                    title="Дата регистрации книги"
+                    placeholder="Дата регистрации книги"
+                    type="date"
+                    value={this.state.registerDate}
+                    changeHandler={this.onChangeHandler}
+                />
+
+
+
             </FormGroup>
         )
     }
