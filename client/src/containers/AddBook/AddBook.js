@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
 import {getLanguage} from "../../store/actions/languages";
 import {getStatus} from "../../store/actions/status";
 import {getCategories} from "../../store/actions/categories";
-import {ControlLabel, FormGroup} from "react-bootstrap";
+import {Alert, Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
 import dateFormat from 'dateformat';
 import FormElement from "../../components/UI/Form/FormElement";
+import {postBooksData} from "../../store/actions/books";
 
 
 class AddBook extends Component {
@@ -18,9 +19,13 @@ class AddBook extends Component {
     state = {
         title: "",
         author: "",
-        date: new Date().getFullYear(),
+        year: new Date().getFullYear(),
         registerDate: dateFormat(new Date(), "yyyy-mm-dd"),
-        category: ""
+        categoryId: "",
+        statusId: "",
+        publishHouse: "",
+        price: 0,
+        language: ""
     };
     onChangeHandler = event => {
         this.setState({
@@ -29,65 +34,120 @@ class AddBook extends Component {
     };
 
     getValidationState() {
-        if (this.state.date > 1800 && this.state.date <= new Date().getFullYear()) return 'success';
+        if (this.state.year > 1800 && this.state.year <= new Date().getFullYear()) return null;
         else return 'error';
-        return null;
+    }
+
+    clickHandler = event => {
+        event.preventDefault();
+        this.props.postBooksData(this.state);
+
     }
 
     render() {
         const categories = this.props.categories.map(category => {
             return {id: category._id, title: category.title};
         });
+        const status = this.props.status.map(state => {
+            return {id: state._id, title: state.name};
+        });
+        const lang = this.props.languages.map(lang => {
+            return {id: lang._id, title: lang.title};
+        });
         return (
-            <FormGroup validationState={this.getValidationState()}>
-                <ControlLabel>Добавить новую книгу</ControlLabel>
+            <Fragment>
+                <PageHeader>Добавить новую книгу</PageHeader>
 
-                <FormElement
-                    propertyName="title"
-                    title="Название книги"
-                    placeholder="Введите Название книги"
-                    type="text"
-                    value={this.state.title}
-                    changeHandler={this.onChangeHandler}
-                />
+                <Form
+                    horizontal onSubmit={this.clickHandler}>
+                    {this.props.postError &&
+                    <Alert bsStyle="danger">{this.props.postError.message._message}</Alert>
+                    }
 
-                <FormElement
-                    propertyName="author"
-                    title="Автор"
-                    placeholder="Введите автора"
-                    type="text"
-                    value={this.state.author}
-                    changeHandler={this.onChangeHandler}
-                />
+                    <FormElement
+                        propertyName="title"
+                        title="Название книги"
+                        placeholder="Введите Название книги"
+                        type="text"
+                        value={this.state.title}
+                        changeHandler={this.onChangeHandler}
 
-                <FormElement
-                    propertyName="date"
-                    title="Год издания"
-                    placeholder="Введите год издания"
-                    type="date"
-                    value={this.state.date}
-                    changeHandler={this.onChangeHandler}
-                />
-                <FormElement
-                    propertyName="category"
-                    title="Категория"
-                    type="select"
-                    options={categories}
-                    value={this.state.category}
-                    changeHandler={this.onChangeHandler}
-                />
-                <FormElement
-                    propertyName="registerDate"
-                    title="Дата регистрации книги"
-                    placeholder="Дата регистрации книги"
-                    type="date"
-                    value={this.state.registerDate}
-                    changeHandler={this.onChangeHandler}
-                />
+                    />
 
+                    <FormElement
+                        propertyName="author"
+                        title="Автор"
+                        placeholder="Введите автора"
+                        type="text"
+                        value={this.state.author}
+                        changeHandler={this.onChangeHandler}
+                    />
 
+                    <FormElement
+                        propertyName="year"
+                        title="Год издания"
+                        placeholder="Введите год издания"
+                        type="number"
+                        value={this.state.year}
+                        changeHandler={this.onChangeHandler}
+                    />
+                    <FormElement
+                        propertyName="categoryId"
+                        title="Категория"
+                        type="select"
+                        options={categories}
+                        value={this.state.categoryId}
+                        changeHandler={this.onChangeHandler}
+                    />
+                    <FormElement
+                        propertyName="statusId"
+                        title="Статус"
+                        type="select"
+                        options={status}
+                        value={this.state.statusId}
+                        changeHandler={this.onChangeHandler}
+                    />
+                    <FormElement
+                        propertyName="publishHouse"
+                        title="Издательство"
+                        placeholder="Издательский дом"
+                        type="text"
+                        value={this.state.publishHouse}
+                        changeHandler={this.onChangeHandler}
+                    />
+                    <FormElement
+                        propertyName="language"
+                        title="Язык"
+                        type="select"
+                        options={lang}
+                        value={this.state.language}
+                        changeHandler={this.onChangeHandler}
+                    />
+                    <FormElement
+                        propertyName="price"
+                        title="Стоимость"
+                        placeholder="Стоимость"
+                        type="number"
+                        value={this.state.price}
+                        changeHandler={this.onChangeHandler}
+                    />
+                    <FormElement
+                        propertyName="registerDate"
+                        title="Дата регистрации книги"
+                        placeholder="Дата регистрации книги"
+                        type="date"
+                        value={this.state.registerDate}
+                        changeHandler={this.onChangeHandler}
+                    />
 
-            </FormGroup>
+                    <FormGroup>
+                        <Col smOffset={2} sm={10}>
+                            <Button onClick={this.clickHandler} bsStyle="primary" type="submit">Save</Button>
+                        </Col>
+                    </FormGroup>
+
+                </Form>
+            </Fragment>
         )
     }
 
@@ -98,7 +158,8 @@ const mapStateToProps = state => {
     return {
         languages: state.languages.languages,
         status: state.status.status,
-        categories: state.categories.categories
+        categories: state.categories.categories,
+        postError: state.books.postError
     };
 };
 
@@ -106,7 +167,8 @@ const mapDispatchToProps = dispatch => {
     return {
         getLanguage: () => dispatch(getLanguage()),
         getStatus: () => dispatch(getStatus()),
-        getCategories: () => dispatch(getCategories())
+        getCategories: () => dispatch(getCategories()),
+        postBooksData: (data) => dispatch(postBooksData(data))
     };
 };
 
