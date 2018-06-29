@@ -30,6 +30,11 @@ module.exports = function () {
     return expect(notificationText).toBe('Имя пользователя или пароль неправильные!');
   });
 
+  this.Then(/^я вижу сообщение с ошибочной в следстии не заполненного поля ввода логина$/, function () {
+    const notificationText = browser.element('.alert-danger').getText();
+    return expect(notificationText).toBe('Имя пользователя или пароль неправильные!');
+  });
+
   this.Then(/^я вижу сообщение об успешной аутентификации пользователя$/, function () {
     const notification = browser.element('.notification-message .title');
     notification.waitForExist(5000);
