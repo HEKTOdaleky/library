@@ -25,12 +25,7 @@ module.exports = function () {
     return button.click();
   });
 
-  this.Then(/^я вижу сообщение с ошибочной в следстии ввода не верного логина$/, function () {
-    const notificationText = browser.element('.alert-danger').getText();
-    return expect(notificationText).toBe('Имя пользователя или пароль неправильные!');
-  });
-
-  this.Then(/^я вижу сообщение с ошибочной в следстии не заполненного поля ввода логина$/, function () {
+  this.Then(/^я вижу сообщение с ошибочной$/, function () {
     const notificationText = browser.element('.alert-danger').getText();
     return expect(notificationText).toBe('Имя пользователя или пароль неправильные!');
   });
@@ -38,9 +33,7 @@ module.exports = function () {
   this.Then(/^я вижу сообщение об успешной аутентификации пользователя$/, function () {
     const notification = browser.element('.notification-message .title');
     notification.waitForExist(5000);
-
     const notificationText = browser.element('.notification-message .title').getText();
-
     return expect(notificationText).toBe('Пользователь и пароль правильные!');
   });
 

@@ -40,7 +40,7 @@ const createRouter = () => {
             author: req.body.author,
             publishHouse: req.body.publishHouse
         };
-        if (data.title === '' || data.author === '' || data.publishHouse === '') {
+        if (data.title === '' && data.author === '') {
             res.status(400).send({error: "Поля для поиска не должны быть пустыми!"});
         }
         try {
