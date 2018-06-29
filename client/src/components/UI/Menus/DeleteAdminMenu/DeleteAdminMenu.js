@@ -7,23 +7,23 @@ class DeleteAdminMenu extends Component {
   render() {
     return (
       <Fragment>
-        <NavDropdown title="Добавить" id="add-menu">
-          <LinkContainer to="/add-book">
+        <NavDropdown title="Удалить" id="add-menu">
+          <LinkContainer to="/delete-book">
             <MenuItem>Удалить книгу</MenuItem>
           </LinkContainer>
-          <LinkContainer to="/add-category">
+          <LinkContainer to="/delete-category">
             <MenuItem>Удалить пользователя</MenuItem>
           </LinkContainer>
-          <LinkContainer to="/add-group">
+          <LinkContainer to="/delete-group">
             <MenuItem>Удалить группу</MenuItem>
           </LinkContainer>
-          <LinkContainer to="/add-language">
+          <LinkContainer to="/delete-language">
             <MenuItem>Удалить категорию книг</MenuItem>
           </LinkContainer>
-          <LinkContainer to="/add-status">
+          <LinkContainer to="/delete-status">
             <MenuItem>Удалить язык издания книги</MenuItem>
           </LinkContainer>
-          <LinkContainer to="/add-user">
+          <LinkContainer to="/delete-user">
             <MenuItem>Удалить статус книги</MenuItem>
           </LinkContainer>
         </NavDropdown>
