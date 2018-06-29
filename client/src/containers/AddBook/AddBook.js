@@ -6,6 +6,7 @@ import {getCategories} from "../../store/actions/categories";
 import {Button, Col, ControlLabel, FormGroup} from "react-bootstrap";
 import dateFormat from 'dateformat';
 import FormElement from "../../components/UI/Form/FormElement";
+import {postBooksData} from "../../store/actions/books";
 
 
 class AddBook extends Component {
@@ -24,7 +25,7 @@ class AddBook extends Component {
         statusId: "",
         publishHouse: "",
         price: 0,
-        language:""
+        language: ""
     };
     onChangeHandler = event => {
         this.setState({
@@ -37,9 +38,10 @@ class AddBook extends Component {
         else return 'error';
         return null;
     }
-    clickHandler=event=>{
+
+    clickHandler = event => {
         event.preventDefault();
-        console.log(this.state)
+        this.props.postBooksData(this.state);
 
     }
 
@@ -157,7 +159,8 @@ const mapDispatchToProps = dispatch => {
     return {
         getLanguage: () => dispatch(getLanguage()),
         getStatus: () => dispatch(getStatus()),
-        getCategories: () => dispatch(getCategories())
+        getCategories: () => dispatch(getCategories()),
+        postBooksData: (data) => dispatch(postBooksData(data))
     };
 };
 
