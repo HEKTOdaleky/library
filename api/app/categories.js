@@ -18,10 +18,12 @@ const createRouter = () => {
   });
 
   router.post('/', auth, (req, res) => {
+    console.log(req.body);
     const category = new Category(req.body);
 
     category.save()
-      .then(response => res.send(response))
+      .then(response => {
+        if (response) res.send({message: `Категория ${response.title} добавлена`})})
       .catch(error => res.status(500).send(error));
   });
 
