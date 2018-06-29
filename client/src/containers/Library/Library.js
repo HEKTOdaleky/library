@@ -50,12 +50,12 @@ class Library extends Component {
   render() {
     return (
       <div className="container">
-        <PageHeader>Поиск</PageHeader>
+        <PageHeader>Поиск:</PageHeader>
         <Panel>
           <Panel.Body>
             <Form onSubmit={this.submitFormHandler}>
               <FormGroup>
-                <InputGroup>
+                <InputGroup bsSize="large">
                   <FormControl
                     type="text"
                     placeholder="Введите слово для поиска"
@@ -71,7 +71,7 @@ class Library extends Component {
                 </InputGroup>
               </FormGroup>
             </Form>
-            <span onClick={this.toggleHandler} style={{}}>Расширенный поиск</span>
+            <span onClick={this.toggleHandler} style={{cursor: "pointer", fontSize: '15px'}}>Расширенный поиск</span>
           </Panel.Body>
           <Collapse in={this.state.open}>
             <Well>
@@ -80,7 +80,7 @@ class Library extends Component {
                   size="small"
                   propertyName="title"
                   title="Название книги"
-                  placeholder="Название книги"
+                  placeholder="Название книги или набор слов из названия"
                   type="text"
                   value={this.state.title}
                   changeHandler={this.inputChangeHandler}
@@ -119,18 +119,23 @@ class Library extends Component {
           </Collapse>
         </Panel>
 
-        <ListGroup>
-          {this.props.books &&
-            this.props.books.map(item => (
-              <ListGroupItem key={item._id}>
-                {`Название: "${item.title}", Автор: "${
-                  item.author
-                }", Год издания: "${item.year}", Издательство: "${
-                  item.publishHouse
-                }"`}
-              </ListGroupItem>
-            ))}
-        </ListGroup>
+        <PageHeader>Результаты поиска:</PageHeader>
+        <Panel>
+          <Panel.Body>
+            <ListGroup>
+              {this.props.books &&
+              this.props.books.map(item => (
+                <ListGroupItem key={item._id}>
+                  {`Название: "${item.title}", Автор: "${
+                    item.author
+                    }", Год издания: "${item.year}", Издательство: "${
+                    item.publishHouse
+                    }"`}
+                </ListGroupItem>
+              ))}
+            </ListGroup>
+          </Panel.Body>
+        </Panel>
       </div>
     );
   }

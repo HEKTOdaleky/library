@@ -365,3 +365,5 @@ db.once("open", async () => {
 
   db.close();
 });
+
+// db.books.createIndex({title: "text", author: "text", publishHouse: "text"}, {language_override: "russian"});
