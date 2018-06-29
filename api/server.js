@@ -10,6 +10,7 @@ const categories = require('./app/categories');
 const users = require('./app/users');
 const language = require('./app/languages');
 const bookschange = require('./app/bookschange');
+const status = require('./app/status');
 
 const app = express();
 
@@ -32,6 +33,7 @@ db.once("open", () => {
     app.use('/categories', categories());
     app.use('/language', language());
     app.use('/bookschange', bookschange());
+    app.use('/status', status());
 
     app.listen(port, () => {
         console.log(`Server started on ${port} port!`);
