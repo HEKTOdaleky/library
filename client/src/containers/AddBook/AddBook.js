@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {getLanguage} from "../../store/actions/languages";
 import {getStatus} from "../../store/actions/status";
 import {getCategories} from "../../store/actions/categories";
-import {ControlLabel, FormGroup} from "react-bootstrap";
+import {Button, Col, ControlLabel, FormGroup} from "react-bootstrap";
 import dateFormat from 'dateformat';
 import FormElement from "../../components/UI/Form/FormElement";
 
@@ -18,9 +18,13 @@ class AddBook extends Component {
     state = {
         title: "",
         author: "",
-        date: new Date().getFullYear(),
+        year: new Date().getFullYear(),
         registerDate: dateFormat(new Date(), "yyyy-mm-dd"),
-        category: ""
+        categoryId: "",
+        statusId: "",
+        publishHouse: "",
+        price: 0,
+        language:""
     };
     onChangeHandler = event => {
         this.setState({
@@ -33,10 +37,21 @@ class AddBook extends Component {
         else return 'error';
         return null;
     }
+    clickHandler=event=>{
+        event.preventDefault();
+        console.log(this.state)
+
+    }
 
     render() {
         const categories = this.props.categories.map(category => {
             return {id: category._id, title: category.title};
+        });
+        const status = this.props.status.map(state => {
+            return {id: state._id, title: state.name};
+        });
+        const lang = this.props.languages.map(lang => {
+            return {id: lang._id, title: lang.title};
         });
         return (
             <FormGroup validationState={this.getValidationState()}>
@@ -61,19 +76,51 @@ class AddBook extends Component {
                 />
 
                 <FormElement
-                    propertyName="date"
+                    propertyName="year"
                     title="Год издания"
                     placeholder="Введите год издания"
-                    type="date"
-                    value={this.state.date}
+                    type="number"
+                    value={this.state.year}
                     changeHandler={this.onChangeHandler}
                 />
                 <FormElement
-                    propertyName="category"
+                    propertyName="categoryId"
                     title="Категория"
                     type="select"
                     options={categories}
-                    value={this.state.category}
+                    value={this.state.categoryId}
+                    changeHandler={this.onChangeHandler}
+                />
+                <FormElement
+                    propertyName="statusId"
+                    title="Статус"
+                    type="select"
+                    options={status}
+                    value={this.state.statusId}
+                    changeHandler={this.onChangeHandler}
+                />
+                <FormElement
+                    propertyName="publishHouse"
+                    title="Издательство"
+                    placeholder="Издательский дом"
+                    type="text"
+                    value={this.state.publishHouse}
+                    changeHandler={this.onChangeHandler}
+                />
+                <FormElement
+                    propertyName="language"
+                    title="Язык"
+                    type="select"
+                    options={lang}
+                    value={this.state.language}
+                    changeHandler={this.onChangeHandler}
+                />
+                <FormElement
+                    propertyName="price"
+                    title="Стоимость"
+                    placeholder="Стоимость"
+                    type="number"
+                    value={this.state.price}
                     changeHandler={this.onChangeHandler}
                 />
                 <FormElement
@@ -85,7 +132,11 @@ class AddBook extends Component {
                     changeHandler={this.onChangeHandler}
                 />
 
-
+                <FormGroup>
+                    <Col smOffset={2} sm={10}>
+                        <Button onClick={this.clickHandler} bsStyle="primary" type="submit">Save</Button>
+                    </Col>
+                </FormGroup>
 
             </FormGroup>
         )
