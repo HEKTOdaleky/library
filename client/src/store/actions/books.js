@@ -2,6 +2,8 @@ import axios from "../../axios-api";
 import {NotificationManager} from "react-notifications";
 
 import {
+    BOOK_POST_DATA_FAILURE,
+    BOOK_POST_DATA_SUCCESS,
     GET_BOOKS_FROM_FULLSEARCH_FAILURE,
     GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
     GET_BOOKS_FROM_SEARCH_FAILURE,
@@ -15,6 +17,14 @@ const getBooksFromSearchSuccess = booksData => {
 
 const getBooksFromSearchFailure = error => {
     return {type: GET_BOOKS_FROM_SEARCH_FAILURE, error};
+};
+
+const bookPostDataSuccess = book => {
+    return {type: BOOK_POST_DATA_SUCCESS, book}
+};
+
+const bookPostDataError = postError => {
+    return {type: BOOK_POST_DATA_FAILURE, postError}
 };
 
 export const getBooksFromSearch = searchData => {
@@ -58,11 +68,12 @@ export const getBooksFromFullSearch = searchData => dispatch => {
 
 export const postBooksData = (data) => {
     return dispatch => {
-         axios.post("books/", data).then(response => {
+        axios.post("books/", data).then(response => {
+            dispatch(bookPostDataSuccess(response.data));
             dispatch(push("/admin"));
             NotificationManager.success("Успешно!");
-        },err=>{
-             console.log(err)
-         })
+        }, err => {
+            dispatch(bookPostDataError(err.response.data));
+        })
     }
 };
