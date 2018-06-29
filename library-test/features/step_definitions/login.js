@@ -5,6 +5,16 @@ module.exports = function () {
     return browser.url(urls.loginUrl);
   });
 
+  this.When(/^я ввожу в поле "([^"]*)" не правильное значение "([^"]*)"$/, function (fieldName, value) {
+    const input = browser.element(`input[name='${fieldName}']`);
+    return input.setValue(value);
+  });
+
+  this.When(/^я оставляю в поле "([^"]*)" пустое значение "([^"]*)"$/, function (fieldName, value) {
+    const input = browser.element(`input[name='${fieldName}']`);
+    return input.setValue(value);
+  });
+
   this.When(/^я ввожу в поле "([^"]*)" значение "([^"]*)"$/, function (fieldName, value) {
     const input = browser.element(`input[name='${fieldName}']`);
     return input.setValue(value);
@@ -13,6 +23,16 @@ module.exports = function () {
   this.When(/^нажимаю на кнопку "([^"]*)"$/, function (text) {
     const button = browser.element(`button=${text}`);
     return button.click();
+  });
+
+  this.Then(/^я вижу сообщение с ошибочной в следстии ввода не верного логина$/, function () {
+    const notificationText = browser.element('.alert-danger').getText();
+    return expect(notificationText).toBe('Имя пользователя или пароль неправильные!');
+  });
+
+  this.Then(/^я вижу сообщение с ошибочной в следстии не заполненного поля ввода логина$/, function () {
+    const notificationText = browser.element('.alert-danger').getText();
+    return expect(notificationText).toBe('Имя пользователя или пароль неправильные!');
   });
 
   this.Then(/^я вижу сообщение об успешной аутентификации пользователя$/, function () {
