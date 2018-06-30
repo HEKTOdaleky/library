@@ -31,7 +31,7 @@ const createRouter = () => {
         newStatus.save().then(response => {
             res.send(newStatus);
         }, error => {
-            res.sendStatus(400).send(error);
+            res.sendStatus(400).send({message:"Дублирование категории"});
         });
     });
 
