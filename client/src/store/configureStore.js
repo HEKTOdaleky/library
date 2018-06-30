@@ -10,7 +10,7 @@ import bookReducer from './reducers/books';
 import languagesReducer from './reducers/languages';
 import statusReducer from './reducers/status';
 import categoriesReducer from './reducers/categories';
-
+import groupsReducer from './reducers/groups';
 
 const rootReducer = combineReducers({
     users: userReducer,
@@ -18,11 +18,11 @@ const rootReducer = combineReducers({
     routing: routerReducer,
     languages: languagesReducer,
     status: statusReducer,
-    categories: categoriesReducer
+    categories: categoriesReducer,
+    groups: groupsReducer
 });
 
 export const history = createHistory();
-
 
 const middleware = [
     thunkMiddleware,
@@ -33,11 +33,9 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const enhancers = composeEnhancers(applyMiddleware(...middleware));
 
-
 const persistedState = loadState();
 
 const store = createStore(rootReducer, persistedState, enhancers);
-
 
 store.subscribe(() => {
     saveState({

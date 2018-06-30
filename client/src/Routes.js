@@ -7,6 +7,8 @@ import Library from "./containers/Library/Library";
 import Admin from "./containers/Admin/Admin";
 import Librarian from "./containers/Librarian/Librarian";
 import AddBook from "./containers/AddBook/AddBook";
+import AddGroup from "./containers/AddGroup/AddGroup";
+import AddLanguage from "./containers/AddLanguage/AddLanguage";
 
 const ProtectedRoute = ({ isAllowed, ...props }) =>
   isAllowed ? <Route {...props} /> : <Redirect to="/login" />;
@@ -32,6 +34,18 @@ const Routes = ({ user }) => {
         path="/add-book"
         exact
         component={AddBook}
+      />
+      <ProtectedRoute
+        isAllowed={user && user.role === "admin"}
+        path="/add-group"
+        exact
+        component={AddGroup}
+      />
+      <ProtectedRoute
+        isAllowed={user && user.role === "admin"}
+        path="/add-language"
+        exact
+        component={AddLanguage}
       />
       <Route path="/login" exact component={Login} />
       <Route
