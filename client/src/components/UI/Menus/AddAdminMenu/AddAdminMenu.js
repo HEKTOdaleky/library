@@ -11,19 +11,19 @@ class AddAdminMenu extends Component {
           <LinkContainer to="/add-book">
             <MenuItem>Добавить книгу</MenuItem>
           </LinkContainer>
-          <LinkContainer to="/add-category">
+          <LinkContainer to="/add-user">
             <MenuItem>Добавить пользователя</MenuItem>
           </LinkContainer>
           <LinkContainer to="/add-group">
             <MenuItem>Добавить группу</MenuItem>
           </LinkContainer>
-          <LinkContainer to="/add-language">
+          <LinkContainer to="/add-category">
             <MenuItem>Добавить категорию книг</MenuItem>
           </LinkContainer>
-          <LinkContainer to="/add-status">
+          <LinkContainer to="/add-language">
             <MenuItem>Добавить язык издания книги</MenuItem>
           </LinkContainer>
-          <LinkContainer to="/add-user">
+          <LinkContainer to="/add-status">
             <MenuItem>Добавить статус книги</MenuItem>
           </LinkContainer>
         </NavDropdown>
