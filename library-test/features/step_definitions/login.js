@@ -26,8 +26,13 @@ module.exports = function () {
   });
 
   this.Then(/^я вижу сообщение с ошибочной$/, function () {
-    const notificationText = browser.element('.alert-danger').getText();
+    const notification = browser.element('.alert-danger');
+    notification.waitForExist(5000);
+
+    const notificationText = notification.getText();
+
     return expect(notificationText).toBe('Имя пользователя или пароль неправильные!');
+
   });
 
   this.Then(/^я вижу сообщение об успешной аутентификации пользователя$/, function () {
