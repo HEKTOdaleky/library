@@ -29,5 +29,13 @@ module.exports = function () {
 
         return expect(notificationText).toBe(`${message}`);
     });
+    this.Then(/^я вижу сообщение с ошибкой "([^"]*)"$/, function (message) {
+        const notification = browser.element('.alert-danger');
+        notification.waitForExist(5000);
+
+        const notificationText = notification.getText();
+
+        return expect(notificationText).toBe(message);
+    });
 
 };
