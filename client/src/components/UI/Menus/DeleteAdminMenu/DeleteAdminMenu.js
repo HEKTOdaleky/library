@@ -1,4 +1,4 @@
-import React, {Component, Fragment, PropTypes} from 'react';
+import React, {Component, Fragment} from 'react';
 import {MenuItem, NavDropdown} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
 
@@ -11,19 +11,19 @@ class DeleteAdminMenu extends Component {
           <LinkContainer to="/delete-book">
             <MenuItem>Удалить книгу</MenuItem>
           </LinkContainer>
-          <LinkContainer to="/delete-category">
+          <LinkContainer to="/delete-user">
             <MenuItem>Удалить пользователя</MenuItem>
           </LinkContainer>
           <LinkContainer to="/delete-group">
             <MenuItem>Удалить группу</MenuItem>
           </LinkContainer>
-          <LinkContainer to="/delete-language">
+          <LinkContainer to="/delete-category">
             <MenuItem>Удалить категорию книг</MenuItem>
           </LinkContainer>
-          <LinkContainer to="/delete-status">
+          <LinkContainer to="/delete-language">
             <MenuItem>Удалить язык издания книги</MenuItem>
           </LinkContainer>
-          <LinkContainer to="/delete-user">
+          <LinkContainer to="/delete-status">
             <MenuItem>Удалить статус книги</MenuItem>
           </LinkContainer>
         </NavDropdown>
