@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux";
+import {postStatus} from "../../store/actions/status";
 
 
 class AddStatus extends Component {
-    state = {};
+    state = {
+
+    };
 
     render() {
         return (<div>Hi</div>)
@@ -11,11 +14,15 @@ class AddStatus extends Component {
 };
 
 const mapStateToProps = state => {
-    return {}
+    return {
+        statusErr: state.status.err
+    }
 };
 
 const mapDispatchToProps = dispatch => {
-    return {}
+    return {
+        postStatus: (data) => dispatch(postStatus(data))
+    }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddStatus);
