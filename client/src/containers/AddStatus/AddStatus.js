@@ -19,7 +19,7 @@ class AddStatus extends Component {
         event.preventDefault();
         this.props.postStatus(this.state);
 
-    }
+    };
 
     render() {
         return (<Form
