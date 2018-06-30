@@ -70,7 +70,11 @@ class Library extends Component {
                 </InputGroup>
               </FormGroup>
             </Form>
-            <span onClick={this.toggleHandler} style={{cursor: "pointer", fontSize: '15px'}}>Расширенный поиск</span>
+            <span id="full-search"
+                  onClick={this.toggleHandler}
+                  style={{cursor: "pointer", fontSize: '15px'}}>
+              Расширенный поиск
+            </span>
           </Panel.Body>
           <Collapse in={this.state.open}>
             <Well>
