@@ -8,10 +8,10 @@ const GroupSchema = new Schema({
     validate: {
       validator: async function(value) {
         const group = await Group.findOne({ name: value });
-        if (group) throw new Error("This group already exists");
+        if (group) throw new Error("Такая группа уже существует");
         return true;
       },
-      message: "This group already exists"
+      message: "Такая группа уже существует"
     }
   }
 });
