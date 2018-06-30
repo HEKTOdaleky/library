@@ -26,13 +26,16 @@ const createRouter = () => {
 
     });
 
-    router.post('/', [auth, permit('admin','employee')], (req, res) => {
-        const newLang = new Language({title: req.body.language});
-        newLang.save().then(response => {
-            res.send(newLang);
-        }, error => {
-            res.sendStatus(400).send(error);
-        });
+    router.post('/', [auth, permit('admin','employee')], async (req, res) => {
+        const newLang = new Language({title: req.body.title});
+
+        try {
+            await newLang.save();
+        } catch (err) {
+            return res.status(400).send({message: 'Произошла ошибка запроса. Новый язык не добавился!'});
+        }
+
+        res.send(newLang);
     });
 
     return router;
