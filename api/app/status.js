@@ -27,7 +27,7 @@ const createRouter = () => {
     });
 
     router.post('/', [auth, permit('admin')], (req, res) => {
-        const newStatus = new Status({name: req.body.statusName, description: req.body.description});
+        const newStatus = new Status({name: req.body.name, description: req.body.description});
         newStatus.save().then(response => {
             res.send(newStatus);
         }, error => {
