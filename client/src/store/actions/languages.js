@@ -16,8 +16,8 @@ export const getLanguage = () => {
     }
 };
 
-const languagePostDataSuccess = language => {
-  return {type: LANGUAGE_POST_DATA_SUCCESS, language}
+const languagePostDataSuccess = lang => {
+  return {type: LANGUAGE_POST_DATA_SUCCESS, lang}
 };
 
 const languagePostDataError = languageError => {
@@ -26,7 +26,7 @@ const languagePostDataError = languageError => {
 
 export const postLanguagesData = (data) => {
   return dispatch => {
-    axios.post("languages/", data).then(response => {
+    axios.post("/language", data).then(response => {
       dispatch(languagePostDataSuccess(response.data));
       dispatch(push("/admin"));
       NotificationManager.success("Успешно!");
