@@ -6,8 +6,6 @@ import {
   FormControl,
   FormGroup,
   InputGroup,
-  ListGroup,
-  ListGroupItem,
   PageHeader,
   Panel, Well
 } from "react-bootstrap";
