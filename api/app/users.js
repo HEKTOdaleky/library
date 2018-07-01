@@ -16,13 +16,25 @@ const createRouter = () => {
     });
 
     router.post('/sessions', async (req, res) => {
-        const user = await User.findOne({username: req.body.username});
+        let user;
+        try {
+            user = await User.findOne({username: req.body.username});
+        }
+        catch (error) {
+            res.status(400).send({message: error})
+        }
 
         if (!user) {
             return res.status(400).send({error: 'Имя пользователя или пароль неправильные!'});
         }
+        let isMatch;
+        try {
+            isMatch = await user.checkPassword(req.body.password);
+        }
+        catch (error) {
+            res.status(400).send({message: error})
 
-        const isMatch = await user.checkPassword(req.body.password);
+        }
 
         if (!isMatch) {
             return res.status(400).send({error: 'Имя пользователя или пароль неправильные!'});
@@ -30,7 +42,13 @@ const createRouter = () => {
 
         const token = user.generateToken();
         user.token = token;
-        await user.save();
+        try {
+            await user.save();
+        }
+        catch (error) {
+            res.status(400).send({message: error})
+
+        }
 
 
         return res.send({message: 'Пользователь и пароль правильные!', user, token});
@@ -42,13 +60,25 @@ const createRouter = () => {
         const success = {message: 'Вы успешно вышли из приложения!'};
 
         if (!token) return res.send(success);
+        let user;
+        try {
+            user = await User.findOne({token});
+        }
+        catch (error) {
+            res.status(400).send({message: error})
 
-        const user = await User.findOne({token});
+        }
 
         if (!user) return res.send(success);
 
         user.generateToken();
-        await user.save();
+        try {
+            await user.save();
+        }
+        catch (error) {
+            res.status(400).send({message: error})
+
+        }
 
         return res.send(success);
     });
