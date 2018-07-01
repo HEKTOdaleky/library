@@ -31,10 +31,9 @@ class AddStatus extends Component {
                 type="text"
                 value={this.state.name}
                 changeHandler={this.onChangeHandler}
+                error={this.props.statusErr && this.props.statusErr.errors && this.props.statusErr.errors.name.message}
                 required
-                error={this.props.statusErr &&
-                this.props.statusErr.message.name.title
-                && this.props.statusErr.message.errors.name.message}
+
 
             />
             <FormElement
@@ -45,9 +44,6 @@ class AddStatus extends Component {
                 value={this.state.description}
                 changeHandler={this.onChangeHandler}
                 required
-                error={this.props.statusErr &&
-                this.props.statusErr.message.errors.description
-                && this.props.statusErr.message.errors.description.message}
 
             />
             <Button bsStyle="primary" type="submit">Отправить</Button></Form>)

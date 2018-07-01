@@ -45,7 +45,6 @@ class AddBook extends Component {
     }
 
     render() {
-        console.log(this.props.postError && this.props.postError.message.errors);
         const categories = this.props.categories.map(category => {
             return {id: category._id, title: category.title};
         });

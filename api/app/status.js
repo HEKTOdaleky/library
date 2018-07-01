@@ -5,12 +5,11 @@ const Book = require('../models/Book');
 const permit = require('../middleware/permit');
 
 
-
 const router = express.Router();
 
 const createRouter = () => {
 
-    router.get('/', [auth, permit('admin','employee')], (req, res) => {
+    router.get('/', [auth, permit('admin', 'employee')], (req, res) => {
         Status.find().then(results => {
             res.send(results)
         }).catch(() => res.sendStatus(500));
@@ -31,7 +30,7 @@ const createRouter = () => {
         newStatus.save().then(response => {
             res.send(newStatus);
         }, error => {
-            res.sendStatus(400).send({message:"Дублирование категории"});
+            res.status(400).send(error);
         });
     });
 

@@ -18,7 +18,6 @@ const createRouter = () => {
     router.delete('/:id', [auth, permit('admin','employee')], async (req, res) => {
         const id = req.params.id;
         const currentLang = await Book.findOne({language: id});
-        console.log(currentLang);
         if (currentLang)
             res.sendStatus(400).send({message: "The language cannot be deleted as long as the books belong to it (с) yandex)"});
         await Language.deleteOne({_id: id});

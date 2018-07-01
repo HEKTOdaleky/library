@@ -5,7 +5,16 @@ const StatusSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        validate: {
+            validator: async function(value) {
+                const state = await Status.findOne({ name: value });
+                if (state) throw new Error();
+                return true;
+            },
+            message: "Такой статус уже существует"
+        }
+
     },
     description: {
         type: String,

@@ -10,8 +10,8 @@ const getStatusSuccess = status => {
 const postStatusError = err => {
     return {type: POST_STATUS_FAILURE, err}
 };
-const postStatusSuccess = err => {
-    return {type: POST_STATUS_SUCCESS, err}
+const postStatusSuccess = success => {
+    return {type: POST_STATUS_SUCCESS, success}
 };
 
 export const getStatus = () => {
@@ -31,7 +31,7 @@ export const postStatus = (data) => {
                 dispatch(push("/admin"));
                 NotificationManager.success("Успешно!");
             },
-            err => postStatusError(err.response.data)
+            err => dispatch(postStatusError(err.response.data))
         )
     }
 };
