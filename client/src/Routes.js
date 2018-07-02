@@ -11,6 +11,7 @@ import AddGroup from "./containers/AddForms/AddGroup/AddGroup";
 import AddLanguage from "./containers/AddForms/AddLanguage/AddLanguage";
 import AddStatus from "./containers/AddForms/AddStatus/AddStatus";
 import AddReader from "./containers/AddForms/AddReader/AddReader";
+import AddCategory from "./containers/AddForms/AddCategory/AddCategory";
 
 const ProtectedRoute = ({ isAllowed, ...props }) =>
   isAllowed ? <Route {...props} /> : <Redirect to="/login" />;
@@ -26,6 +27,7 @@ const Routes = ({ user }) => {
       <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-language" exact component={AddLanguage} />
       <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-status" exact component={AddStatus} />
       <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-reader" exact component={AddReader} />
+      <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-category" exact component={AddCategory} />
       <Route path="/login" exact component={Login} />
       <Route
         render={() => <h1 style={{ textAlign: "center" }}>Page not found</h1>}
