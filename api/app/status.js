@@ -5,12 +5,11 @@ const Book = require('../models/Book');
 const permit = require('../middleware/permit');
 
 
-
 const router = express.Router();
 
 const createRouter = () => {
 
-    router.get('/', [auth, permit('admin','employee')], (req, res) => {
+    router.get('/', [auth, permit('admin', 'employee')], (req, res) => {
         Status.find().then(results => {
             res.send(results)
         }).catch(() => res.sendStatus(500));
@@ -27,11 +26,11 @@ const createRouter = () => {
     });
 
     router.post('/', [auth, permit('admin')], (req, res) => {
-        const newStatus = new Status({name: req.body.statusName, description: req.body.description});
+        const newStatus = new Status({name: req.body.name, description: req.body.description});
         newStatus.save().then(response => {
             res.send(newStatus);
         }, error => {
-            res.sendStatus(400).send(error);
+            res.status(400).send(error);
         });
     });
 

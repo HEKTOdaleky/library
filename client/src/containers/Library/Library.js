@@ -6,13 +6,12 @@ import {
   FormControl,
   FormGroup,
   InputGroup,
-  ListGroup,
-  ListGroupItem,
   PageHeader,
   Panel, Well
 } from "react-bootstrap";
 import {getBooksFromFullSearch, getBooksFromSearch} from "../../store/actions/books";
 import FormElement from "../../components/UI/Form/FormElement";
+import SearchResults from "../../components/SearchResults/SearchResults";
 
 class Library extends Component {
   state = {
@@ -71,7 +70,11 @@ class Library extends Component {
                 </InputGroup>
               </FormGroup>
             </Form>
-            <span onClick={this.toggleHandler} style={{cursor: "pointer", fontSize: '15px'}}>Расширенный поиск</span>
+            <span id="full-search"
+                  onClick={this.toggleHandler}
+                  style={{cursor: "pointer", fontSize: '15px'}}>
+              Расширенный поиск
+            </span>
           </Panel.Body>
           <Collapse in={this.state.open}>
             <Well>
@@ -119,23 +122,8 @@ class Library extends Component {
           </Collapse>
         </Panel>
 
-        <PageHeader>Результаты поиска:</PageHeader>
-        <Panel>
-          <Panel.Body>
-            <ListGroup>
-              {this.props.books &&
-              this.props.books.map(item => (
-                <ListGroupItem key={item._id}>
-                  {`Название: "${item.title}", Автор: "${
-                    item.author
-                    }", Год издания: "${item.year}", Издательство: "${
-                    item.publishHouse
-                    }"`}
-                </ListGroupItem>
-              ))}
-            </ListGroup>
-          </Panel.Body>
-        </Panel>
+        {this.props.books.length > 0 &&
+          <SearchResults books={this.props.books}/> }
       </div>
     );
   }

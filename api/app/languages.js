@@ -18,7 +18,6 @@ const createRouter = () => {
     router.delete('/:id', [auth, permit('admin','employee')], async (req, res) => {
         const id = req.params.id;
         const currentLang = await Book.findOne({language: id});
-        console.log(currentLang);
         if (currentLang)
             res.sendStatus(400).send({message: "The language cannot be deleted as long as the books belong to it (с) yandex)"});
         await Language.deleteOne({_id: id});
@@ -26,13 +25,16 @@ const createRouter = () => {
 
     });
 
-    router.post('/', [auth, permit('admin','employee')], (req, res) => {
-        const newLang = new Language({title: req.body.language});
-        newLang.save().then(response => {
-            res.send(newLang);
-        }, error => {
-            res.sendStatus(400).send(error);
-        });
+    router.post('/', [auth, permit('admin','employee')], async (req, res) => {
+        const newLang = new Language({title: req.body.title});
+
+        try {
+            await newLang.save();
+        } catch (err) {
+            return res.status(400).send({message: 'Произошла ошибка запроса. Новый язык не добавился!'});
+        }
+
+        res.send(newLang);
     });
 
     return router;
