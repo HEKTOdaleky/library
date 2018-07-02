@@ -61,6 +61,12 @@ const Routes = ({ user }) => {
         exact
         component={AddStatus}
       />
+        <ProtectedRoute
+            isAllowed={user && user.role === "admin"}
+            path="/add-status"
+            exact
+            component={AddStatus}
+        />
       <Route path="/login" exact component={Login} />
       <Route
         render={() => <h1 style={{ textAlign: "center" }}>Page not found</h1>}
