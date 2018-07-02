@@ -17,14 +17,20 @@ const createRouter = () => {
     const id = req.params.id;
     const currentGroup = await Reader.findOne({groupId: id});
     if (currentGroup)
-      res.sendStatus(400).send({message: "The group is not empty"});
+      res.sendStatus(400).send({message: "Поле не должно быть пустым!"});
     await Group.deleteOne({_id: id});
     res.send({message: "Success"});
   });
 
-  router.post('/', [auth, permit('admin')], (req, res) => {
+  router.post('/', [auth, permit('admin')], async (req, res) => {
     if (req.body.name === '') {
       return res.status(400).send({message: 'Поле не должно быть пустым!'});
+    }
+
+    const isGroupExist = await Group.findOne({name: req.body.name});
+
+    if (isGroupExist) {
+      return res.status(400).send({message: 'Такая группа уже существует'});
     }
 
     const newGroup = new Group({name: req.body.name});
