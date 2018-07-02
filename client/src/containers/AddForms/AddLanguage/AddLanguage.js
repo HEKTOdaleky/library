@@ -1,8 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
 import {Alert, Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
-import FormElement from "../../components/UI/Form/FormElement";
-import {postLanguagesData} from "../../store/actions/languages";
+import FormElement from "../../../components/UI/Form/FormElement";
+import {postLanguagesData} from "../../../store/actions/languages";
 
 
 class AddLanguage extends Component {

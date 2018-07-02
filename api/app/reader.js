@@ -18,17 +18,26 @@ const createRouter = () => {
 
   });
 
-  router.post('/',[auth, permit('admin')], auth, async (req, res) => {
-    let data = {};
-    data.firstName = req.body.firstName;
-    data.lastName = req.body.lastName;
-    data.document = req.body.document;
-    data.group = req.body.group;
+  router.post('/',[auth, permit('admin', 'librarian')], async (req, res) => {
+
+    if (req.body.firstName === '' || req.body.lastName === '' || req.body.documentNumber === '' || req.body.group === '' || req.body.registerDate === '') res.status(400).send({message: "Все поля должны быть заполнены!"});
+
+    let data = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      documentNumber: req.body.documentNumber,
+      groupId: req.body.groupId,
+      registerDate: req.body.registerDate
+    };
+
     const reader = new Reader(data);
 
-    await reader.save();
-
-    res.send(reader);
+    try {
+      const r = await reader.save();
+      if (r) res.send(r);
+    } catch (e) {
+      res.status(400).send({message: 'Читатель с таким документом уже зарегистрирован'});
+    }
   });
 
   router.delete('/:id', [auth, permit('admin')], async (req, res) => {

@@ -81,21 +81,21 @@ class Library extends Component {
               <Form horizontal onSubmit={this.submitSearchFormHandler}>
                 <FormElement
                   size="small"
-                  propertyName="title"
-                  title="Название книги"
-                  placeholder="Название книги или набор слов из названия"
-                  type="text"
-                  value={this.state.title}
-                  changeHandler={this.inputChangeHandler}
-                  autoComplete="current-username"
-                />
-                <FormElement
-                  size="small"
                   propertyName="author"
                   title="Автор"
                   placeholder="Автор книги"
                   type="text"
                   value={this.state.author}
+                  changeHandler={this.inputChangeHandler}
+                  autoComplete="current-username"
+                />
+                <FormElement
+                  size="small"
+                  propertyName="title"
+                  title="Название книги"
+                  placeholder="Название книги или набор слов из названия"
+                  type="text"
+                  value={this.state.title}
                   changeHandler={this.inputChangeHandler}
                   autoComplete="current-username"
                 />

@@ -16,11 +16,8 @@ axios.interceptors.request.use(config => {
   } catch (e) {
     // do nothing
   }
-
   return config;
 });
-
-
 
 const app = (
   <Provider store={store}>

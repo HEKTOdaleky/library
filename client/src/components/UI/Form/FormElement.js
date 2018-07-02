@@ -60,7 +60,7 @@ FormElement.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   changeHandler: PropTypes.func.isRequired,
   autoComplete: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.object)
+  options: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default FormElement;

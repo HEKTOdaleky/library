@@ -2,8 +2,8 @@ import React, {Component, Fragment} from 'react';
 import {Alert, Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
 import {connect} from "react-redux";
 
-import FormElement from "../../components/UI/Form/FormElement";
-import {addGroup} from "../../store/actions/groups";
+import FormElement from "../../../components/UI/Form/FormElement";
+import {addGroup} from "../../../store/actions/groups";
 
 class AddGroup extends Component {
   state = {
