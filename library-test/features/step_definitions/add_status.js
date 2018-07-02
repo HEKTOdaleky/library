@@ -5,7 +5,7 @@ module.exports = function () {
         return browser.url(urls.addStatus);
     });
 
-    this.Then(/^я появится ошибка "([^"]*)"$/, function (message) {
+    this.Then(/^появится ошибка "([^"]*)"$/, function (message) {
         const notification = browser.element('.help-block');
         notification.waitForExist(5000);
 

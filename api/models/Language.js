@@ -5,6 +5,7 @@ const LanguageSchema = new Schema({
     title: {
         type: String,
         required: true,
+        unique: true,
         validate: {
             validator: async function (value) {
                 const lang = await Language.findOne({title: value});
