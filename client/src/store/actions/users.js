@@ -22,7 +22,7 @@ export const createNewUser = (data) => {
             NotificationManager.success("Успешно!", response.data.message);
 
         }, error => {
-            dispatch(createUserError(error));
+            dispatch(createUserError(error.response.data));
             NotificationManager.error(
                 "Ошибка!!!"
             );

@@ -9,6 +9,14 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         unique: true,
+        validate: {
+            validator: async function(value) {
+                const user = await User.findOne({ username: value });
+                if (user) throw new Error("Пользователь с таким именем уже существует");
+                return true;
+            },
+            message: "Пользователь с таким именем уже существует"
+        }
     },
     password: {
         type: String,

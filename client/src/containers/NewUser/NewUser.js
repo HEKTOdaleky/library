@@ -20,12 +20,12 @@ class NewUser extends Component {
 
     submitFormHandler = event => {
         event.preventDefault();
-        createNewUser(this.state);
+        this.props.createNewUser(this.state);
 
     };
 
     render() {
-
+        console.log(this.props.createError);
         return (
             <Fragment>
                 <PageHeader>Создать нового пользователя</PageHeader>
@@ -89,9 +89,12 @@ class NewUser extends Component {
 }
 
 const mapStateToProps = state => ({
-    createNewUser: (data) => dispatch(createNewUser())
+    createError: state.users.createError
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+    createNewUser: (data) => dispatch(createNewUser(data))
+
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewUser);
