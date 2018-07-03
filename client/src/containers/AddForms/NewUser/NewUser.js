@@ -22,7 +22,7 @@ class NewUser extends Component {
 
     submitFormHandler = event => {
         event.preventDefault();
-        if (this.state.password != this.state.confirmPassword) {
+        if (this.state.password !== this.state.confirmPassword) {
             this.setState({passError: "Пароли не совпадают"});
         }
         this.props.createNewUser(this.state);

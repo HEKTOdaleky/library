@@ -36,6 +36,7 @@ class AddCategory extends Component {
             type="text"
             value={this.state.title}
             changeHandler={this.onChangeHandler}
+            error={this.props.error && this.props.error.message}
           />
 
           <FormGroup>
@@ -52,7 +53,7 @@ class AddCategory extends Component {
 
 const mapStateToProps = state => {
   return {
-    category: state.title
+    error: state.categories.error
   };
 };
 
