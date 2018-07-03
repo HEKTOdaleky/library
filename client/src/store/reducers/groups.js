@@ -2,8 +2,8 @@ import {ADD_GROUP_FAILURE, ADD_GROUP_SUCCESS, GET_GROUPS_FAILURE, GET_GROUPS_SUC
 
 const initialState = {
   groups: [],
-  postError: null,
-  error: null
+  error: null,
+  postError: null
 };
 
 const reducer = (state = initialState, action) => {

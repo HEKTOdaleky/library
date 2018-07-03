@@ -34,7 +34,6 @@ class AddGroup extends Component {
             type="text"
             value={this.state.name}
             changeHandler={this.inputChangeHandler}
-            required
             error={this.props.postError && this.props.postError.message}
           />
 

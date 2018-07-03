@@ -66,7 +66,7 @@ export const postBooksData = (data) => {
         axios.post("books/", data).then(response => {
             dispatch(bookPostDataSuccess(response.data));
             dispatch(push("/admin"));
-            NotificationManager.success("Успешно!");
+            NotificationManager.success("Книга успешно добавлена!");
         }, err => {
             dispatch(bookPostDataError(err.response.data));
         })
