@@ -11,6 +11,7 @@ import languagesReducer from './reducers/languages';
 import statusReducer from './reducers/status';
 import categoriesReducer from './reducers/categories';
 import groupsReducer from './reducers/groups';
+import readersReducer from './reducers/readers';
 
 const rootReducer = combineReducers({
     users: userReducer,
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
     languages: languagesReducer,
     status: statusReducer,
     categories: categoriesReducer,
-    groups: groupsReducer
+    groups: groupsReducer,
+    readers: readersReducer
 });
 
 export const history = createHistory();

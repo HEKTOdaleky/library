@@ -4,13 +4,16 @@ const auth = require('../middleware/auth');
 const Reader = require('../models/Reader');
 const permit = require('../middleware/permit');
 
+const createRouter = () => {
 const router = express.Router();
 
-const createRouter = () => {
-  router.get('/', [auth, permit('admin','employee')], (req, res) => {
-    Group.find().then(results => {
-      res.send(results)
-    }).catch(() => res.sendStatus(500));
+  router.get('/', [auth, permit('admin','librarian')], async (req, res) => {
+    try {
+      const groups = await Group.find();
+      if (groups) res.send(groups);
+    } catch (e) {
+      res.status(400).send({message: "Группы не найдены"})
+    }
   });
 
   router.delete('/:id', [auth, permit('admin')], async (req, res) => {

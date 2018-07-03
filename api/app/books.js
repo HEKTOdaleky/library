@@ -4,7 +4,7 @@ const Status = require("../models/Status");
 
 const createRouter = () => {
     const router = express.Router();
-    //
+
     // router.get("/", async (req, res) => {
     //   try {
     //     const books = await Book.find();
@@ -43,8 +43,9 @@ const createRouter = () => {
         if (data.title === '' && data.author === '') {
             res.status(400).send({error: "Поля для поиска не должны быть пустыми!"});
         }
+
         try {
-            const books = await Book.find({$text: {$search: `${data.title} ${data.author} ${data.publishHouse}`}});
+            const books = await Book.find({$text: {$search: `${data.title} ${data.author} ${data.publishHouse}`}}, { score : { $meta: "textScore" } }).sort({ score : { $meta : 'textScore' } });
             if (books && books.length > 0) {
                 res.send(books);
             } else {

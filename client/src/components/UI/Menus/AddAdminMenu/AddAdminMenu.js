@@ -11,8 +11,8 @@ class AddAdminMenu extends Component {
           <LinkContainer to="/add-book">
             <MenuItem>Добавить книгу</MenuItem>
           </LinkContainer>
-          <LinkContainer to="/add-user">
-            <MenuItem>Добавить пользователя</MenuItem>
+          <LinkContainer to="/add-reader">
+            <MenuItem>Добавить читателя</MenuItem>
           </LinkContainer>
           <LinkContainer to="/add-group">
             <MenuItem>Добавить группу</MenuItem>
@@ -26,6 +26,9 @@ class AddAdminMenu extends Component {
           <LinkContainer to="/add-status">
             <MenuItem>Добавить статус книги</MenuItem>
           </LinkContainer>
+            <LinkContainer to="/create-new-user">
+                <MenuItem>Создать пользователя</MenuItem>
+            </LinkContainer>
         </NavDropdown>
       </Fragment>
     );

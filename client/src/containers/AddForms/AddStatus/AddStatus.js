@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux";
-import {postStatus} from "../../store/actions/status";
-import FormElement from "../../components/UI/Form/FormElement";
-import {Button, Form} from "react-bootstrap";
+import {postStatus} from "../../../store/actions/status";
+import FormElement from "../../../components/UI/Form/FormElement";
+import {Button, Col, Form, FormGroup} from "react-bootstrap";
 
 
 class AddStatus extends Component {
@@ -46,9 +46,16 @@ class AddStatus extends Component {
                 required
 
             />
-            <Button bsStyle="primary" type="submit">Отправить</Button></Form>)
+            <FormGroup>
+              <Col smOffset={2} sm={10}>
+                <Button bsStyle="primary" type="submit">Отправить</Button>
+              </Col>
+            </FormGroup>
+
+        </Form>
+        )
     }
-};
+}
 
 const mapStateToProps = state => {
     return {

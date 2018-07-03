@@ -1,12 +1,12 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
-import {getLanguage} from "../../store/actions/languages";
-import {getStatus} from "../../store/actions/status";
-import {getCategories} from "../../store/actions/categories";
+import {getLanguage} from "../../../store/actions/languages";
+import {getStatus} from "../../../store/actions/status";
+import {getCategories} from "../../../store/actions/categories";
 import {Alert, Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
 import dateFormat from 'dateformat';
-import FormElement from "../../components/UI/Form/FormElement";
-import {postBooksData} from "../../store/actions/books";
+import FormElement from "../../../components/UI/Form/FormElement";
+import {postBooksData} from "../../../store/actions/books";
 
 
 class AddBook extends Component {
@@ -42,7 +42,7 @@ class AddBook extends Component {
         event.preventDefault();
         this.props.postBooksData(this.state);
 
-    }
+    };
 
     render() {
         const categories = this.props.categories.map(category => {
@@ -179,7 +179,7 @@ class AddBook extends Component {
         )
     }
 
-};
+}
 
 
 const mapStateToProps = state => {

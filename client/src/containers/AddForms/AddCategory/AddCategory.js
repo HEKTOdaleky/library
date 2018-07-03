@@ -4,8 +4,8 @@ import {connect} from "react-redux";
 import {NotificationContainer} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
-import FormElement from "../../components/UI/Form/FormElement";
-import {addCategory} from "../../store/actions/categories";
+import FormElement from "../../../components/UI/Form/FormElement";
+import {addCategory} from "../../../store/actions/categories";
 
 class AddCategory extends Component {
   state = {
@@ -40,7 +40,7 @@ class AddCategory extends Component {
 
           <FormGroup>
             <Col smOffset={2} sm={10}>
-              <Button bsStyle="primary" type="submit">Save</Button>
+              <Button bsStyle="primary" type="submit">Добавить</Button>
             </Col>
           </FormGroup>
         </Form>

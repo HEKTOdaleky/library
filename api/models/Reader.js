@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ReaderSchema = new Schema({
+  inventoryNumber: {
+    type: String,
+    },
   firstName: {
     type: String,
     required: true
@@ -12,10 +15,8 @@ const ReaderSchema = new Schema({
   },
   documentNumber: {
     type: String,
-    required: true
-  },
-  documentDate: {
-    type: Date,
+    required: true,
+    unique: true
   },
   groupId: {
     type: Schema.Types.ObjectId,
