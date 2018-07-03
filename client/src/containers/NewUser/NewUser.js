@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Alert, Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
 
 import FormElement from "../../components/UI/Form/FormElement";
+import {createNewUser} from "../../store/actions/users";
 
 class NewUser extends Component {
     state = {
@@ -19,6 +20,7 @@ class NewUser extends Component {
 
     submitFormHandler = event => {
         event.preventDefault();
+        createNewUser(this.state);
 
     };
 
@@ -86,7 +88,9 @@ class NewUser extends Component {
     }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    createNewUser: (data) => dispatch(createNewUser())
+});
 
 const mapDispatchToProps = dispatch => ({});
 
