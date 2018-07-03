@@ -17,10 +17,11 @@ export const addGroup = data => {
       .then(response => {
         dispatch(addGroupSuccess(response.data));
         dispatch(push("/admin"));
-        NotificationManager.success("Успешно!");
+        NotificationManager.success(response.data.message);
       }).catch(error => {
         dispatch(addGroupFailure(error.response.data));
-    });
+        NotificationManager.error(error.response.data.message);
+      });
   };
 };
 
