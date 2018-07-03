@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
-import {Alert, Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
+import {Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
 import FormElement from "../../../components/UI/Form/FormElement";
 import {postLanguagesData} from "../../../store/actions/languages";
 
@@ -19,7 +19,6 @@ class AddLanguage extends Component {
   clickHandler = event => {
     event.preventDefault();
     this.props.postLanguagesData(this.state);
-
   };
 
   render() {
@@ -29,10 +28,6 @@ class AddLanguage extends Component {
 
         <Form
           horizontal onSubmit={this.clickHandler}>
-          {this.props.languageError &&
-           <Alert bsStyle="danger">{this.props.languageError.message}</Alert>
-          }
-
           <FormElement
             propertyName="title"
             title="Название языка"
@@ -41,9 +36,6 @@ class AddLanguage extends Component {
             value={this.state.title}
             changeHandler={this.onChangeHandler}
             required
-            error={this.props.languageError &&
-              this.props.languageError.message}
-
           />
 
           <FormGroup>
