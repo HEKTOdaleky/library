@@ -5,5 +5,12 @@ module.exports = function () {
     return browser.url(urls.addCategory);
   });
 
+  this.Then(/^появляется сообщение "([^"]*)"$/, function (arg1) {
+    const notification = browser.element('.help-block');
+    notification.waitForExist(5000);
 
+    const notificationText = notification.getText();
+
+    return expect(notificationText).toBe(message);
+  });
 };
