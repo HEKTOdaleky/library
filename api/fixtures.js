@@ -16,12 +16,12 @@ const db = mongoose.connection;
 
 db.once("open", async () => {
   try {
+    await db.dropCollection("status");
+    await db.dropCollection("groups");
     await db.dropCollection("categories");
     await db.dropCollection("books");
     await db.dropCollection("readers");
     await db.dropCollection("users");
-    await db.dropCollection("status");
-    await db.dropCollection("groups");
     await db.dropCollection("journals");
     await db.dropCollection("languages");
   } catch (e) {
@@ -181,7 +181,7 @@ db.once("open", async () => {
     },
     {
       title: "Мастер и Маргарита",
-      author: "Белгаков М. А.",
+      author: "Булгаков М. А.",
       year: 1966,
       categoryId: c3._id,
       statusId: status1._id,
@@ -318,18 +318,21 @@ db.once("open", async () => {
 
   const [r1, r2, r3] = await Reader.create([
     {
+      inventoryNumber: '000001',
       firstName: "Иван",
       lastName: "Иванов",
       documentNumber: "4818-01",
       groupId: g1._id
     },
     {
+      inventoryNumber: '000002',
       firstName: "Игорь",
       lastName: "Гончаров",
       documentNumber: "5289-05",
       groupId: g1._id
     },
     {
+      inventoryNumber: '000003',
       firstName: "Азамат",
       lastName: "Исаков",
       documentNumber: "6351-09",
@@ -366,4 +369,17 @@ db.once("open", async () => {
   db.close();
 });
 
-// db.books.createIndex({title: "text", author: "text", publishHouse: "text"}, {language_override: "russian"});
+  // Book.on('index', function(err) { // <-- Wait for model's indexes to finish
+  //   assert.ifError(err);
+  //   Book.create([{title: "text", author: "text", publishHouse: "text"}, {language_override: "russian"}], function(err) {
+  //     console.log(err);
+  //   });
+  // });
+
+  // await Book.on('index', (err) => {
+  //   assert.ifError(err);
+  //   db.books.createIndex({title: "text", author: "text", publishHouse: "text"}, {language_override: "russian"}, {"weights": { title: 3, author: 1}});
+  // });
+
+// db.books.createIndex({title: "text", author: "text", publishHouse: "text"}, {language_override: "russian"}, {"weights": { title: 3, author: 1}});
+

@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 const BookSchema = new Schema({
   title: {
     type: String,
-    required: true,
+    required: true
   },
   author: {
     type: String,
-    required: true,
+    required: true
     },
   year:{
     type: Number,
@@ -31,17 +31,18 @@ const BookSchema = new Schema({
   },
   publishHouse: {
     type: String,
-    required: true,
+    required: true
   },
   language: {
     type: Schema.Types.ObjectId,
     ref: 'Language',
-    required: true
+
   },
   price: {
     type: Number
   }
 });
+
 
 const Book = mongoose.model('Book', BookSchema);
 

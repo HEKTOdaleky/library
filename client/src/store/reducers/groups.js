@@ -1,8 +1,9 @@
-import {ADD_GROUP_FAILURE, ADD_GROUP_SUCCESS} from "../actions/actionTypes";
+import {ADD_GROUP_FAILURE, ADD_GROUP_SUCCESS, GET_GROUPS_FAILURE, GET_GROUPS_SUCCESS} from "../actions/actionTypes";
 
 const initialState = {
   groups: [],
-  postError: null
+  postError: null,
+  error: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -11,6 +12,10 @@ const reducer = (state = initialState, action) => {
       return {...state, postError: null};
     case ADD_GROUP_FAILURE:
       return {...state, postError: action.postError};
+    case GET_GROUPS_SUCCESS:
+      return {...state, groups: action.data};
+    case GET_GROUPS_FAILURE:
+      return {...state, error: action.error};
     default:
       return state;
   }

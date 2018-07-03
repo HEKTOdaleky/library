@@ -2,8 +2,8 @@ import React, {Component, Fragment} from 'react';
 import {Alert, Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
 import {connect} from "react-redux";
 
-import FormElement from "../../components/UI/Form/FormElement";
-import {addGroup} from "../../store/actions/groups";
+import FormElement from "../../../components/UI/Form/FormElement";
+import {addGroup} from "../../../store/actions/groups";
 
 class AddGroup extends Component {
   state = {
@@ -26,9 +26,6 @@ class AddGroup extends Component {
 
         <Form
           horizontal onSubmit={this.submitFormHandler}>
-          {this.props.postError &&
-            <Alert bsStyle="danger">{this.props.postError.message}</Alert>
-          }
 
           <FormElement
             propertyName="name"
@@ -38,6 +35,7 @@ class AddGroup extends Component {
             value={this.state.name}
             changeHandler={this.inputChangeHandler}
             required
+            error={this.props.postError && this.props.postError.message}
           />
 
           <FormGroup>

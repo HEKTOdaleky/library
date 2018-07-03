@@ -1,8 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
 import {Alert, Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
-import FormElement from "../../components/UI/Form/FormElement";
-import {postLanguagesData} from "../../store/actions/languages";
+import FormElement from "../../../components/UI/Form/FormElement";
+import {postLanguagesData} from "../../../store/actions/languages";
 
 
 class AddLanguage extends Component {
@@ -48,7 +48,7 @@ class AddLanguage extends Component {
 
           <FormGroup>
             <Col smOffset={2} sm={10}>
-              <Button onClick={this.clickHandler} bsStyle="primary" type="submit">Save</Button>
+              <Button onClick={this.clickHandler} bsStyle="primary" type="submit">Отправить</Button>
             </Col>
           </FormGroup>
 
