@@ -2,8 +2,8 @@ import React, {Component, Fragment} from "react";
 import {connect} from 'react-redux';
 import {Alert, Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
 
-import FormElement from "../../components/UI/Form/FormElement";
-import {createNewUser} from "../../store/actions/users";
+import FormElement from "../../../components/UI/Form/FormElement";
+import {createNewUser} from "../../../store/actions/users";
 
 class NewUser extends Component {
     state = {
@@ -25,13 +25,12 @@ class NewUser extends Component {
     };
 
     render() {
-        console.log(this.props.createError);
         return (
             <Fragment>
                 <PageHeader>Создать нового пользователя</PageHeader>
                 <Form horizontal onSubmit={this.submitFormHandler}>
-                    {this.props.error &&
-                    <Alert bsStyle="danger">{this.props.error.error}</Alert>
+                    {this.props.createError &&
+                    <Alert bsStyle="danger">{this.props.createError._message}</Alert>
                     }
 
                     <FormElement
@@ -43,6 +42,9 @@ class NewUser extends Component {
                         changeHandler={this.inputChangeHandler}
                         autoComplete="current-username"
                         required
+                        error={this.props.createError &&
+                        this.props.createError.errors.username
+                        && this.props.createError.errors.username.message}
                     />
 
                     <FormElement

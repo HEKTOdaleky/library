@@ -12,7 +12,7 @@ import AddLanguage from "./containers/AddForms/AddLanguage/AddLanguage";
 import AddStatus from "./containers/AddForms/AddStatus/AddStatus";
 import AddReader from "./containers/AddForms/AddReader/AddReader";
 import AddCategory from "./containers/AddForms/AddCategory/AddCategory";
-import NewUser from "./containers/NewUser/NewUser";
+import NewUser from "./containers/AddForms/NewUser/NewUser";
 
 const ProtectedRoute = ({isAllowed, ...props}) =>
     isAllowed ? <Route {...props} /> : <Redirect to="/login"/>;
