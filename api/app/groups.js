@@ -30,19 +30,24 @@ const router = express.Router();
       return res.status(400).send({message: 'Поле не должно быть пустым!'});
     }
 
-    const isGroupExist = await Group.findOne({name: req.body.name});
-
-    if (isGroupExist) {
-      return res.status(400).send({message: 'Такая группа уже существует'});
+    try {
+      const isGroupExist = await Group.findOne({name: req.body.name});
+      if (isGroupExist) {
+        return res.status(400).send({message: 'Такая группа уже существует'});
+      }
+    } catch (e) {
+      return res.status(400).send({error: e});
     }
 
-    const newGroup = new Group({name: req.body.name});
 
-    newGroup.save().then(() => {
-      res.send(newGroup);
-    }).catch(() => {
-      res.status(400).send({message: 'Ошибка! Не удалось добавить группу'});
-    });
+    try {
+      const newGroup = new Group({name: req.body.name});
+      const group =  await newGroup.save();
+      if (group) res.send({message: "Группа успешно добавлена"});
+    } catch (e) {
+      return res.status(400).send({message: 'Ошибка! Не удалось добавить группу'});
+    }
+
   });
 
   return router;
