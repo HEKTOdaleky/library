@@ -1,7 +1,13 @@
 import axios from "../../axios-api";
 import {NotificationManager} from "react-notifications";
 import {push, replace} from "react-router-redux";
-import {CREATE_USER_ERROR, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER} from "./actionTypes";
+import {
+    CREATE_USER_ERROR,
+    CREATE_USER_SUCCESS,
+    LOGIN_USER_FAILURE,
+    LOGIN_USER_SUCCESS,
+    LOGOUT_USER
+} from "./actionTypes";
 
 const loginUserSuccess = (user, token) => {
     return {type: LOGIN_USER_SUCCESS, user, token};
@@ -13,11 +19,14 @@ const loginUserFailure = error => {
 const createUserError = error => {
     return {type: CREATE_USER_ERROR, error}
 };
+const createUserSuccess = () => {
+    return {type: CREATE_USER_SUCCESS}
+};
 
 export const createNewUser = (data) => {
     return dispatch => {
         axios.post('users', data).then(response => {
-
+            dispatch(createUserSuccess());
             dispatch(push("/"));
             NotificationManager.success("Успешно!", response.data.message);
 

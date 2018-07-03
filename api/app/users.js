@@ -5,6 +5,10 @@ const createRouter = () => {
     const router = express.Router();
 
     router.post('/', (req, res) => {
+        if (req.body.password != req.body.confirmPassword)
+            res.status(400).send({_message: "Пароли не совпадают"});
+
+
         const user = new User({
             username: req.body.username,
             password: req.body.password,
