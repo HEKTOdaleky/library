@@ -1,7 +1,8 @@
 export const baseUrl = 'http://localhost:3000';
 
 module.exports = {
-    loginUrl: baseUrl + '/login',
-    addBook: baseUrl + '/add-book',
-    addStatus: baseUrl + '/add-status'
+  loginUrl: baseUrl + '/login',
+  addBook: baseUrl + '/add-book',
+  addStatus: baseUrl + '/add-status',
+  addCategory: baseUrl + '/add-category'
 };
