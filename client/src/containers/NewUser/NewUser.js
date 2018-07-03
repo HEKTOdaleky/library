@@ -7,7 +7,8 @@ import FormElement from "../../components/UI/Form/FormElement";
 class NewUser extends Component {
     state = {
         username: '',
-        password: ''
+        password: '',
+        role: ''
     };
 
     inputChangeHandler = event => {
@@ -19,10 +20,10 @@ class NewUser extends Component {
     submitFormHandler = event => {
         event.preventDefault();
 
-        this.props.loginUser(this.state);
     };
 
     render() {
+
         return (
             <Fragment>
                 <PageHeader>Создать нового пользователя</PageHeader>
@@ -39,6 +40,7 @@ class NewUser extends Component {
                         value={this.state.username}
                         changeHandler={this.inputChangeHandler}
                         autoComplete="current-username"
+                        required
                     />
 
                     <FormElement
@@ -49,6 +51,25 @@ class NewUser extends Component {
                         value={this.state.password}
                         changeHandler={this.inputChangeHandler}
                         autoComplete="current-password"
+                        required
+                    />
+                    <FormElement
+                        propertyName="role"
+                        title="Роль"
+                        type="select"
+                        options={[{
+                            title: "Админимтратор",
+                            id: "admin"
+                        }, {
+                            title: "Библиотекарь",
+                            id: "librarian"
+                        }, {
+                            title: "Пользователь",
+                            id: "user"
+                        }]}
+                        value={this.state.role}
+                        changeHandler={this.inputChangeHandler}
+                        required
                     />
 
                     <FormGroup>
@@ -64,10 +85,9 @@ class NewUser extends Component {
         );
     }
 }
-const mapStateToProps = state => ({
-});
 
-const mapDispatchToProps = dispatch => ({
-});
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewUser);
