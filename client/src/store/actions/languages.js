@@ -29,9 +29,11 @@ export const postLanguagesData = (data) => {
     axios.post("/language", data).then(response => {
       dispatch(languagePostDataSuccess(response.data));
       dispatch(push("/admin"));
-      NotificationManager.success("Успешно!");
+      NotificationManager.success('Добавление языка издания прошло успешно!');
     }, err => {
       dispatch(languagePostDataError(err.response.data));
+      if (err.response.data.error) NotificationManager.error(err.response.data.error.errors.title.message);
+      if (err.response.data.message) NotificationManager.error(err.response.data.message);
     })
   }
 };

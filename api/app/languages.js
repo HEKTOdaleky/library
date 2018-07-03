@@ -28,10 +28,12 @@ const createRouter = () => {
     router.post('/', [auth, permit('admin','employee')], async (req, res) => {
         const newLang = new Language({title: req.body.title});
 
+        if (req.body.title === '')
+            res.status(400).send({message: 'Поле добавление языка не должно быть пустым!'});
         try {
             await newLang.save();
         } catch (err) {
-            return res.status(400).send({message: 'Произошла ошибка запроса. Новый язык не добавился!'});
+            return res.status(400).send({error: err});
         }
 
         res.send(newLang);
