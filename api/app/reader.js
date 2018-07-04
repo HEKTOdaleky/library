@@ -1,21 +1,18 @@
 const express = require('express');
-const nanoid = require("nanoid");
-
-const Reader = require('../models/Reader');
-const config = require('../config');
-
 const auth = require('../middleware/auth');
 const permit = require('../middleware/permit');
+const Reader = require('../models/Reader');
 
 const createRouter = () => {
   const router = express.Router();
 
-  router.get('/', [auth, permit('admin','librarian')], (req, res) => {
-    Reader.find().then(results => {
-      res.send(results)
-    })
-      .catch(() => res.sendStatus(500));
-
+  router.get('/', [auth, permit('admin','librarian')], async(req, res) => {
+    try {
+      const readers = await Reader.find();
+      if (readers) res.send(readers);
+    } catch (e) {
+      return res.status(400).send({message: "Не удалось выполнить запрос"});
+    }
   });
 
   router.post('/',[auth, permit('admin', 'librarian')], async (req, res) => {
@@ -30,13 +27,17 @@ const createRouter = () => {
       registerDate: req.body.registerDate
     };
 
+    // const number = Reader.newInventoryCode();
+    // console.log('number:________', number);
+
+
     const reader = new Reader(data);
 
     try {
       const r = await reader.save();
-      if (r) res.send(r);
+      if (r) res.send({message: "Новый читатель успешно добавлен", r});
     } catch (e) {
-      res.status(400).send({message: 'Читатель с таким документом уже зарегистрирован'});
+      res.status(400).send({error: 'Читатель с таким документом уже зарегистрирован'});
     }
   });
 
