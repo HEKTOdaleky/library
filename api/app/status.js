@@ -19,9 +19,11 @@ const createRouter = () => {
         const id = req.params.id;
         const currentBook = await Book.findOne({statusId: id});
         if (currentBook)
-            res.sendStatus(400).send({message: "The status is not empty"});
-        await Status.deleteOne({_id: id});
-        res.send({message: "Success"});
+            res.status(400).send({message: "Невозможно удалить статус, который используется"});
+        else {
+            await Status.deleteOne({_id: id});
+            res.send({message: "Статус успешно удален"});
+        }
 
     });
 

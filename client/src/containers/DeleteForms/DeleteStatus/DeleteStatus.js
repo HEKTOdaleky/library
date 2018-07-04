@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react'
 import {connect} from "react-redux";
 import FormElement from "../../../components/UI/Form/FormElement";
 import {Button, Col, Form, FormGroup, Modal} from "react-bootstrap";
-import {getStatus} from "../../../store/actions/status";
+import {deleteStatus, getStatus} from "../../../store/actions/status";
 
 class DeleteStatus extends Component {
     state = {
@@ -16,6 +16,8 @@ class DeleteStatus extends Component {
 
     clickHandler = event => {
         event.preventDefault();
+        this.props.deleteStatus(this.state.statusId);
+        this.handleClose();
 
     };
     handleClose = () => {
@@ -84,7 +86,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getStatus: () => dispatch(getStatus())
+        getStatus: () => dispatch(getStatus()),
+        deleteStatus: (data) => dispatch(deleteStatus(data))
 
     };
 };
