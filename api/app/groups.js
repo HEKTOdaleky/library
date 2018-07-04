@@ -43,7 +43,7 @@ const router = express.Router();
     try {
       const newGroup = new Group({name: req.body.name});
       const group =  await newGroup.save();
-      if (group) res.send({message: "Группа успешно добавлена"});
+      if (group) res.send({message: "Группа успешно добавлена", group});
     } catch (e) {
       return res.status(400).send({error: 'Ошибка! Не удалось добавить группу'});
     }

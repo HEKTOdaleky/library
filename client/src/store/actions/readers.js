@@ -18,11 +18,14 @@ export const addNewReader = data => {
       response => {
         dispatch(addNewReaderSuccess(response.data));
         dispatch(push('/admin'));
-        NotificationManager.success("Новый читатель успешно добавлен");
+        NotificationManager.success(response.data.message);
       },
       error => {
         dispatch(addNewReaderFailure(error.response.data));
-        NotificationManager.error(error.response.data.message);
+        if (error.response.data.error)
+          NotificationManager.error(error.response.data.error);
+        if (error.response.data.message)
+          NotificationManager.info(error.response.data.message);
       }
     )
   }

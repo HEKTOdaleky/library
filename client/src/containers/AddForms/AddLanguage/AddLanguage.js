@@ -35,7 +35,8 @@ class AddLanguage extends Component {
             type="text"
             value={this.state.title}
             changeHandler={this.onChangeHandler}
-            required
+            error={this.props.languageError &&
+            this.props.languageError.message}
           />
 
           <FormGroup>
