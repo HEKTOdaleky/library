@@ -23,9 +23,12 @@ module.exports = function () {
     //     });
 
     this.Then(/^появляется плагин "([^"]*)"$/, function (message) {
-        const notification = browser.element('.message');
+        const notification = browser.element('.notification-message .message');
         notification.waitForExist(5000);
-        const notificationText = browser.element('.message').getText();
+        const notificationText = browser.element('.notification-message .message').getText();
+        console.log(message, "Message");
+        console.log(notificationText, "NotificationText");
+
 
         return expect(notificationText).toBe(`${message}`);
     });
