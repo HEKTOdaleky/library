@@ -33,7 +33,7 @@ const router = express.Router();
     try {
       const isGroupExist = await Group.findOne({name: req.body.name});
       if (isGroupExist) {
-        return res.status(400).send({message: 'Такая группа уже существует'});
+        return res.status(400).send({error: 'Такая группа уже существует'});
       }
     } catch (e) {
       return res.status(400).send({error: e});
@@ -45,7 +45,7 @@ const router = express.Router();
       const group =  await newGroup.save();
       if (group) res.send({message: "Группа успешно добавлена"});
     } catch (e) {
-      return res.status(400).send({message: 'Ошибка! Не удалось добавить группу'});
+      return res.status(400).send({error: 'Ошибка! Не удалось добавить группу'});
     }
 
   });

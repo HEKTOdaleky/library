@@ -9,7 +9,7 @@ const router = express.Router();
 
 const createRouter = () => {
 
-    router.get('/', [auth, permit('admin', 'employee')], (req, res) => {
+    router.get('/', [auth, permit('admin', 'librarian')], (req, res) => {
         Status.find().then(results => {
             res.send(results)
         }).catch(() => res.sendStatus(500));

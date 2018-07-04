@@ -1,7 +1,7 @@
 const express = require('express');
-
-const Category = require('../models/Category');
 const auth = require('../middleware/auth');
+const permit = require('../middleware/permit');
+const Category = require('../models/Category');
 
 const createRouter = () => {
   const router = express.Router();
@@ -17,14 +17,27 @@ const createRouter = () => {
     }
   });
 
-  router.post('/', auth, (req, res) => {
-    console.log(req.body);
-    const category = new Category(req.body);
+  router.post('/', [auth, permit('admin')], async(req, res) => {
+    const title = req.body.title;
+    if (title === '') {
+      return res.status(400).send({message: 'Поле не должно быть пустым!'});
+    }
 
-    category.save()
-      .then(response => {
-        if (response) res.send({message: `Категория ${response.title} добавлена`})})
-      .catch(error => res.status(500).send(error));
+    try {
+      const isCategoryExist = await Category.findOne({title});
+      if (isCategoryExist) res.status(400).send({error: 'Такая категория уже существует'});
+    } catch (e) {
+      return res.status(400).send({error: e});
+    }
+
+    try {
+      const category = new Category({title});
+      const newCategory = await category.save();
+      if (newCategory) res.send({message: "Категория успешно добавлена"});
+    } catch (e) {
+      return res.status(400).send({error: 'Ошибка! Не удалось добавить категорию'});
+    }
+
   });
 
   router.delete('/', auth, (req, res) => {

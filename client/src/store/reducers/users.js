@@ -1,4 +1,10 @@
-import {CREATE_USER_ERROR, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER} from "../actions/actionTypes";
+import {
+    CREATE_USER_ERROR,
+    CREATE_USER_SUCCESS,
+    LOGIN_USER_FAILURE,
+    LOGIN_USER_SUCCESS,
+    LOGOUT_USER
+} from "../actions/actionTypes";
 
 
 const initialState = {
@@ -27,6 +33,8 @@ const reducer = (state = initialState, action) => {
             };
         case CREATE_USER_ERROR:
             return {...state, createError: action.error};
+        case CREATE_USER_SUCCESS:
+            return {...state, createError: null};
         default:
             return state;
     }

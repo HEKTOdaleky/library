@@ -10,7 +10,7 @@ const permit = require('../middleware/permit');
 const createRouter = () => {
   const router = express.Router();
 
-  router.get('/', [auth, permit('admin','employee')], (req, res) => {
+  router.get('/', [auth, permit('admin','librarian')], (req, res) => {
     Reader.find().then(results => {
       res.send(results)
     })

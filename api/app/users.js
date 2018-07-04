@@ -1,10 +1,16 @@
 const express = require('express');
 const User = require('../models/User');
+const auth = require('../middleware/auth');
+const permit = require('../middleware/permit');
 
 const createRouter = () => {
     const router = express.Router();
 
-    router.post('/', (req, res) => {
+    router.post('/', [auth, permit('admin')], (req, res) => {
+        if (req.body.password != req.body.confirmPassword)
+            res.status(400).send({_message: "Пароли не совпадают"});
+
+
         const user = new User({
             username: req.body.username,
             password: req.body.password,

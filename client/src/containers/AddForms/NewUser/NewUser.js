@@ -9,7 +9,9 @@ class NewUser extends Component {
     state = {
         username: '',
         password: '',
-        role: ''
+        confirmPassword: '',
+        role: '',
+        passError: null
     };
 
     inputChangeHandler = event => {
@@ -20,6 +22,9 @@ class NewUser extends Component {
 
     submitFormHandler = event => {
         event.preventDefault();
+        if (this.state.password !== this.state.confirmPassword) {
+            this.setState({passError: "Пароли не совпадают"});
+        }
         this.props.createNewUser(this.state);
 
     };
@@ -43,7 +48,7 @@ class NewUser extends Component {
                         autoComplete="current-username"
                         required
                         error={this.props.createError &&
-                        this.props.createError.errors.username
+                        this.props.createError.errors
                         && this.props.createError.errors.username.message}
                     />
 
@@ -54,8 +59,18 @@ class NewUser extends Component {
                         type="password"
                         value={this.state.password}
                         changeHandler={this.inputChangeHandler}
-                        autoComplete="current-password"
                         required
+                        error={this.state.passError}
+                    />
+                    <FormElement
+                        propertyName="confirmPassword"
+                        title="Подтвердите пароль"
+                        placeholder="Подтвердите пароль"
+                        type="password"
+                        value={this.state.confirmPassword}
+                        changeHandler={this.inputChangeHandler}
+                        required
+                        error={this.state.passError}
                     />
                     <FormElement
                         propertyName="role"
