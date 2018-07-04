@@ -26,6 +26,9 @@ module.exports = function () {
         const notification = browser.element('.message');
         notification.waitForExist(5000);
         const notificationText = browser.element('.message').getText();
+        console.log(message, "Message");
+        console.log(message, "NotificationText");
+
 
         return expect(notificationText).toBe(`${message}`);
     });
