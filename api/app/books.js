@@ -45,7 +45,7 @@ const createRouter = () => {
         }
 
         try {
-            const books = await Book.find({$text: {$search: `${data.title} ${data.author} ${data.publishHouse}`}}, { score : { $meta: "textScore" } }).sort({ score : { $meta : 'textScore' } });
+            const books = await Book.find({$text: {$search: `${data.title} ${data.author} ${data.publishHouse}`}}, {score: {$meta: "textScore"}}).sort({score: {$meta: 'textScore'}});
             if (books && books.length > 0) {
                 res.send(books);
             } else {
@@ -64,7 +64,7 @@ const createRouter = () => {
         } catch (error) {
             return res.status(400).send({message: error});
         }
-        res.send(book);
+        res.send({book, message: "Добавление языка издания прошло успешно!"});
     });
 
     router.get("/:id", async (req, res) => {
