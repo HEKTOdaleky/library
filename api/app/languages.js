@@ -19,9 +19,11 @@ const createRouter = () => {
         const id = req.params.id;
         const currentLang = await Book.findOne({language: id});
         if (currentLang)
-            res.sendStatus(400).send({message: "The language cannot be deleted as long as the books belong to it (с) yandex)"});
-        await Language.deleteOne({_id: id});
-        res.send({message: "Success"});
+            res.status(400).send({message: "Язык который используется в доступных книгах не может быть удален"});
+        else {
+            await Language.deleteOne({_id: id});
+            res.send({message: "Язык успешно удален"});
+        }
 
     });
 
