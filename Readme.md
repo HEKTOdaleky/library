@@ -10,7 +10,6 @@ Setup:
 и последовательно выполнить команды:
 
 sudo service mongod start,
-mongod,
 mongo
 
 Для запуска сервера в папке ../library/api $
