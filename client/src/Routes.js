@@ -14,6 +14,7 @@ import AddReader from "./containers/AddForms/AddReader/AddReader";
 import AddCategory from "./containers/AddForms/AddCategory/AddCategory";
 import NewUser from "./containers/AddForms/NewUser/NewUser";
 import DeleteStatus from "./containers/DeleteForms/DeleteStatus/DeleteStatus";
+import DeleteLanguage from "./containers/DeleteForms/DeleteLanguage/DeleteLanguage";
 
 const ProtectedRoute = ({isAllowed, ...props}) =>
     isAllowed ? <Route {...props} /> : <Redirect to="/login"/>;
@@ -37,6 +38,8 @@ const Routes = ({user}) => {
                             component={NewUser}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-status" exact
                             component={DeleteStatus}/>
+            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-language" exact
+                            component={DeleteLanguage}/>
 
 
             <Route path="/login" exact component={Login}/>
