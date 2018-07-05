@@ -148,7 +148,7 @@ db.once("open", async () => {
       author: "Абчук В.А",
       year: 1987,
       categoryId: c1._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: "Астра",
       language: l1._id
     },
@@ -157,7 +157,7 @@ db.once("open", async () => {
       author: "Габриэль Гарсиа Маркес",
       year: 2007,
       categoryId: c1._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: "Азбука-классика",
       language: l1._id
     },
@@ -166,7 +166,7 @@ db.once("open", async () => {
       author: "Джером Дэвид Сэлинджер",
       year: 1951,
       categoryId: c1._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: "Эксмо-пресс",
       language: l1._id
     },
@@ -175,7 +175,7 @@ db.once("open", async () => {
       author: "Ф. Достоевский",
       year: 2017,
       categoryId: c3._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: "Речь",
       language: l1._id
     },
@@ -184,7 +184,7 @@ db.once("open", async () => {
       author: "Булгаков М. А.",
       year: 1966,
       categoryId: c3._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: "Москва",
       language: l1._id
     },
@@ -193,7 +193,7 @@ db.once("open", async () => {
       author: "Л.Н. Толстой",
       year: 1996,
       categoryId: c3._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: "Лексика",
       language: l1._id
     },
@@ -202,7 +202,7 @@ db.once("open", async () => {
       author: "Спектор Анна Артуровна",
       year: 2017,
       categoryId: c8._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: "АСТ",
       language: l1._id
     },
@@ -211,7 +211,7 @@ db.once("open", async () => {
       author: "Каторин Юрий Федорович",
       year: 2007,
       categoryId: c8._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: "АСТ",
       language: l1._id
     },
@@ -220,7 +220,7 @@ db.once("open", async () => {
       author: "Адамчик Мирослав Вячеславович",
       year: 2007,
       categoryId: c8._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: " Современный литератор",
       language: l1._id
     },
@@ -229,7 +229,7 @@ db.once("open", async () => {
       author: "Адамчик Мирослав Вячеславович",
       year: 2017,
       categoryId: c8._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: "Мартин",
       language: l1._id
     },
@@ -238,7 +238,7 @@ db.once("open", async () => {
       author: "Симон Соловейчик",
       year: 2018,
       categoryId: c10._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: "АСТ",
       language: l1._id
     },
@@ -247,7 +247,7 @@ db.once("open", async () => {
       author: "Бахмутский Андрей Евгеньевич, Вершинина Н. А., Глубокова Е. Н.",
       year: 2018,
       categoryId: c10._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: "Питер",
       language: l1._id
     },
@@ -256,7 +256,7 @@ db.once("open", async () => {
       author: "Брадис",
       year: 1965,
       categoryId: c9._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: "Астра",
       language: l1._id
     },
@@ -265,7 +265,7 @@ db.once("open", async () => {
       author: "Владимир Мюллер",
       year: 2016,
       categoryId: c11._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: "АСТ",
       language: l3._id
     },
@@ -274,7 +274,7 @@ db.once("open", async () => {
       author: "Авидон И.",
       year: 2006,
       categoryId: c11._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: "Речь",
       language: l1._id
     },
@@ -283,7 +283,7 @@ db.once("open", async () => {
       author: "В. Пупкин",
       year: 1977,
       categoryId: c6._id,
-      statusId: status2._id,
+      groupId: status2._id,
       publishHouse: "Альтаир",
       language: l1._id
     },
@@ -292,7 +292,7 @@ db.once("open", async () => {
       author: "Чингиз Айтматов",
       year: 1981,
       categoryId: c2._id,
-      statusId: status1._id,
+      groupId: status1._id,
       publishHouse: "Нова плюс",
       language: l1._id
     },
@@ -301,7 +301,7 @@ db.once("open", async () => {
       author: "Чингиз Айтматов",
       year: 1996,
       categoryId: c9._id,
-      statusId: status3._id,
+      groupId: status3._id,
       publishHouse: "Фрунзе",
       language: l1._id
     },
@@ -310,7 +310,7 @@ db.once("open", async () => {
       author: "Акимов Шерикбек, Байтерекова Женишкуль Саматовна",
       year: 2009,
       categoryId: c14._id,
-      statusId: status3._id,
+      groupId: status3._id,
       publishHouse: "Толмач",
       language: l2._id
     }

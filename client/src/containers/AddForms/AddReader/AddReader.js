@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Button, Col, Form, FormGroup} from "react-bootstrap";
+import { Button, Col, Form, FormGroup, PageHeader } from "react-bootstrap";
 import FormElement from "../../../components/UI/Form/FormElement";
 import {connect} from "react-redux";
 import {getGroups} from "../../../store/actions/groups";
@@ -38,6 +38,7 @@ class AddReader extends Component {
     return (
       <Fragment>
         <Form horizontal onSubmit={this.formSubmitHandler}>
+          <PageHeader>Добавить нового читателя</PageHeader>
 
           <FormElement
             propertyName="lastName"

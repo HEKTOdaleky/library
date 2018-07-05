@@ -17,7 +17,7 @@ const createRouter = () => {
 
     router.delete('/:id', [auth, permit('admin')], async (req, res) => {
         const id = req.params.id;
-        const currentBook = await Book.findOne({statusId: id});
+        const currentBook = await Book.findOne({groupId: id});
         if (currentBook)
             res.status(400).send({message: "Невозможно удалить статус, который используется"});
         else {

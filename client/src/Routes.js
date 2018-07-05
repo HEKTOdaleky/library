@@ -14,6 +14,7 @@ import AddReader from "./containers/AddForms/AddReader/AddReader";
 import AddCategory from "./containers/AddForms/AddCategory/AddCategory";
 import NewUser from "./containers/AddForms/NewUser/NewUser";
 import DeleteStatus from "./containers/DeleteForms/DeleteStatus/DeleteStatus";
+import DeleteGroup from "./containers/DeleteForms/DeleteGroup/DeleteGroup";
 
 const ProtectedRoute = ({isAllowed, ...props}) =>
     isAllowed ? <Route {...props} /> : <Redirect to="/login"/>;
@@ -24,19 +25,26 @@ const Routes = ({user}) => {
             <Route path="/" exact component={Library}/>
             <ProtectedRoute isAllowed={user && user.role === "librarian"} path="/librarian" exact
                             component={Librarian}/>
-            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/admin" exact component={Admin}/>
-            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-book" exact component={AddBook}/>
-            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-group" exact component={AddGroup}/>
+            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/admin" exact
+                            component={Admin}/>
+            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-book" exact
+                            component={AddBook}/>
+            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-group" exact
+                            component={AddGroup}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-language" exact
                             component={AddLanguage}/>
-            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-status" exact component={AddStatus}/>
-            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-reader" exact component={AddReader}/>
+            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-status" exact
+                            component={AddStatus}/>
+            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-reader" exact
+                            component={AddReader}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-category" exact
                             component={AddCategory}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/create-new-user" exact
                             component={NewUser}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-status" exact
                             component={DeleteStatus}/>
+            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-group" exact
+                            component={DeleteGroup}/>
 
 
             <Route path="/login" exact component={Login}/>

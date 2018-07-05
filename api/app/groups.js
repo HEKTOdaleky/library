@@ -9,7 +9,7 @@ const router = express.Router();
 
   router.get('/', [auth, permit('admin','librarian')], async (req, res) => {
     try {
-      const groups = await Group.find();
+      const groups = await Group.find({});
       if (groups) res.send(groups);
     } catch (e) {
       res.status(400).send({message: "Группы не найдены"})
@@ -18,11 +18,19 @@ const router = express.Router();
 
   router.delete('/:id', [auth, permit('admin')], async (req, res) => {
     const id = req.params.id;
-    const currentGroup = await Reader.findOne({groupId: id});
-    if (currentGroup)
-      res.sendStatus(400).send({message: "Поле не должно быть пустым!"});
-    await Group.deleteOne({_id: id});
-    res.send({message: "Success"});
+
+    try {
+      const currentGroup = await Reader.find({groupId: id});
+      if (currentGroup.length > 0) {
+        res.status(400).send({error: "Нельзя удалить группу, которая используется"});
+
+      } else {
+        await Group.deleteOne({_id: id});
+        res.send({message: "Группа успешно удалена"});
+      }
+    } catch (e) {
+      return res.status(400).send({message: "Нельзя удалить группу"});
+    }
   });
 
   router.post('/', [auth, permit('admin')], async (req, res) => {

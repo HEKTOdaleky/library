@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from "react-redux";
 import {postStatus} from "../../../store/actions/status";
 import FormElement from "../../../components/UI/Form/FormElement";
-import {Button, Col, Form, FormGroup} from "react-bootstrap";
+import { Button, Col, Form, FormGroup, PageHeader } from "react-bootstrap";
 
 
 class AddStatus extends Component {
@@ -22,8 +22,9 @@ class AddStatus extends Component {
     };
 
     render() {
-        return (<Form
-            horizontal onSubmit={this.clickHandler}>
+        return (<Form horizontal onSubmit={this.clickHandler}>
+            <PageHeader>Добавить новый статус книги</PageHeader>
+
             <FormElement
                 propertyName="name"
                 title="Название статуса"

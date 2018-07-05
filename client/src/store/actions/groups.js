@@ -3,7 +3,7 @@ import { NotificationManager } from "react-notifications";
 import { push } from "react-router-redux";
 import {
   ADD_GROUP_FAILURE,
-  ADD_GROUP_SUCCESS,
+  ADD_GROUP_SUCCESS, DELETE_GROUP_FAILURE, DELETE_GROUP_SUCCESS,
   GET_GROUPS_FAILURE,
   GET_GROUPS_SUCCESS
 } from "./actionTypes";
@@ -46,10 +46,38 @@ const getGroupsFailure = error => {
 export const getGroups = () => {
   return dispatch => {
     return axios
-      .get("/groups")
-      .then(
+      .get("/groups").then(
         response => dispatch(getGroupsSuccess(response.data)),
         error => dispatch(getGroupsFailure(error))
       );
   };
 };
+
+const deleteGroupSuccess = data => {
+  return { type: DELETE_GROUP_SUCCESS, data };
+};
+
+const deleteGroupFailure = error => {
+  return { type: DELETE_GROUP_FAILURE, error };
+};
+
+export const deleteGroup = id => {
+  return dispatch => {
+    axios.delete('/groups/' + id ).then(
+      response => {
+        dispatch(deleteGroupSuccess(response.data));
+        NotificationManager.success(response.data.message);
+        dispatch(push("/admin"));
+      },
+      error => {
+        dispatch(deleteGroupFailure(error.response.data));
+        if (error.response.data.error)
+          NotificationManager.error(error.response.data.error);
+        if (error.response.data.message)
+          NotificationManager.info(error.response.data.message);
+      }
+    )
+  }
+};
+
+

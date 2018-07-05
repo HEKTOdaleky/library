@@ -120,8 +120,8 @@ class AddBook extends Component {
                         value={this.state.statusId}
                         changeHandler={this.onChangeHandler}
                         error={this.props.postError &&
-                        this.props.postError.message.errors.statusId
-                        && this.props.postError.message.errors.statusId.message}
+                        this.props.postError.message.errors.groupId
+                        && this.props.postError.message.errors.groupId.message}
                     />
                     <FormElement
                         propertyName="publishHouse"
@@ -170,7 +170,7 @@ class AddBook extends Component {
 
                     <FormGroup>
                         <Col smOffset={2} sm={10}>
-                            <Button onClick={this.clickHandler} bsStyle="primary" type="submit">Save</Button>
+                            <Button onClick={this.clickHandler} bsStyle="primary" type="submit">Добавить</Button>
                         </Col>
                     </FormGroup>
 

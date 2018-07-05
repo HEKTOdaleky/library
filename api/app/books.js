@@ -22,7 +22,7 @@ const createRouter = () => {
         }
         try {
             const status = await Status.findOne({name: "В наличии"});
-            const books = await Book.find({title: {$regex: req.body.searchKey, $options: "$i"}, statusId: status._id});
+            const books = await Book.find({title: {$regex: req.body.searchKey, $options: "$i"}, groupId: status._id});
 
             if (books && books.length > 0) {
                 res.send(books);
@@ -86,7 +86,7 @@ const createRouter = () => {
             const bookData = await Book.findById(id);
 
             if (bookData) {
-                const newBookData = await bookData.set({statusId: req.body.statusId});
+                const newBookData = await bookData.set({groupId: req.body.groupId});
                 const book = new Book(newBookData);
                 await book.save();
                 res.send({message: "Статус книги изменен"});
