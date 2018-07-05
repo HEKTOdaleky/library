@@ -45,9 +45,8 @@ class AddReader extends Component {
             placeholder="Фамилия"
             type="text"
             changeHandler={this.onChangeHandler}
-            error={this.props.postError &&
-            this.props.postError.message.errors.author
-            && this.props.postError.message.errors.author.message}
+            error={this.props.error &&
+            this.props.error.message}
           />
 
           <FormElement
@@ -57,9 +56,8 @@ class AddReader extends Component {
             type="text"
             value={this.state.firstName}
             changeHandler={this.onChangeHandler}
-            error={this.props.postError &&
-            this.props.postError.message.errors.author
-            && this.props.postError.message.errors.author.message}
+            error={this.props.error &&
+            this.props.error.message}
           />
 
           <FormElement
@@ -69,9 +67,8 @@ class AddReader extends Component {
             type="text"
             value={this.state.documentNumber}
             changeHandler={this.onChangeHandler}
-            error={this.props.postError &&
-            this.props.postError.message.errors.author
-            && this.props.postError.message.errors.author.message}
+            error={this.props.error &&
+            this.props.error.message}
           />
 
           <FormElement
@@ -81,9 +78,8 @@ class AddReader extends Component {
             options={groups}
             value={this.state.groupId}
             changeHandler={this.onChangeHandler}
-            error={this.props.postError &&
-            this.props.postError.message.errors.statusId
-            && this.props.postError.message.errors.statusId.message}
+            error={this.props.error &&
+            this.props.error.message}
           />
 
           <FormElement
@@ -93,9 +89,8 @@ class AddReader extends Component {
             type="date"
             value={this.state.registerDate}
             changeHandler={this.onChangeHandler}
-            error={this.props.postError &&
-            this.props.postError.message.errors.registerDate
-            && this.props.postError.message.errors.registerDate.message}
+            error={this.props.error &&
+            this.props.error.message}
           />
 
           <FormGroup>
@@ -111,7 +106,8 @@ class AddReader extends Component {
 
 const mapStateToProps = state => {
   return {
-    groups: state.groups.groups
+    groups: state.groups.groups,
+    error: state.readers.error
   }
 };
 
