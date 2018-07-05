@@ -64,7 +64,7 @@ const createRouter = () => {
         } catch (error) {
             return res.status(400).send({message: error});
         }
-        res.send({book, message: "Добавление языка издания прошло успешно!"});
+        res.send({book, message: "Книга успешно добавлена!"});
     });
 
     router.get("/:id", async (req, res) => {

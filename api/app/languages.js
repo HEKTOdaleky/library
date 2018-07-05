@@ -33,7 +33,7 @@ const createRouter = () => {
         try {
             await newLang.save();
         } catch (err) {
-            return res.status(400).send({message: err});
+            return res.status(400).send({error: err});
         }
 
         res.send({newLang, message: 'Добавление языка издания прошло успешно!'});
