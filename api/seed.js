@@ -1,0 +1,1 @@
+db.books.createIndex({title: "text", author: "text", publishHouse: "text"}, {language_override: "russian"});
