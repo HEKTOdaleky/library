@@ -369,17 +369,3 @@ db.once("open", async () => {
   db.close();
 });
 
-  // Book.on('index', function(err) { // <-- Wait for model's indexes to finish
-  //   assert.ifError(err);
-  //   Book.create([{title: "text", author: "text", publishHouse: "text"}, {language_override: "russian"}], function(err) {
-  //     console.log(err);
-  //   });
-  // });
-
-  // await Book.on('index', (err) => {
-  //   assert.ifError(err);
-  //   db.books.createIndex({title: "text", author: "text", publishHouse: "text"}, {language_override: "russian"}, {"weights": { title: 3, author: 1}});
-  // });
-
-// db.books.createIndex({title: "text", author: "text", publishHouse: "text"}, {language_override: "russian"}, {"weights": { title: 3, author: 1}});
-

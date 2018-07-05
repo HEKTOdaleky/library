@@ -27,10 +27,6 @@ const createRouter = () => {
       registerDate: req.body.registerDate
     };
 
-    // const number = Reader.newInventoryCode();
-    // console.log('number:________', number);
-
-
     const reader = new Reader(data);
 
     try {
