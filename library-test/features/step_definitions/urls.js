@@ -10,5 +10,6 @@ module.exports = {
     addGroup: baseUrl + '/add-group',
     addLanguage: baseUrl + '/add-language',
     createNewUser: baseUrl + '/create-new-user',
-    deleteLang: baseUrl + '/delete-language'
+    deleteLang: baseUrl + '/delete-language',
+    deleteCategory: baseUrl + '/delete-category'
 };
