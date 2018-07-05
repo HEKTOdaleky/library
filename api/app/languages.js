@@ -20,8 +20,10 @@ const createRouter = () => {
         const currentLang = await Book.findOne({language: id});
         if (currentLang)
             res.status(400).send({message: "Язык который используется в доступных книгах не может быть удален"});
-        await Language.deleteOne({_id: id});
-        res.send({message: "Язык успешно удален"});
+        else {
+            await Language.deleteOne({_id: id});
+            res.send({message: "Язык успешно удален"});
+        }
 
     });
 
