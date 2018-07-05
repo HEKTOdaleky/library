@@ -4,8 +4,7 @@ const Counter = require('./Counter');
 
 const BookSchema = new Schema({
   inventoryCode: {
-    type: String,
-    required: true
+    type: String
   },
   title: {
     type: String,
@@ -48,11 +47,9 @@ const BookSchema = new Schema({
 });
 
 BookSchema.pre('save', async function (next) {
-  if (!this.isNew) return next();
-  if (this.inventoryCode) return next();
+  if (!this.isNew || this.inventoryCode) return next();
 
   const counter = await Counter.findOne();
-  console.log(counter);
   counter.bookCode = counter.bookCode + 1;
   await counter.save();
 
