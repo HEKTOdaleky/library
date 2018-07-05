@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Counter = require('./Counter');
 
 const BookSchema = new Schema({
+  inventoryCode: {
+    type: String,
+    required: true
+  },
   title: {
     type: String,
     required: true
@@ -35,14 +40,27 @@ const BookSchema = new Schema({
   },
   language: {
     type: Schema.Types.ObjectId,
-    ref: 'Language',
-
+    ref: 'Language'
   },
   price: {
     type: Number
   }
 });
 
+BookSchema.pre('save', async function (next) {
+  if (!this.isNew) return next();
+  if (this.inventoryCode) return next();
+
+  const counter = await Counter.findOne();
+  console.log(counter);
+  counter.bookCode = counter.bookCode + 1;
+  await counter.save();
+
+  const code = counter.bookCode.toString();
+  this.inventoryCode = ('000000' + code).slice(code.length);
+
+  next();
+});
 
 const Book = mongoose.model('Book', BookSchema);
 

@@ -69,8 +69,8 @@ export const postBooksData = (data) => {
             console.log(response.data);
             NotificationManager.success(response.data.message);
         }, err => {
-            NotificationManager.error(err.response.data.message);
-            dispatch(bookPostDataError(err.response.data));
+          NotificationManager.error(err.response.data.message);
+          dispatch(bookPostDataError(err.response.data));
         })
     }
 };
