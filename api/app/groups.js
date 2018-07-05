@@ -9,7 +9,7 @@ const router = express.Router();
 
   router.get('/', [auth, permit('admin','librarian')], async (req, res) => {
     try {
-      const groups = await Group.find({});
+      const groups = await Group.find({isArchive: false});
       if (groups) res.send(groups);
     } catch (e) {
       res.status(400).send({message: "Группы не найдены"})
@@ -22,8 +22,8 @@ const router = express.Router();
     try {
       const currentGroup = await Reader.find({groupId: id});
       if (currentGroup.length > 0) {
-        res.status(400).send({error: "Нельзя удалить группу, которая используется"});
-
+        const archiveGroup = await Group.findOneAndUpdate({_id: id}, {$set: {isArchive: true}});
+        if (archiveGroup) res.send({message: "Группа успешно перенесена в архив"});
       } else {
         await Group.deleteOne({_id: id});
         res.send({message: "Группа успешно удалена"});
