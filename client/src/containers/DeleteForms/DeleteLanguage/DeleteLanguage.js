@@ -54,7 +54,7 @@ class DeleteLanguage extends Component{
                     horizontal onSubmit={this.clickHandler}>
                     <FormElement
                         propertyName="langId"
-                        title="Статус"
+                        title="Язык"
                         type="select"
                         options={lang}
                         value={this.state.langId}
