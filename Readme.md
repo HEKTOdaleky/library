@@ -9,8 +9,8 @@ Setup:
 Для запуска базы данных нужно перейти в папку ../library/api $
 и последовательно выполнить команды:
 
-sudo service mongod start
-mongod
+sudo service mongod start,
+mongod,
 mongo
 
 Для запуска сервера в папке ../library/api $
