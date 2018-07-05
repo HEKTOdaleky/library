@@ -61,10 +61,11 @@ const createRouter = () => {
         const book = new Book(bookData);
         try {
             await book.save();
+
         } catch (error) {
-            return res.status(400).send({message: error});
+            return res.status(400).send({error, message: "Ошибка в заплнении полей"});
         }
-        res.send({book, message: "Книга успешно добавлена!"});
+        res.send({message: "Книга успешно добавлена!"});
     });
 
     router.get("/:id", async (req, res) => {

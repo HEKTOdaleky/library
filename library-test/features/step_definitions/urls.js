@@ -9,5 +9,6 @@ module.exports = {
     logoutUrl: baseUrl + '/logout',
     addGroup: baseUrl + '/add-group',
     addLanguage: baseUrl + '/add-language',
-    createNewUser: baseUrl + '/create-new-user'
+    createNewUser: baseUrl + '/create-new-user',
+    deleteLang: baseUrl + '/delete-language'
 };

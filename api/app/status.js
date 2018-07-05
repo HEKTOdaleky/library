@@ -32,7 +32,7 @@ const createRouter = () => {
         newStatus.save().then(response => {
             res.send({newStatus, message: "Статус успешно добавлен!"});
         }, error => {
-            res.status(400).send({error, message: "Ошибка"});
+            res.status(400).send({error, message: "Такой статус уже существует"});
         });
     });
 

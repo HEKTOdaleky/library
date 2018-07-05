@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const config = require("./config");
 
+const Counter = require("./models/Counter");
 const Category = require("./models/Category");
 const Book = require("./models/Book");
 const Reader = require("./models/Reader");
@@ -16,6 +17,7 @@ const db = mongoose.connection;
 
 db.once("open", async () => {
   try {
+    await db.dropCollection("counters");
     await db.dropCollection("status");
     await db.dropCollection("groups");
     await db.dropCollection("categories");
@@ -27,6 +29,13 @@ db.once("open", async () => {
   } catch (e) {
     console.log("Collections were not present, skipping drop...");
   }
+
+  await Counter.create(
+    {
+      bookCode: 19,
+      readerCode: 3
+    }
+  );
 
   const [
     c1,
@@ -127,7 +136,7 @@ db.once("open", async () => {
     }
   );
 
-  const [l1, l2, l3] = await Languages.create(
+  const [l1, l2, l3, l4] = await Languages.create(
     {
       title: "Русский"
     },
@@ -144,6 +153,7 @@ db.once("open", async () => {
 
   const [b1, b2, b3, b4] = await Book.create(
     {
+      inventoryCode: "000001",
       title: "В мире управляющих машин",
       author: "Абчук В.А",
       year: 1987,
@@ -153,6 +163,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000002",
       title: "Сто лет одиночества",
       author: "Габриэль Гарсиа Маркес",
       year: 2007,
@@ -162,6 +173,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000003",
       title: "Над пропастью во ржи",
       author: "Джером Дэвид Сэлинджер",
       year: 1951,
@@ -171,6 +183,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000004",
       title: "Преступление и наказание",
       author: "Ф. Достоевский",
       year: 2017,
@@ -180,6 +193,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000005",
       title: "Мастер и Маргарита",
       author: "Булгаков М. А.",
       year: 1966,
@@ -189,6 +203,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000006",
       title: "Война и мир",
       author: "Л.Н. Толстой",
       year: 1996,
@@ -198,6 +213,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000007",
       title: "Всё, что должен знать каждый образованный человек",
       author: "Спектор Анна Артуровна",
       year: 2017,
@@ -207,6 +223,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000008",
       title: "Уникальная и парадоксальная военная техника",
       author: "Каторин Юрий Федорович",
       year: 2007,
@@ -216,6 +233,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000009",
       title: "Всемирный энциклопедический словарь",
       author: "Адамчик Мирослав Вячеславович",
       year: 2007,
@@ -225,6 +243,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000010",
       title: "Где? Кто? Когда? 2000 ярких событий, имен, памятных дат. Книга для знатока",
       author: "Адамчик Мирослав Вячеславович",
       year: 2017,
@@ -234,6 +253,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000011",
       title: "Педагогика для всех",
       author: "Симон Соловейчик",
       year: 2018,
@@ -243,6 +263,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000012",
       title: "Педагогика. Учебник для вузов",
       author: "Бахмутский Андрей Евгеньевич, Вершинина Н. А., Глубокова Е. Н.",
       year: 2018,
@@ -252,6 +273,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000013",
       title: "Таблица Брадиса",
       author: "Брадис",
       year: 1965,
@@ -261,6 +283,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000014",
       title: "Самый полный англо-русский русско-английский словарь",
       author: "Владимир Мюллер",
       year: 2016,
@@ -270,6 +293,7 @@ db.once("open", async () => {
       language: l3._id
     },
     {
+      inventoryCode: "000015",
       title: "Психология развития. Энциклопедический словарь",
       author: "Авидон И.",
       year: 2006,
@@ -279,6 +303,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000016",
       title: "Учебник по математике 6 класс",
       author: "В. Пупкин",
       year: 1977,
@@ -288,6 +313,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000017",
       title: "И дольше века длиться день",
       author: "Чингиз Айтматов",
       year: 1981,
@@ -297,6 +323,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000018",
       title: "Первый учитель",
       author: "Чингиз Айтматов",
       year: 1996,
@@ -306,6 +333,7 @@ db.once("open", async () => {
       language: l1._id
     },
     {
+      inventoryCode: "000019",
       title: "Русско-кыргызский разговорник",
       author: "Акимов Шерикбек, Байтерекова Женишкуль Саматовна",
       year: 2009,
@@ -318,21 +346,21 @@ db.once("open", async () => {
 
   const [r1, r2, r3] = await Reader.create([
     {
-      inventoryNumber: '000001',
+      inventoryCode: "000001",
       firstName: "Иван",
       lastName: "Иванов",
       documentNumber: "4818-01",
       groupId: g1._id
     },
     {
-      inventoryNumber: '000002',
+      inventoryCode: "000002",
       firstName: "Игорь",
       lastName: "Гончаров",
       documentNumber: "5289-05",
       groupId: g1._id
     },
     {
-      inventoryNumber: '000003',
+      inventoryCode: "000003",
       firstName: "Азамат",
       lastName: "Исаков",
       documentNumber: "6351-09",

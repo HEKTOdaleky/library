@@ -66,11 +66,10 @@ export const postBooksData = (data) => {
         axios.post("books/", data).then(response => {
             dispatch(bookPostDataSuccess(response.data));
             dispatch(push("/admin"));
-            console.log(response.data);
             NotificationManager.success(response.data.message);
         }, err => {
-            dispatch(bookPostDataError(err.response.data));
-            NotificationManager.info("Все поля должны быть заполнены");
+          NotificationManager.error(err.response.data.message);
+          dispatch(bookPostDataError(err.response.data));
         })
     }
 };

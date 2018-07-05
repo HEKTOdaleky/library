@@ -32,7 +32,6 @@ const UserSchema = new Schema({
     token: String
 });
 
-
 UserSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
 
@@ -56,7 +55,6 @@ UserSchema.methods.generateToken = function () {
 UserSchema.methods.checkPassword = function (password) {
     return bcrypt.compare(password, this.password);
 };
-
 
 const User = mongoose.model('User', UserSchema);
 

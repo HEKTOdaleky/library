@@ -1,8 +1,8 @@
 import axios from "../../axios-api";
 
 import {
-  ADD_CATEGORY_FAILURE,
-  ADD_CATEGORY_SUCCESS,
+  ADD_CATEGORY_FAILURE, ADD_CATEGORY_SUCCESS,
+  DELETE_CATEGORY_FAILURE, DELETE_CATEGORY_SUCCESS,
   GET_CATEGORY_SUCCESS
 } from "./actionTypes";
 import { push } from "react-router-redux";
@@ -46,4 +46,28 @@ export const addCategory = categoryData => {
       }
     );
   };
+};
+
+const deleteCategorySuccess = success => {
+  return {type: DELETE_CATEGORY_SUCCESS, success}
+};
+
+const deleteCategoryError = error => {
+  return {type: DELETE_CATEGORY_FAILURE, error}
+};
+
+export const deleteCategory = (data) => {
+  return dispatch => {
+    axios.delete('/categories/' + data).then(
+      response => {
+        dispatch(deleteCategorySuccess(response.data));
+        dispatch(push("/admin"));
+        NotificationManager.success(response.data.message);
+      },
+      error => {
+        dispatch(deleteCategoryError(error.response));
+        NotificationManager.error(error.response.data.error);
+      }
+    )
+  }
 };
