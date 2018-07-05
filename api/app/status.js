@@ -30,9 +30,9 @@ const createRouter = () => {
     router.post('/', [auth, permit('admin')], (req, res) => {
         const newStatus = new Status({name: req.body.name, description: req.body.description});
         newStatus.save().then(response => {
-            res.send(newStatus);
+            res.send({newStatus, message: "Статус успешно добавлен!"});
         }, error => {
-            res.status(400).send(error);
+            res.status(400).send({error, message: "Ошибка"});
         });
     });
 

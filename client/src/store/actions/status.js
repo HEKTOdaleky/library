@@ -43,9 +43,13 @@ export const postStatus = (data) => {
             response => {
                 dispatch(postStatusSuccess(response.data));
                 dispatch(push("/admin"));
-                NotificationManager.success("Успешно!");
+                NotificationManager.success(response.data.message);
             },
-            err => dispatch(postStatusError(err.response.data))
+            err => {
+                dispatch(postStatusError(err.response.data));
+                NotificationManager.error(err.response.data.message);
+
+            }
         )
     }
 };
