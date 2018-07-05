@@ -63,7 +63,7 @@ const createRouter = () => {
             await book.save();
 
         } catch (error) {
-            return res.status(400).send({message: error});
+            return res.status(400).send({error, message: "Ошибка в заплнении полей"});
         }
         res.send({message: "Книга успешно добавлена!"});
     });

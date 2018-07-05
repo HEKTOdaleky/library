@@ -2,6 +2,7 @@ const express = require('express');
 const auth = require('../middleware/auth');
 const permit = require('../middleware/permit');
 const Category = require('../models/Category');
+const Book = require('../models/Book');
 
 const createRouter = () => {
   const router = express.Router();
@@ -40,10 +41,20 @@ const createRouter = () => {
 
   });
 
-  router.delete('/', auth, (req, res) => {
-    Category.findByIdAndDelete(req.body.id)
-      .then(() => res.send({message: 'Category removed'}))
-      .catch(error => res.status(500).send(error));
+  router.delete('/:id', [auth, permit('admin')], async (req, res) => {
+    try {
+      const id = req.params.id;
+      const findBook = await Book.findOne({categoryId: id});
+
+      if (findBook) {
+        res.status(400).send({error: 'Невозможно удалить категорию, которая используется в книгах'});
+      } else {
+        await Category.deleteOne({_id: id});
+        res.send({message: 'Категория успешно удалена'});
+      }
+    } catch (error) {
+      return res.status(500).send({error: 'Ошибка! Не удалось удалить категорию'});
+    }
   });
 
   router.get('/:id', async (req, res) => {
