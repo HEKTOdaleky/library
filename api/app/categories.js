@@ -46,12 +46,12 @@ const createRouter = () => {
       const id = req.params.id;
       const findBook = await Book.findOne({categoryId: id});
 
-      if (findBook)
+      if (findBook) {
         res.status(400).send({error: 'Невозможно удалить категорию, которая используется в книгах'});
-
-      if (!findBook)
-        await Category.findByIdAndDelete(req.body.id);
+      } else {
+        await Category.deleteOne({_id: id});
         res.send({message: 'Категория успешно удалена'});
+      }
     } catch (error) {
       return res.status(500).send({error: 'Ошибка! Не удалось удалить категорию'});
     }
