@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const InventoryCode = require('./InventoryCode');
+const Counter = require('./Counter');
 
 const ReaderSchema = new Schema({
   inventoryCode: {
-    type: String,
-    },
+    type: String
+  },
   firstName: {
     type: String,
     required: true
@@ -36,21 +36,18 @@ const ReaderSchema = new Schema({
   }
 });
 
-// ReaderSchema.methods.newInventoryCode = async function() {
-//   let code;
-//
-//   const number = await InventoryCode.find().sort({readerCode: 1}).limit(1);
-//   const nextNumber = new InventoryCode({
-//     readerCode: number + 1
-//   });
-//   await InventoryCode.save(nextNumber);
-//
-//   let s = number.toString();
-//   if (s.length < 6) {
-//     code = ('00000' + s).slice(6);
-//   }
-//   return code;
-// };
+ReaderSchema.pre('save', async function (next) {
+  if (!this.isNew || this.inventoryCode) return next();
+
+  const counter = await Counter.findOne();
+  counter.readerCode = counter.readerCode + 1;
+  await counter.save();
+
+  const code = counter.readerCode.toString();
+  this.inventoryCode = ('000000' + code).slice(code.length);
+
+  next();
+});
 
 const Reader = mongoose.model('Reader', ReaderSchema);
 

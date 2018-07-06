@@ -1,6 +1,8 @@
 const express = require("express");
 const Book = require("../models/Book");
 const Status = require("../models/Status");
+const auth = require('../middleware/auth');
+const permit = require('../middleware/permit');
 
 const createRouter = () => {
     const router = express.Router();
@@ -22,7 +24,7 @@ const createRouter = () => {
         }
         try {
             const status = await Status.findOne({name: "В наличии"});
-            const books = await Book.find({title: {$regex: req.body.searchKey, $options: "$i"}, statusId: status._id});
+            const books = await Book.find({title: {$regex: req.body.searchKey, $options: "$i"}, groupId: status._id});
 
             if (books && books.length > 0) {
                 res.send(books);
@@ -56,15 +58,18 @@ const createRouter = () => {
         }
     });
 
-    router.post("/", async (req, res) => {
+    router.post("/", [auth, permit('admin', 'librarian')], async (req, res) => {
         const bookData = req.body;
+      console.log(":________", bookData);
         const book = new Book(bookData);
         try {
-            await book.save();
+            const newBook = await book.save();
+          console.log(":________", newBook);
+            if (newBook) res.send({message: "Книга успешно добавлена!"});
         } catch (error) {
-            return res.status(400).send({error, message: "Ошибка в заплнении полей"});
+            return res.status(400).send({message: "Все поля должны быть заполнены"});
         }
-        res.send({book, message: "Книга успешно добавлена!"});
+
     });
 
     router.get("/:id", async (req, res) => {
@@ -86,7 +91,7 @@ const createRouter = () => {
             const bookData = await Book.findById(id);
 
             if (bookData) {
-                const newBookData = await bookData.set({statusId: req.body.statusId});
+                const newBookData = await bookData.set({groupId: req.body.groupId});
                 const book = new Book(newBookData);
                 await book.save();
                 res.send({message: "Статус книги изменен"});

@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from "react-redux";
 import FormElement from "../../../components/UI/Form/FormElement";
-import {Button, Col, Form, FormGroup, Modal} from "react-bootstrap";
+import {Button, Col, Form, FormGroup, Modal, PageHeader} from "react-bootstrap";
 import {deleteCategory, getCategories} from "../../../store/actions/categories";
 
 class DeleteCategory extends Component {
@@ -51,10 +51,11 @@ class DeleteCategory extends Component {
 
           <Modal.Footer>
             <Button onClick={this.handleClose}>Отказаться</Button>
-            <Button onClick={this.clickHandler} bsStyle="primary">Удалить</Button>
+            <Button onClick={this.clickHandler} bsStyle="primary">Удалить категорию</Button>
           </Modal.Footer>
         </Modal>
 
+        <PageHeader>Удалить категорию</PageHeader>
         <Form horizontal onSubmit={this.clickHandler}>
           <FormElement
             propertyName="categoryId"

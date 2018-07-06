@@ -4,13 +4,10 @@ module.exports = function () {
     this.Given(/^я захожу на страницу добавления книги под админом$/, function () {
         return browser.url(urls.addBook);
     });
-    this.When(/^я выбираю в поле "([^"]*)" значение "([^"]*)"$/,
-        function (element, optionNum) {
-            const input = browser.element(`select[name='${element}']`);
-            input.selectByIndex(optionNum);
-
-
-        });
+    this.When(/^я выбираю в поле "([^"]*)" значение "([^"]*)"$/, function (element, optionNum) {
+        const input = browser.element(`select[name='${element}']`);
+        input.selectByIndex(optionNum);
+    });
 
     // this.When(/^я выбираю в поле "([^"]*)" дату "([^"]*)"$/,
     //     function (element, optionNum) {

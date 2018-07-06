@@ -4,11 +4,13 @@ module.exports = {
     loginUrl: baseUrl + '/login',
     addBook: baseUrl + '/add-book',
     addStatus: baseUrl + '/add-status',
-    deleteStatus: baseUrl + '/delete-status',
     addCategory: baseUrl + '/add-category',
-    logoutUrl: baseUrl + '/logout',
     addGroup: baseUrl + '/add-group',
     addLanguage: baseUrl + '/add-language',
     createNewUser: baseUrl + '/create-new-user',
-    deleteLang: baseUrl + '/delete-language'
+    deleteStatus: baseUrl + '/delete-status',
+    deleteLang: baseUrl + '/delete-language',
+    deleteGroup: baseUrl + '/delete-group',
+    deleteCategory: baseUrl + '/delete-category',
+
 };

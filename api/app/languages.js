@@ -22,7 +22,7 @@ const createRouter = () => {
             res.status(400).send({message: "Язык который используется в доступных книгах не может быть удален"});
         else {
             await Language.deleteOne({_id: id});
-            res.send({message: "Язык успешно удален"});
+            res.send({message: "Язык издания книги успешно удален"});
         }
 
     });
