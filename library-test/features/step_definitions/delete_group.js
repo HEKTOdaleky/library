@@ -6,5 +6,4 @@ module.exports = function () {
     return browser.url(urls.deleteGroup);
   });
 
-
 };

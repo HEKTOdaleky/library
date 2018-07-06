@@ -27,13 +27,14 @@ const createRouter = () => {
       registerDate: req.body.registerDate
     };
 
-    const reader = new Reader(data);
-
     try {
-      const r = await reader.save();
-      if (r) res.send({message: "Новый читатель успешно добавлен", r});
+      const reader = new Reader(data);
+
+      console.log("reader:________", reader);
+      const newReader = await reader.save();
+      if (newReader) res.send({message: "Новый читатель успешно добавлен", newReader});
     } catch (e) {
-      res.status(400).send({error: 'Читатель с таким документом уже зарегистрирован'});
+      return res.status(400).send({error: 'Читатель с таким документом уже зарегистрирован'});
     }
   });
 

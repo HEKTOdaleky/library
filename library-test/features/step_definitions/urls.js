@@ -7,6 +7,7 @@ module.exports = {
     addCategory: baseUrl + '/add-category',
     addGroup: baseUrl + '/add-group',
     addLanguage: baseUrl + '/add-language',
+    addReader: baseUrl + '/add-reader',
     createNewUser: baseUrl + '/create-new-user',
     deleteStatus: baseUrl + '/delete-status',
     deleteLang: baseUrl + '/delete-language',
