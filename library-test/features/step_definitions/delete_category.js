@@ -1,7 +1,6 @@
 const urls = require('./urls');
 
 module.exports = function () {
-
   this.Given(/^я захожу на страницу удаления категорий$/, function() {
     return browser.url(urls.deleteCategory);
   });
@@ -10,5 +9,4 @@ module.exports = function () {
     const button = browser.element(`button=${text}`);
     return button.click();
   });
-
 };
