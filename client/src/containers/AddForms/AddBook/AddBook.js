@@ -72,9 +72,7 @@ class AddBook extends Component {
                         changeHandler={this.onChangeHandler}
                         required
                         error={this.props.postError &&
-                        this.props.postError.error &&
-                        this.props.postError.error.errors.title &&
-                        this.props.postError.error.errors.title.message}
+                        this.props.postError.message}
 
                     />
 
@@ -86,9 +84,7 @@ class AddBook extends Component {
                         value={this.state.author}
                         changeHandler={this.onChangeHandler}
                         error={this.props.postError &&
-                        this.props.postError.error &&
-                        this.props.postError.error.errors.author
-                        && this.props.postError.error.errors.author.message}
+                        this.props.postError.message}
                     />
 
                     <FormElement
@@ -99,9 +95,7 @@ class AddBook extends Component {
                         value={this.state.year}
                         changeHandler={this.onChangeHandler}
                         error={this.props.postError &&
-                        this.props.postError.error&&
-                        this.props.postError.error.errors.year
-                        && this.props.postError.error.errors.year.message}
+                        this.props.postError.message}
                     />
                     <FormElement
                         propertyName="categoryId"
@@ -111,9 +105,7 @@ class AddBook extends Component {
                         value={this.state.categoryId}
                         changeHandler={this.onChangeHandler}
                         error={this.props.postError &&
-                        this.props.postError.error&&
-                        this.props.postError.error.errors.categoryId
-                        && this.props.postError.error.errors.categoryId.message}
+                        this.props.postError.message}
                     />
                     <FormElement
                         propertyName="statusId"
@@ -123,8 +115,7 @@ class AddBook extends Component {
                         value={this.state.statusId}
                         changeHandler={this.onChangeHandler}
                         error={this.props.postError &&
-                        this.props.postError.message.errors.groupId
-                        && this.props.postError.message.errors.groupId.message}
+                        this.props.postError.message}
                     />
                     <FormElement
                         propertyName="publishHouse"
@@ -134,9 +125,7 @@ class AddBook extends Component {
                         value={this.state.publishHouse}
                         changeHandler={this.onChangeHandler}
                         error={this.props.postError &&
-                        this.props.postError.error&&
-                        this.props.postError.error.errors.publishHouse
-                        && this.props.postError.error.errors.publishHouse.message}
+                        this.props.postError.message}
                     />
                     <FormElement
                         propertyName="language"
@@ -146,9 +135,7 @@ class AddBook extends Component {
                         value={this.state.language}
                         changeHandler={this.onChangeHandler}
                         error={this.props.postError &&
-                        this.props.postError.error&&
-                        this.props.postError.error.errors.language
-                        && this.props.postError.error.errors.language.message}
+                        this.props.postError.message}
                     />
                     <FormElement
                         propertyName="price"
@@ -158,9 +145,7 @@ class AddBook extends Component {
                         value={this.state.price}
                         changeHandler={this.onChangeHandler}
                         error={this.props.postError &&
-                        this.props.postError.error&&
-                        this.props.postError.error.errors.price
-                        && this.props.postError.error.errors.price.message}
+                        this.props.postError.message}
                     />
                     <FormElement
                         propertyName="registerDate"
@@ -170,9 +155,7 @@ class AddBook extends Component {
                         value={this.state.registerDate}
                         changeHandler={this.onChangeHandler}
                         error={this.props.postError &&
-                        this.props.postError.error&&
-                        this.props.postError.error.errors.registerDate
-                        && this.props.postError.error.errors.registerDate.message}
+                        this.props.postError.message}
                     />
 
                     <FormGroup>

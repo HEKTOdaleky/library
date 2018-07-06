@@ -46,12 +46,11 @@ class DeleteGroup extends Component {
            title="Удаление группы"
            text="Вы действительно хотите удалить группу?"
            action={this.formSubmitHandler}
+           buttonText="Удалить группу"
          />
-
         <Form
           horizontal onSubmit={this.formSubmitHandler}>
           <PageHeader>Удалить группу</PageHeader>
-
           <FormElement
             propertyName="groupId"
             title="Группа"
@@ -70,9 +69,7 @@ class DeleteGroup extends Component {
       </Fragment>
     )
   }
-
 }
-
 
 const mapStateToProps = state => {
   return {

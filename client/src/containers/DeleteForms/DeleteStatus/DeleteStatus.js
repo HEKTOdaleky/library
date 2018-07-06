@@ -47,7 +47,7 @@ class DeleteStatus extends Component {
                     <Modal.Body>{`Вы действительно хотите удалить статус ${this.state.statusId}???`}</Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.handleClose}>Close</Button>
-                        <Button onClick={this.clickHandler} bsStyle="primary">Удалить</Button>
+                        <Button onClick={this.clickHandler} bsStyle="primary">Удалить статус</Button>
                     </Modal.Footer>
                 </Modal>
                 <Form

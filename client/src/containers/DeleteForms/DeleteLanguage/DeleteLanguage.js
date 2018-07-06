@@ -1,6 +1,5 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
-import {deleteStatus, getStatus} from "../../../store/actions/status";
 import {deleteLang, getLanguage} from "../../../store/actions/languages";
 import {Button, Col, Form, FormGroup, Modal} from "react-bootstrap";
 import FormElement from "../../../components/UI/Form/FormElement";
@@ -47,7 +46,7 @@ class DeleteLanguage extends Component{
                     <Modal.Body>{`Вы действительно хотите удалить язык ${this.state.langId}???`}</Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.handleClose}>Close</Button>
-                        <Button onClick={this.clickHandler} bsStyle="primary">Удалить</Button>
+                        <Button onClick={this.clickHandler} bsStyle="primary">Удалить язык книги</Button>
                     </Modal.Footer>
                 </Modal>
                 <Form
@@ -66,7 +65,7 @@ class DeleteLanguage extends Component{
                     <FormGroup>
                         <Col smOffset={2} sm={10}>
                             <Button disabled={!this.state.langId} onClick={this.handleShow}
-                                    bsStyle="danger">Delete</Button>
+                                    bsStyle="danger">Удалить</Button>
                         </Col>
                     </FormGroup>
 

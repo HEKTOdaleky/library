@@ -63,7 +63,7 @@ export const getBooksFromFullSearch = searchData => dispatch => {
 
 export const postBooksData = (data) => {
     return dispatch => {
-        axios.post("books/", data).then(response => {
+        axios.post("/books", data).then(response => {
             dispatch(bookPostDataSuccess(response.data));
             dispatch(push("/admin"));
             NotificationManager.success(response.data.message);

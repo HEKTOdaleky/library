@@ -11,7 +11,7 @@ const ModalForm = props => {
       <Modal.Body>{props.text}</Modal.Body>
       <Modal.Footer>
         <Button onClick={props.close}>Отмена</Button>
-        <Button onClick={props.action} bsStyle="primary">Удалить</Button>
+        <Button onClick={props.action} bsStyle="primary">{props.buttonText}</Button>
       </Modal.Footer>
     </Modal>
   );
@@ -22,7 +22,8 @@ ModalForm.propTypes = {
   close: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   text: PropTypes.string,
-  action: PropTypes.func.isRequired
+  action: PropTypes.func.isRequired,
+  buttonText: PropTypes.string.isRequired
 };
 
 export default ModalForm;

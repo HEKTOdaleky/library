@@ -28,7 +28,7 @@ const BookSchema = new Schema({
     ref: 'Category',
     required: true
   },
-  groupId: {
+  statusId: {
     type: Schema.Types.ObjectId,
     ref: 'Status',
     required: true

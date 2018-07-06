@@ -15,10 +15,10 @@ const createRouter = () => {
         }).catch(() => res.sendStatus(500));
     });
 
-    router.delete('/:id', [auth, permit('admin')], async (req, res) => {
+    router.delete('/:id', [auth, permit('admin', 'librarian')], async (req, res) => {
         const id = req.params.id;
-        const currentBook = await Book.findOne({groupId: id});
-        if (currentBook)
+        const currentBook = await Book.findOne({statusId: id});
+        if (currentBook )
             res.status(400).send({message: "Невозможно удалить статус, который используется"});
         else {
             await Status.deleteOne({_id: id});

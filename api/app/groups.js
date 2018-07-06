@@ -1,7 +1,7 @@
 const express = require('express');
 const Group = require('../models/Group');
-const auth = require('../middleware/auth');
 const Reader = require('../models/Reader');
+const auth = require('../middleware/auth');
 const permit = require('../middleware/permit');
 
 const createRouter = () => {

@@ -1,6 +1,8 @@
 const express = require("express");
 const Book = require("../models/Book");
 const Status = require("../models/Status");
+const auth = require('../middleware/auth');
+const permit = require('../middleware/permit');
 
 const createRouter = () => {
     const router = express.Router();
@@ -56,16 +58,18 @@ const createRouter = () => {
         }
     });
 
-    router.post("/", async (req, res) => {
+    router.post("/", [auth, permit('admin', 'librarian')], async (req, res) => {
         const bookData = req.body;
+      console.log(":________", bookData);
         const book = new Book(bookData);
         try {
-            await book.save();
-
+            const newBook = await book.save();
+          console.log(":________", newBook);
+            if (newBook) res.send({message: "Книга успешно добавлена!"});
         } catch (error) {
-            return res.status(400).send({error, message: "Ошибка в заплнении полей"});
+            return res.status(400).send({message: "Все поля должны быть заполнены"});
         }
-        res.send({message: "Книга успешно добавлена!"});
+
     });
 
     router.get("/:id", async (req, res) => {
