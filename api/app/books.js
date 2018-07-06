@@ -24,8 +24,7 @@ const createRouter = () => {
         }
         try {
             const status = await Status.findOne({name: "В наличии"});
-            const books = await Book.find({title: {$regex: req.body.searchKey, $options: "$i"}, groupId: status._id});
-
+            const books = await Book.find({title: {$regex: req.body.searchKey, $options: "$i"}, statusId: status._id});
             if (books && books.length > 0) {
                 res.send(books);
             } else {
