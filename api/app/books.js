@@ -24,8 +24,7 @@ const createRouter = () => {
         }
         try {
             const status = await Status.findOne({name: "В наличии"});
-            const books = await Book.find({title: {$regex: req.body.searchKey, $options: "$i"}, groupId: status._id});
-
+            const books = await Book.find({title: {$regex: req.body.searchKey, $options: "$i"}, statusId: status._id});
             if (books && books.length > 0) {
                 res.send(books);
             } else {
@@ -72,7 +71,7 @@ const createRouter = () => {
 
     });
 
-    router.get("/:id", async (req, res) => {
+    router.get("/:id",[auth, permit('admin', 'librarian')], async (req, res) => {
         const id = req.params.id;
 
         try {
@@ -85,7 +84,7 @@ const createRouter = () => {
         }
     });
 
-    router.delete("/:id", async (req, res) => {
+    router.delete("/:id", [auth, permit('admin', 'librarian')], async (req, res) => {
         const id = req.params.id;
         try {
             const bookData = await Book.findById(id);

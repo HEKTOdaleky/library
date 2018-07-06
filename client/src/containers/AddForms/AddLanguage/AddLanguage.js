@@ -41,7 +41,7 @@ class AddLanguage extends Component {
 
           <FormGroup>
             <Col smOffset={2} sm={10}>
-              <Button onClick={this.clickHandler} bsStyle="primary" type="submit">Отправить</Button>
+              <Button onClick={this.clickHandler} bsStyle="primary" type="submit">Добавить</Button>
             </Col>
           </FormGroup>
 

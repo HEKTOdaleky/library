@@ -1,5 +1,5 @@
-import React, {Component, Fragment} from 'react'
-import {connect} from "react-redux";
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
 import FormElement from "../../../components/UI/Form/FormElement";
 import { Button, Col, Form, FormGroup, PageHeader } from "react-bootstrap";
 import { deleteGroup, getGroups } from "../../../store/actions/groups";
@@ -19,13 +19,12 @@ class DeleteGroup extends Component {
     event.preventDefault();
     this.props.deleteGroup(this.state.groupId);
     this.handleClose();
-
   };
   handleClose = () => {
-    this.setState({show: false})
+    this.setState({ show: false });
   };
   handleShow = () => {
-    this.setState({show: true})
+    this.setState({ show: true });
   };
 
   onChangeHandler = event => {
@@ -36,20 +35,20 @@ class DeleteGroup extends Component {
 
   render() {
     const status = this.props.groups.map(state => {
-      return {id: state._id, title: state.name};
+      return { id: state._id, title: state.name };
     });
     return (
       <Fragment>
-         <ModalForm
-           show={this.state.show}
-           close={this.handleClose}
-           title="Удаление группы"
-           text="Вы действительно хотите удалить группу?"
-           action={this.formSubmitHandler}
-           buttonText="Удалить группу"
-         />
-        <Form
-          horizontal onSubmit={this.formSubmitHandler}>
+        <ModalForm
+          show={this.state.show}
+          close={this.handleClose}
+          title="Удаление группы"
+          text="Вы действительно хотите удалить группу?"
+          action={this.formSubmitHandler}
+          buttonText="Удалить группу"
+        />
+
+        <Form horizontal onSubmit={this.formSubmitHandler}>
           <PageHeader>Удалить группу</PageHeader>
           <FormElement
             propertyName="groupId"
@@ -61,13 +60,18 @@ class DeleteGroup extends Component {
           />
           <FormGroup>
             <Col smOffset={2} sm={10}>
-              <Button disabled={!this.state.groupId} onClick={this.handleShow}
-                      bsStyle="danger">Удалить</Button>
+              <Button
+                disabled={!this.state.groupId}
+                onClick={this.handleShow}
+                bsStyle="danger"
+              >
+                Удалить
+              </Button>
             </Col>
           </FormGroup>
-      </Form>
+        </Form>
       </Fragment>
-    )
+    );
   }
 }
 
@@ -84,5 +88,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(DeleteGroup);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DeleteGroup);
