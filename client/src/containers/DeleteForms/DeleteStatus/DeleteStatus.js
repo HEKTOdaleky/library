@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from "react-redux";
 import FormElement from "../../../components/UI/Form/FormElement";
-import {Button, Col, Form, FormGroup, Modal} from "react-bootstrap";
+import { Button, Col, Form, FormGroup, Modal, PageHeader } from "react-bootstrap";
 import {deleteStatus, getStatus} from "../../../store/actions/status";
 
 class DeleteStatus extends Component {
@@ -47,11 +47,12 @@ class DeleteStatus extends Component {
                     <Modal.Body>{`Вы действительно хотите удалить статус ${this.state.statusId}???`}</Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.handleClose}>Close</Button>
-                        <Button onClick={this.clickHandler} bsStyle="primary">Удалить</Button>
+                        <Button onClick={this.clickHandler} bsStyle="primary">Удалить статус</Button>
                     </Modal.Footer>
                 </Modal>
                 <Form
                     horizontal onSubmit={this.clickHandler}>
+                  <PageHeader>Удалить статус книги</PageHeader>
                     <FormElement
                         propertyName="statusId"
                         title="Статус"
@@ -66,7 +67,7 @@ class DeleteStatus extends Component {
                     <FormGroup>
                         <Col smOffset={2} sm={10}>
                             <Button disabled={!this.state.statusId} onClick={this.handleShow}
-                                    bsStyle="danger">Delete</Button>
+                                    bsStyle="danger">Удалить</Button>
                         </Col>
                     </FormGroup>
 

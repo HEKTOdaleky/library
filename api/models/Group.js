@@ -5,6 +5,10 @@ const GroupSchema = new Schema({
   name: {
     type: String,
     require: true
+  },
+  isArchive: {
+    type: Boolean,
+    default: false
   }
 });
 

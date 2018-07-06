@@ -1,4 +1,4 @@
 #!/bin/bash
 
-node ../api/fixtures.js
+/usr/bin/node /home/genius_spirit/learn/projects/library/api/fixtures.js
 mongo library seed.js

@@ -5,7 +5,6 @@ const StatusSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true,
         validate: {
             validator: async function(value) {
                 const state = await Status.findOne({ name: value });

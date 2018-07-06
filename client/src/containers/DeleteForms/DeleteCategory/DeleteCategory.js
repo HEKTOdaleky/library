@@ -51,7 +51,7 @@ class DeleteCategory extends Component {
 
           <Modal.Footer>
             <Button onClick={this.handleClose}>Отказаться</Button>
-            <Button onClick={this.clickHandler} bsStyle="primary">Удалить</Button>
+            <Button onClick={this.clickHandler} bsStyle="primary">Удалить категорию</Button>
           </Modal.Footer>
         </Modal>
 
