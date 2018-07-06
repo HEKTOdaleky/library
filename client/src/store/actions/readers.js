@@ -2,7 +2,10 @@ import axios from "../../axios-api";
 import {NotificationManager} from "react-notifications";
 import {push} from "react-router-redux";
 
-import {ADD_NEW_READER_FAILURE, ADD_NEW_READER_SUCCESS, EDIT_READER_FAILURE, EDIT_READER_SUCCESS} from "./actionTypes";
+import {
+  ADD_NEW_READER_FAILURE, ADD_NEW_READER_SUCCESS, EDIT_READER_FAILURE, EDIT_READER_SUCCESS, GET_READER_BY_PIN_FAILURE,
+  GET_READER_BY_PIN_SUCCESS
+} from "./actionTypes";
 
 const addNewReaderSuccess = data => {
   return {type: ADD_NEW_READER_SUCCESS, data};
@@ -18,6 +21,14 @@ const editReaderSuccess = data => {
 
 const editReaderFailure = error => {
   return {type: EDIT_READER_FAILURE, error};
+};
+
+const getReaderByPinSuccess = data => {
+  return {type: GET_READER_BY_PIN_SUCCESS, data};
+};
+
+const getReaderByPinFailure = error => {
+  return {type: GET_READER_BY_PIN_FAILURE, error};
 };
 
 export const addNewReader = data => {
@@ -49,6 +60,23 @@ export const editReader = data => {
       },
       error => {
         dispatch(editReaderFailure(error.response.data));
+        if (error.response.data.error)
+          NotificationManager.error(error.response.data.error);
+        if (error.response.data.message)
+          NotificationManager.info(error.response.data.message);
+      }
+    )
+  }
+};
+
+export const getReaderByPin = pin => {
+  return dispatch => {
+    return axios.get(`/reader/:${pin}`).then(
+      response => {
+        dispatch(getReaderByPinSuccess(response.data));
+      },
+      error => {
+        dispatch(getReaderByPinFailure(error.response.data));
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
