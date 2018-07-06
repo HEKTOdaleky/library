@@ -26,9 +26,6 @@ class AddAdminMenu extends Component {
           <LinkContainer to="/add-status">
             <MenuItem>Добавить статус книги</MenuItem>
           </LinkContainer>
-            <LinkContainer to="/create-new-user">
-                <MenuItem>Создать пользователя</MenuItem>
-            </LinkContainer>
         </NavDropdown>
       </Fragment>
     );
