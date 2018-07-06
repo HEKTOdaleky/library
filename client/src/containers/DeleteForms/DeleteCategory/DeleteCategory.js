@@ -1,8 +1,9 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from "react-redux";
 import FormElement from "../../../components/UI/Form/FormElement";
-import {Button, Col, Form, FormGroup, Modal, PageHeader} from "react-bootstrap";
+import {Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
 import {deleteCategory, getCategories} from "../../../store/actions/categories";
+import ModalForm from "../../../components/UI/Modal/ModalForm";
 
 class DeleteCategory extends Component {
   state = {
@@ -42,18 +43,14 @@ class DeleteCategory extends Component {
 
     return (
       <Fragment>
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header>
-            <Modal.Title>Удаление</Modal.Title>
-          </Modal.Header>
-
-          <Modal.Body>{`Вы действительно хотите удалить категорию?`}</Modal.Body>
-
-          <Modal.Footer>
-            <Button onClick={this.handleClose}>Отказаться</Button>
-            <Button onClick={this.clickHandler} bsStyle="primary">Удалить категорию</Button>
-          </Modal.Footer>
-        </Modal>
+        <ModalForm
+          show={this.state.show}
+          close={this.handleClose}
+          title="Удаление категории"
+          text="Вы действительно хотите удалить категорию?"
+          action={this.clickHandler}
+          buttonText="Удалить категорию"
+        />
 
         <PageHeader>Удалить категорию</PageHeader>
         <Form horizontal onSubmit={this.clickHandler}>
