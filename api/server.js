@@ -8,8 +8,9 @@ const books = require('./app/books');
 const groups = require('./app/groups');
 const categories = require('./app/categories');
 const users = require('./app/users');
+const bookChange = require('./app/bookschange');
 const language = require('./app/languages');
-const bookschange = require('./app/bookschange');
+
 const status = require('./app/status');
 
 const app = express();
@@ -33,11 +34,10 @@ db.once("open", () => {
     app.use('/users', users());
     app.use('/categories', categories());
     app.use('/language', language());
-    app.use('/bookschange', bookschange());
+    app.use('/bookChange', bookChange());
     app.use('/status', status());
 
     app.listen(port, (error) => {
-
       if (error) return console.error(`Server error ${error}`);
         console.log(`Server started on ${port} port!`);
     });
