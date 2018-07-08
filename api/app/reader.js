@@ -7,12 +7,24 @@ const createRouter = () => {
   const router = express.Router();
 
   router.get('/', [auth, permit('admin','librarian')], async(req, res) => {
-    try {
-      const readers = await Reader.find();
-      if (readers) res.send(readers);
-    } catch (e) {
-      return res.status(400).send({message: "Не удалось выполнить запрос"});
+
+    if (req.user.role === 'admin') {
+      try {
+        const readers = await Reader.find({markToRemove: true}).populate('groupId');
+        if (readers.length > 0) res.send(readers);
+      } catch (e) {
+        return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
+      }
     }
+    if (req.user.role === 'librarian') {
+      try {
+        const readers = await Reader.find({$and: [{isActive: true}, {markToRemove: false}]});
+        if (readers.length > 0) res.send(readers);
+      } catch (e) {
+        return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
+      }
+    }
+
   });
 
   router.post('/',[auth, permit('admin', 'librarian')], async (req, res) => {
@@ -29,8 +41,6 @@ const createRouter = () => {
 
     try {
       const reader = new Reader(data);
-
-      console.log("reader:________", reader);
       const newReader = await reader.save();
       if (newReader) res.send({message: "Новый читатель успешно добавлен", newReader});
     } catch (e) {
@@ -38,21 +48,19 @@ const createRouter = () => {
     }
   });
 
-  router.delete('/:id', [auth, permit('admin')], async (req, res) => {
+  router.delete('/', [auth, permit('admin')], async (req, res) => {
     let reader;
+    console.log(":________", req.body);
 
-    try {
-      reader = await Reader.findById(req.params.id)
-    }
-    catch (error) {
-      return res.status(500).send({message: 'Something went wrong'});
-    }
+    // try {
+    //   reader = await Reader.findById();
+    //   reader.isActive = false;
+    //   await reader.save();
+    // }
+    // catch (error) {
+    //   return res.status(500).send({message: 'Ошибка. Не удалось удалить читателя!'});
+    // }
 
-    reader.isActive = false;
-
-    await reader.save();
-
-    res.send(reader);
   });
 
   router.put('/:id',[auth, permit('admin')], auth, async (req, res) => {

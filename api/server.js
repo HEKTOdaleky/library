@@ -21,7 +21,7 @@ app.use(cors());
 app.use(express.json());
 
 mongoose.connect(config.db.url + "/" + config.db.name);
-// mongoose.set('debug', true);
+mongoose.set('debug', true);
 
 const db = mongoose.connection;
 

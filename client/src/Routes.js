@@ -17,6 +17,7 @@ import DeleteStatus from "./containers/DeleteForms/DeleteStatus/DeleteStatus";
 import DeleteLanguage from "./containers/DeleteForms/DeleteLanguage/DeleteLanguage";
 import DeleteCategory from "./containers/DeleteForms/DeleteCategory/DeleteCategory";
 import DeleteGroup from "./containers/DeleteForms/DeleteGroup/DeleteGroup";
+import DeleteReader from "./containers/DeleteForms/DeleteReader/DeleteReader";
 
 const ProtectedRoute = ({isAllowed, ...props}) =>
     isAllowed ? <Route {...props} /> : <Redirect to="/login"/>;
@@ -52,8 +53,8 @@ const Routes = ({user}) => {
                             component={DeleteLanguage}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-category" exact
                             component={DeleteCategory}/>
-
-
+          <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-reader" exact
+                            component={DeleteReader}/>
 
             <Route path="/login" exact component={Login}/>
             <Route

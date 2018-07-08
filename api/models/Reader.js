@@ -40,6 +40,14 @@ const ReaderSchema = new Schema({
     type: Boolean,
     default: true,
     required: true
+  },
+  markToRemove: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  comment: {
+    type: String
   }
 });
 
