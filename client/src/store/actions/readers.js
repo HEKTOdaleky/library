@@ -74,7 +74,12 @@ export const sendReaders = readersData => {
         NotificationManager.success(response.data.message);
       },
       error => {
-        dispatch(sendReadersFailure(error.response.data))
+        dispatch(sendReadersFailure(error.response.data));
+        if (error.response.data.error)
+          NotificationManager.error(error.response.data.error);
+        if (error.response.data.message)
+          NotificationManager.info(error.response.data.message);
+
       }
     )
   }

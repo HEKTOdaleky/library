@@ -44,7 +44,6 @@ const Routes = ({user}) => {
                             component={AddCategory}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/create-new-user" exact
                             component={NewUser}/>
-
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-status" exact
                             component={DeleteStatus}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-group" exact
@@ -53,13 +52,11 @@ const Routes = ({user}) => {
                             component={DeleteLanguage}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-category" exact
                             component={DeleteCategory}/>
-          <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-reader" exact
-                            component={DeleteReader}/>
+            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-reader" exact
+                              component={DeleteReader}/>
 
             <Route path="/login" exact component={Login}/>
-            <Route
-                render={() => <h1 style={{textAlign: "center"}}>Page not found</h1>}
-            />
+            <Route render={() => <h1 style={{textAlign: "center"}}>Page not found</h1>} />
         </Switch>
     );
 };

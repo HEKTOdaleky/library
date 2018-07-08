@@ -10,7 +10,7 @@ const createRouter = () => {
 
     if (req.user.role === 'admin') {
       try {
-        const readers = await Reader.find({markToRemove: true}).populate('groupId');
+        const readers = await Reader.find({$and: [{markToRemove: true}, {isActive: true}]}).populate('groupId');
         if (readers.length > 0) res.send(readers);
       } catch (e) {
         return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
@@ -49,18 +49,22 @@ const createRouter = () => {
   });
 
   router.delete('/', [auth, permit('admin')], async (req, res) => {
-    let reader;
-    console.log(":________", req.body);
+    let data = {
+      readers: req.body.readers,
+      order: req.body.order
+    };
+    console.log("data:________", data);
 
-    // try {
-    //   reader = await Reader.findById();
-    //   reader.isActive = false;
-    //   await reader.save();
-    // }
-    // catch (error) {
-    //   return res.status(500).send({message: 'Ошибка. Не удалось удалить читателя!'});
-    // }
-
+      if (data.order !== '' && data.readers.length > 0) {
+        await data.readers.map(async item => {
+          try {
+            await Reader.findOneAndUpdate({_id: item}, {$set: {isActive: false, comment: data.order }});
+          } catch (e) {
+            return res.status(500).send({message: 'Ошибка. Не удалось удалить читателя!'});
+          }
+        });
+        res.send({message: "Читатели успешно перенесены в архив"});
+      } else return res.status(400).send({error: "Хотя бы один читатель должен быть выбран, а поле для номера приказа должно быть заполнено"});
   });
 
   router.put('/:id',[auth, permit('admin')], auth, async (req, res) => {
