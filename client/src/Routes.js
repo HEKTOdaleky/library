@@ -18,6 +18,8 @@ import DeleteLanguage from "./containers/DeleteForms/DeleteLanguage/DeleteLangua
 import DeleteCategory from "./containers/DeleteForms/DeleteCategory/DeleteCategory";
 import DeleteGroup from "./containers/DeleteForms/DeleteGroup/DeleteGroup";
 import DeleteReader from "./containers/DeleteForms/DeleteReader/DeleteReader";
+import EditBook from "./containers/EditForms/EditBook/EditBook";
+import EditReader from "./containers/EditForms/EditReader/EditReader";
 
 const ProtectedRoute = ({isAllowed, ...props}) =>
     isAllowed ? <Route {...props} /> : <Redirect to="/login"/>;
@@ -30,6 +32,7 @@ const Routes = ({user}) => {
                             component={Librarian}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/admin" exact
                             component={Admin}/>
+
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-book" exact
                             component={AddBook}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-group" exact
@@ -54,6 +57,12 @@ const Routes = ({user}) => {
                             component={DeleteCategory}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-reader" exact
                               component={DeleteReader}/>
+
+          <ProtectedRoute isAllowed={user && user.role === "admin"} path="/edit-book" exact
+                          component={EditBook}/>
+          <ProtectedRoute isAllowed={user && user.role === "admin"} path="/edit-reader" exact
+                          component={EditReader}/>
+
 
             <Route path="/login" exact component={Login}/>
             <Route render={() => <h1 style={{textAlign: "center"}}>Page not found</h1>} />

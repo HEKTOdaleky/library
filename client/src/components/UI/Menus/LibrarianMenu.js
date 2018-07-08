@@ -7,10 +7,9 @@ class LibrarianMenu extends Component {
   render() {
     return (
       <Nav pullLeft>
-          <LinkContainer to="/">
-            <MenuItem>меню библиотекаря</MenuItem>
-          </LinkContainer>
-
+        <LinkContainer to="/">
+          <MenuItem>Меню библиотекаря</MenuItem>
+        </LinkContainer>
       </Nav>
     );
   }
