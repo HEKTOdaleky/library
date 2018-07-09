@@ -5,6 +5,7 @@ import {push} from "react-router-redux";
 import {
   ADD_NEW_READER_FAILURE,
   ADD_NEW_READER_SUCCESS,
+  CLEAR_FINDING_READER,
   EDIT_READER_FAILURE,
   EDIT_READER_SUCCESS,
   GET_READER_BY_PIN_FAILURE,
@@ -37,6 +38,10 @@ const getReaderByPinSuccess = data => {
 
 const getReaderByPinFailure = error => {
   return {type: GET_READER_BY_PIN_FAILURE, error};
+};
+
+export const clearFindingReader = () => {
+  return {type: CLEAR_FINDING_READER};
 };
 
 export const addNewReader = data => {
@@ -76,6 +81,7 @@ export const editReader = data => {
     )
   }
 };
+
 const getReadersForRemoveSuccess = data => {
   return {type: GET_READERS_FOR_REMOVE_SUCCESS, data};
 };
@@ -96,6 +102,7 @@ export const getReaderByPin = pin => {
     )
   }
 };
+
 const getReadersForRemoveFailure = error => {
   return {type: GET_READERS_FOR_REMOVE_FAILURE, error};
 };
