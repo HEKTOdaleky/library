@@ -5,7 +5,17 @@ import {push} from "react-router-redux";
 import {
   ADD_NEW_READER_FAILURE, ADD_NEW_READER_SUCCESS, CLEAR_FINDING_READER, EDIT_READER_FAILURE, EDIT_READER_SUCCESS,
   GET_READER_BY_PIN_FAILURE,
-  GET_READER_BY_PIN_SUCCESS
+  GET_READER_BY_PIN_SUCCESS,
+  ADD_NEW_READER_FAILURE,
+  ADD_NEW_READER_SUCCESS,
+  EDIT_READER_FAILURE,
+  EDIT_READER_SUCCESS,
+  GET_READER_BY_PIN_FAILURE,
+  GET_READER_BY_PIN_SUCCESS,
+  GET_READERS_FOR_REMOVE_FAILURE,
+  GET_READERS_FOR_REMOVE_SUCCESS,
+  SEND_READERS_FAILURE,
+  SEND_READERS_SUCCESS
 } from "./actionTypes";
 
 const addNewReaderSuccess = data => {
@@ -74,6 +84,10 @@ export const editReader = data => {
   }
 };
 
+const getReadersForRemoveSuccess = data => {
+  return {type: GET_READERS_FOR_REMOVE_SUCCESS, data};
+};
+
 export const getReaderByPin = pin => {
   return dispatch => {
     return axios.get(`/reader/:${pin}`).then(
@@ -86,6 +100,51 @@ export const getReaderByPin = pin => {
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
           NotificationManager.info(error.response.data.message);
+      }
+    )
+  }
+};
+
+const getReadersForRemoveFailure = error => {
+  return {type: GET_READERS_FOR_REMOVE_FAILURE, error};
+};
+
+export const getReadersForRemove = () => {
+  return dispatch => {
+    axios.get('/reader').then(
+      response => {
+        dispatch(getReadersForRemoveSuccess(response.data))
+      },
+      error => {
+        dispatch(getReadersForRemoveFailure(error.response.data))
+      }
+    )
+  }
+};
+
+const sendReadersSuccess = data => {
+  return {type: SEND_READERS_SUCCESS, data};
+};
+
+const sendReadersFailure = error => {
+  return {type: SEND_READERS_FAILURE, error};
+};
+
+export const sendReaders = readersData => {
+  return dispatch => {
+    axios.delete('/reader', {data: readersData}).then(
+      response => {
+        dispatch(sendReadersSuccess(response.data));
+        dispatch(push('/admin'));
+        NotificationManager.success(response.data.message);
+      },
+      error => {
+        dispatch(sendReadersFailure(error.response.data));
+        if (error.response.data.error)
+          NotificationManager.error(error.response.data.error);
+        if (error.response.data.message)
+          NotificationManager.info(error.response.data.message);
+
       }
     )
   }

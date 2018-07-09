@@ -309,7 +309,7 @@ db.once("open", async () => {
       year: 1977,
       categoryId: c6._id,
       statusId: status2._id,
-      publishHouse: "Альтаир",
+      publishHouse: "АСТ",
       language: l1._id
     },
     {
@@ -319,7 +319,7 @@ db.once("open", async () => {
       year: 1981,
       categoryId: c2._id,
       statusId: status1._id,
-      publishHouse: "Нова плюс",
+      publishHouse: "АСТ",
       language: l1._id
     },
     {
@@ -339,7 +339,7 @@ db.once("open", async () => {
       year: 2009,
       categoryId: c14._id,
       statusId: status3._id,
-      publishHouse: "Толмач",
+      publishHouse: "АСТ",
       language: l2._id
     }
   );
@@ -364,7 +364,31 @@ db.once("open", async () => {
       firstName: "Азамат",
       lastName: "Исаков",
       documentNumber: "6351-09",
+      groupId: g2._id,
+      markToRemove: true
+    },
+    {
+      inventoryCode: "000004",
+      firstName: "Искендер",
+      lastName: "Ядгаров",
+      documentNumber: "6351-49",
       groupId: g2._id
+    },
+    {
+      inventoryCode: "000005",
+      firstName: "Азамат",
+      lastName: "Мусагалиев",
+      documentNumber: "6351-15",
+      groupId: g1._id,
+      markToRemove: true
+    },
+    {
+      inventoryCode: "000006",
+      firstName: "Петр",
+      lastName: "Петров",
+      documentNumber: "6351-10",
+      groupId: g1._id,
+      markToRemove: true
     }
   ]);
 

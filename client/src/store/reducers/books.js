@@ -1,16 +1,18 @@
 import {
-    BOOK_POST_DATA_FAILURE,
-    BOOK_POST_DATA_SUCCESS,
-    GET_BOOKS_FROM_FULLSEARCH_FAILURE,
-    GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
-    GET_BOOKS_FROM_SEARCH_FAILURE,
-    GET_BOOKS_FROM_SEARCH_SUCCESS
+  BOOK_POST_DATA_FAILURE, BOOK_POST_DATA_SUCCESS,
+  BOOK_UPDATE_DATA_FAILURE, BOOK_UPDATE_DATA_SUCCESS,
+  GET_BOOK_BY_ID_FAILURE, GET_BOOK_BY_ID_SUCCESS,
+  GET_BOOKS_FROM_FULLSEARCH_FAILURE, GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
+  GET_BOOKS_FROM_SEARCH_FAILURE, GET_BOOKS_FROM_SEARCH_SUCCESS
 } from "../actions/actionTypes";
 
 const initialState = {
     books: [],
+    book: [],
+    bookError: null,
     booksError: null,
-    postError: null
+    postError: null,
+    updateError: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -23,10 +25,18 @@ const reducer = (state = initialState, action) => {
             return {...state, books: action.bookData, booksError: null};
         case GET_BOOKS_FROM_FULLSEARCH_FAILURE:
             return {...state, booksError: action.error};
+        case GET_BOOK_BY_ID_SUCCESS:
+            return {...state, book: action.bookData, bookError: null};
+        case GET_BOOK_BY_ID_FAILURE:
+            return {...state, bookError: action.error};
         case BOOK_POST_DATA_SUCCESS:
             return {...state, postError: null};
         case BOOK_POST_DATA_FAILURE:
             return {...state, postError: action.postError};
+        case BOOK_UPDATE_DATA_SUCCESS:
+            return {...state, updateError: null};
+        case BOOK_UPDATE_DATA_FAILURE:
+            return {...state, updateError: action.updateError};
         default:
             return state;
     }

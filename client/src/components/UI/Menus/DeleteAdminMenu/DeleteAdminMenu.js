@@ -11,8 +11,8 @@ class DeleteAdminMenu extends Component {
           <LinkContainer to="/delete-book">
             <MenuItem>Удалить книгу</MenuItem>
           </LinkContainer>
-          <LinkContainer to="/delete-user">
-            <MenuItem>Удалить пользователя</MenuItem>
+          <LinkContainer to="/delete-reader">
+            <MenuItem>Удалить читателя</MenuItem>
           </LinkContainer>
           <LinkContainer to="/delete-group">
             <MenuItem>Удалить группу</MenuItem>
