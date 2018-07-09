@@ -17,7 +17,14 @@ const ReaderSchema = new Schema({
   documentNumber: {
     type: String,
     required: true,
-    unique: true
+    validate: {
+      validator: async function (value) {
+        const r = await Reader.findOne({documentNumber: value});
+        if (r) throw new Error(error);
+        return true;
+      },
+      message: "Читатель с таким документом уже зарегистрирован"
+    }
   },
   groupId: {
     type: Schema.Types.ObjectId,
@@ -33,6 +40,14 @@ const ReaderSchema = new Schema({
     type: Boolean,
     default: true,
     required: true
+  },
+  markToRemove: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  comment: {
+    type: String
   }
 });
 

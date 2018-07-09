@@ -49,7 +49,7 @@ class AddStatus extends Component {
             />
             <FormGroup>
               <Col smOffset={2} sm={10}>
-                <Button bsStyle="primary" type="submit">Отправить</Button>
+                <Button bsStyle="primary" type="submit">Добавить</Button>
               </Col>
             </FormGroup>
 

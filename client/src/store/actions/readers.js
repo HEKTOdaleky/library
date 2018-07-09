@@ -2,7 +2,18 @@ import axios from "../../axios-api";
 import {NotificationManager} from "react-notifications";
 import {push} from "react-router-redux";
 
-import {ADD_NEW_READER_FAILURE, ADD_NEW_READER_SUCCESS} from "./actionTypes";
+import {
+  ADD_NEW_READER_FAILURE,
+  ADD_NEW_READER_SUCCESS,
+  EDIT_READER_FAILURE,
+  EDIT_READER_SUCCESS,
+  GET_READER_BY_PIN_FAILURE,
+  GET_READER_BY_PIN_SUCCESS,
+  GET_READERS_FOR_REMOVE_FAILURE,
+  GET_READERS_FOR_REMOVE_SUCCESS,
+  SEND_READERS_FAILURE,
+  SEND_READERS_SUCCESS
+} from "./actionTypes";
 
 const addNewReaderSuccess = data => {
   return {type: ADD_NEW_READER_SUCCESS, data};
@@ -10,6 +21,22 @@ const addNewReaderSuccess = data => {
 
 const addNewReaderFailure = error => {
   return {type: ADD_NEW_READER_FAILURE, error};
+};
+
+const editReaderSuccess = data => {
+  return {type: EDIT_READER_SUCCESS, data};
+};
+
+const editReaderFailure = error => {
+  return {type: EDIT_READER_FAILURE, error};
+};
+
+const getReaderByPinSuccess = data => {
+  return {type: GET_READER_BY_PIN_SUCCESS, data};
+};
+
+const getReaderByPinFailure = error => {
+  return {type: GET_READER_BY_PIN_FAILURE, error};
 };
 
 export const addNewReader = data => {
@@ -31,3 +58,85 @@ export const addNewReader = data => {
   }
 };
 
+export const editReader = data => {
+  return dispatch => {
+    return axios.put(`/reader/${data._id}`, data).then(
+      response => {
+        dispatch(editReaderSuccess(response.data));
+        dispatch(push('/admin'));
+        NotificationManager.success(response.data.message);
+      },
+      error => {
+        dispatch(editReaderFailure(error.response.data));
+        if (error.response.data.error)
+          NotificationManager.error(error.response.data.error);
+        if (error.response.data.message)
+          NotificationManager.info(error.response.data.message);
+      }
+    )
+  }
+};
+const getReadersForRemoveSuccess = data => {
+  return {type: GET_READERS_FOR_REMOVE_SUCCESS, data};
+};
+
+export const getReaderByPin = pin => {
+  return dispatch => {
+    return axios.get(`/reader/:${pin}`).then(
+      response => {
+        dispatch(getReaderByPinSuccess(response.data));
+      },
+      error => {
+        dispatch(getReaderByPinFailure(error.response.data));
+        if (error.response.data.error)
+          NotificationManager.error(error.response.data.error);
+        if (error.response.data.message)
+          NotificationManager.info(error.response.data.message);
+      }
+    )
+  }
+};
+const getReadersForRemoveFailure = error => {
+  return {type: GET_READERS_FOR_REMOVE_FAILURE, error};
+};
+
+export const getReadersForRemove = () => {
+  return dispatch => {
+    axios.get('/reader').then(
+      response => {
+        dispatch(getReadersForRemoveSuccess(response.data))
+      },
+      error => {
+        dispatch(getReadersForRemoveFailure(error.response.data))
+      }
+    )
+  }
+};
+
+const sendReadersSuccess = data => {
+  return {type: SEND_READERS_SUCCESS, data};
+};
+
+const sendReadersFailure = error => {
+  return {type: SEND_READERS_FAILURE, error};
+};
+
+export const sendReaders = readersData => {
+  return dispatch => {
+    axios.delete('/reader', {data: readersData}).then(
+      response => {
+        dispatch(sendReadersSuccess(response.data));
+        dispatch(push('/admin'));
+        NotificationManager.success(response.data.message);
+      },
+      error => {
+        dispatch(sendReadersFailure(error.response.data));
+        if (error.response.data.error)
+          NotificationManager.error(error.response.data.error);
+        if (error.response.data.message)
+          NotificationManager.info(error.response.data.message);
+
+      }
+    )
+  }
+};

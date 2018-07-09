@@ -1,13 +1,22 @@
-import React, {Component, Fragment} from 'react'
-import {connect} from "react-redux";
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
 import FormElement from "../../../components/UI/Form/FormElement";
-import {Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
-import {deleteCategory, getCategories} from "../../../store/actions/categories";
+import {
+  Button,
+  Col,
+  Form,
+  FormGroup,
+  PageHeader
+} from "react-bootstrap";
+import {
+  deleteCategory,
+  getCategories
+} from "../../../store/actions/categories";
 import ModalForm from "../../../components/UI/Modal/ModalForm";
 
 class DeleteCategory extends Component {
   state = {
-    categoryId: '',
+    categoryId: "",
     show: false
   };
 
@@ -23,11 +32,11 @@ class DeleteCategory extends Component {
   };
 
   handleClose = () => {
-    this.setState({show: false})
+    this.setState({ show: false });
   };
 
   handleShow = () => {
-    this.setState({show: true})
+    this.setState({ show: true });
   };
 
   onChangeHandler = event => {
@@ -38,7 +47,7 @@ class DeleteCategory extends Component {
 
   render() {
     const categories = this.props.categories.map(category => {
-      return {id: category._id, title: category.title};
+      return { id: category._id, title: category.title };
     });
 
     return (
@@ -46,8 +55,8 @@ class DeleteCategory extends Component {
         <ModalForm
           show={this.state.show}
           close={this.handleClose}
-          title="Удаление категории"
-          text="Вы действительно хотите удалить категорию?"
+          title="Удаление категории книги"
+          text="Вы действительно хотите удалить категорию книги?"
           action={this.clickHandler}
           buttonText="Удалить категорию"
         />
@@ -65,18 +74,20 @@ class DeleteCategory extends Component {
 
           <FormGroup>
             <Col smOffset={2} sm={10}>
-              <Button disabled={!this.state.categoryId}
-                      onClick={this.handleShow}
-                      bsStyle="danger">Удалить</Button>
+              <Button
+                disabled={!this.state.categoryId}
+                onClick={this.handleShow}
+                bsStyle="danger"
+              >
+                Удалить
+              </Button>
             </Col>
           </FormGroup>
-
         </Form>
       </Fragment>
-    )
+    );
   }
 }
-
 
 const mapStateToProps = state => {
   return {
@@ -87,8 +98,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getCategories: () => dispatch(getCategories()),
-    deleteCategory: (data) => dispatch(deleteCategory(data))
+    deleteCategory: data => dispatch(deleteCategory(data))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeleteCategory);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DeleteCategory);

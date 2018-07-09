@@ -43,6 +43,9 @@ const BookSchema = new Schema({
   },
   price: {
     type: Number
+  },
+  comment: {
+    type: String
   }
 });
 

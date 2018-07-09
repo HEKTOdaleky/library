@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {getLanguage} from "../../../store/actions/languages";
 import {getStatus} from "../../../store/actions/status";
 import {getCategories} from "../../../store/actions/categories";
-import {Alert, Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
+import {Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
 import dateFormat from 'dateformat';
 import FormElement from "../../../components/UI/Form/FormElement";
 import {postBooksData} from "../../../store/actions/books";

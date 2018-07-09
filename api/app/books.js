@@ -24,8 +24,7 @@ const createRouter = () => {
         }
         try {
             const status = await Status.findOne({name: "В наличии"});
-            const books = await Book.find({title: {$regex: req.body.searchKey, $options: "$i"}, groupId: status._id});
-
+            const books = await Book.find({title: {$regex: req.body.searchKey, $options: "$i"}, statusId: status._id});
             if (books && books.length > 0) {
                 res.send(books);
             } else {
@@ -60,11 +59,9 @@ const createRouter = () => {
 
     router.post("/", [auth, permit('admin', 'librarian')], async (req, res) => {
         const bookData = req.body;
-      console.log(":________", bookData);
         const book = new Book(bookData);
         try {
             const newBook = await book.save();
-          console.log(":________", newBook);
             if (newBook) res.send({message: "Книга успешно добавлена!"});
         } catch (error) {
             return res.status(400).send({message: "Все поля должны быть заполнены"});
@@ -72,7 +69,7 @@ const createRouter = () => {
 
     });
 
-    router.get("/:id", async (req, res) => {
+    router.get("/:id",[auth, permit('admin', 'librarian')], async (req, res) => {
         const id = req.params.id;
         try {
             const book = await Book.findById(id);
@@ -83,6 +80,7 @@ const createRouter = () => {
             return res.status(500).send({message: error});
         }
     });
+
 
     router.put("/:id", [auth, permit('admin', 'librarian')], async (req, res) => {
         const id = req.params.id;
@@ -99,7 +97,8 @@ const createRouter = () => {
         }
     });
 
-    router.delete("/:id", async (req, res) => {
+    router.delete("/:id", [auth, permit('admin', 'librarian')], async (req, res) => {
+
         const id = req.params.id;
         try {
             const bookData = await Book.findById(id);
