@@ -3,7 +3,8 @@ import {NotificationManager} from "react-notifications";
 import {push} from "react-router-redux";
 
 import {
-  ADD_NEW_READER_FAILURE, ADD_NEW_READER_SUCCESS, EDIT_READER_FAILURE, EDIT_READER_SUCCESS, GET_READER_BY_PIN_FAILURE,
+  ADD_NEW_READER_FAILURE, ADD_NEW_READER_SUCCESS, CLEAR_FINDING_READER, EDIT_READER_FAILURE, EDIT_READER_SUCCESS,
+  GET_READER_BY_PIN_FAILURE,
   GET_READER_BY_PIN_SUCCESS
 } from "./actionTypes";
 
@@ -29,6 +30,10 @@ const getReaderByPinSuccess = data => {
 
 const getReaderByPinFailure = error => {
   return {type: GET_READER_BY_PIN_FAILURE, error};
+};
+
+export const clearFindingReader = () => {
+  return {type: CLEAR_FINDING_READER};
 };
 
 export const addNewReader = data => {

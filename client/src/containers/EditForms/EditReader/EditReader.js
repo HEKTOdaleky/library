@@ -1,10 +1,10 @@
 import React, {Component, Fragment} from 'react';
-import {Button, Col, Form, FormGroup, PageHeader, Well} from "react-bootstrap";
+import {Button, Col, Collapse, Form, FormGroup, PageHeader, Well} from "react-bootstrap";
 import FormElement from "../../../components/UI/Form/FormElement";
 import {connect} from "react-redux";
 
 import {getGroups} from "../../../store/actions/groups";
-import {editReader, getReaderByPin} from "../../../store/actions/readers";
+import {clearFindingReader, editReader, getReaderByPin} from "../../../store/actions/readers";
 
 class EditReader extends Component {
 
@@ -14,11 +14,24 @@ class EditReader extends Component {
     documentNumber: '',
     groupId: '',
     inventoryCode: '',
-    isFind: false
+    isFind: true
   };
 
   componentDidMount() {
     this.props.onGetGroups();
+    console.log('Mounted');
+  }
+
+  componentDidUpdate() {
+    if (this.props.findingReader) {
+      this.setState({isFind: true});
+    } else {
+      this.setState({isFind: false});
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.onClearFindingReader();
   }
 
   onChangeHandler = event => {
@@ -63,55 +76,57 @@ class EditReader extends Component {
           </FormGroup>
         </Form>
 
-        <Well>
-          <Form horizontal onSubmit={this.formSubmitHandler}>
-            <FormElement
-              propertyName="lastName"
-              title="Фамилия"
-              type="text"
-              changeHandler={this.onChangeHandler}
-              error={this.props.error &&
-              this.props.error.message}
-            />
+        <Collapse in={this.state.isFind}>
+          <Well>
+            <Form horizontal onSubmit={this.formSubmitHandler}>
+              <FormElement
+                propertyName="lastName"
+                title="Фамилия"
+                type="text"
+                changeHandler={this.onChangeHandler}
+                error={this.props.error &&
+                this.props.error.message}
+              />
 
-            <FormElement
-              propertyName="firstName"
-              title="Имя"
-              type="text"
-              value={this.state.firstName}
-              changeHandler={this.onChangeHandler}
-              error={this.props.error &&
-              this.props.error.message}
-            />
+              <FormElement
+                propertyName="firstName"
+                title="Имя"
+                type="text"
+                value={this.state.firstName}
+                changeHandler={this.onChangeHandler}
+                error={this.props.error &&
+                this.props.error.message}
+              />
 
-            <FormElement
-              propertyName="documentNumber"
-              title="Номер документа"
-              type="text"
-              value={this.state.documentNumber}
-              changeHandler={this.onChangeHandler}
-              error={this.props.error &&
-              this.props.error.message}
-            />
+              <FormElement
+                propertyName="documentNumber"
+                title="Номер документа"
+                type="text"
+                value={this.state.documentNumber}
+                changeHandler={this.onChangeHandler}
+                error={this.props.error &&
+                this.props.error.message}
+              />
 
-            <FormElement
-              propertyName="groupId"
-              title="Группа"
-              type="select"
-              options={groups}
-              value={this.state.groupId}
-              changeHandler={this.onChangeHandler}
-              error={this.props.error &&
-              this.props.error.message}
-            />
+              <FormElement
+                propertyName="groupId"
+                title="Группа"
+                type="select"
+                options={groups}
+                value={this.state.groupId}
+                changeHandler={this.onChangeHandler}
+                error={this.props.error &&
+                this.props.error.message}
+              />
 
-            <FormGroup>
-              <Col smOffset={2} sm={10}>
-                <Button bsStyle="primary" type="submit">Сохранить</Button>
-              </Col>
-            </FormGroup>
-          </Form>
-        </Well>
+              <FormGroup>
+                <Col smOffset={2} sm={10}>
+                  <Button bsStyle="primary" type="submit">Сохранить</Button>
+                </Col>
+              </FormGroup>
+            </Form>
+          </Well>
+        </Collapse>
       </Fragment>
     );
   }
@@ -120,7 +135,8 @@ class EditReader extends Component {
 const mapStateToProps = state => {
   return {
     groups: state.groups.groups,
-    error: state.readers.error
+    error: state.readers.error,
+    findingReader: state.readers.findingReader
   }
 };
 
@@ -128,7 +144,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onGetGroups: () => dispatch(getGroups()),
     onFindReader: pin => dispatch(getReaderByPin(pin)),
-    onEditReader: data => dispatch(editReader(data))
+    onEditReader: data => dispatch(editReader(data)),
+    onClearFindingReader: () => dispatch(clearFindingReader())
   }
 };
 

@@ -1,5 +1,5 @@
 import {
-  ADD_NEW_READER_FAILURE, ADD_NEW_READER_SUCCESS, EDIT_READER_FAILURE,
+  ADD_NEW_READER_FAILURE, ADD_NEW_READER_SUCCESS, CLEAR_FINDING_READER, EDIT_READER_FAILURE,
   EDIT_READER_SUCCESS, GET_READER_BY_PIN_FAILURE, GET_READER_BY_PIN_SUCCESS
 } from "../actions/actionTypes";
 
@@ -11,6 +11,8 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLEAR_FINDING_READER:
+      return {...state, findingReader: null};
     case ADD_NEW_READER_SUCCESS:
       return {...state, newReader: action.data, error: null};
     case ADD_NEW_READER_FAILURE:
