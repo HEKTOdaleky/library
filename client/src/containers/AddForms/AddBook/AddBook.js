@@ -48,12 +48,14 @@ class AddBook extends Component {
         const categories = this.props.categories.map(category => {
             return {id: category._id, title: category.title};
         });
+        categories.unshift({id: '', title:  'Выберите категорию ...'});
         const status = this.props.status.map(state => {
             return {id: state._id, title: state.name};
         });
         const lang = this.props.languages.map(lang => {
             return {id: lang._id, title: lang.title};
         });
+        lang.unshift({id: '', title:  'Выберите язык ...'});
 
         return (
             <Fragment>
@@ -61,7 +63,6 @@ class AddBook extends Component {
 
                 <Form
                     horizontal onSubmit={this.clickHandler}>
-
 
                     <FormElement
                         propertyName="title"
@@ -73,7 +74,6 @@ class AddBook extends Component {
                         required
                         error={this.props.postError &&
                         this.props.postError.message}
-
                     />
 
                     <FormElement
@@ -97,6 +97,7 @@ class AddBook extends Component {
                         error={this.props.postError &&
                         this.props.postError.message}
                     />
+
                     <FormElement
                         propertyName="categoryId"
                         title="Категория"
@@ -107,6 +108,7 @@ class AddBook extends Component {
                         error={this.props.postError &&
                         this.props.postError.message}
                     />
+
                     <FormElement
                         propertyName="statusId"
                         title="Статус"
@@ -117,6 +119,7 @@ class AddBook extends Component {
                         error={this.props.postError &&
                         this.props.postError.message}
                     />
+
                     <FormElement
                         propertyName="publishHouse"
                         title="Издательство"
@@ -127,6 +130,7 @@ class AddBook extends Component {
                         error={this.props.postError &&
                         this.props.postError.message}
                     />
+
                     <FormElement
                         propertyName="language"
                         title="Язык"
@@ -137,6 +141,7 @@ class AddBook extends Component {
                         error={this.props.postError &&
                         this.props.postError.message}
                     />
+
                     <FormElement
                         propertyName="price"
                         title="Стоимость"
@@ -147,6 +152,7 @@ class AddBook extends Component {
                         error={this.props.postError &&
                         this.props.postError.message}
                     />
+
                     <FormElement
                         propertyName="registerDate"
                         title="Дата регистрации книги"
@@ -168,9 +174,7 @@ class AddBook extends Component {
             </Fragment>
         )
     }
-
 }
-
 
 const mapStateToProps = state => {
     return {
@@ -189,6 +193,5 @@ const mapDispatchToProps = dispatch => {
         postBooksData: (data) => dispatch(postBooksData(data))
     };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddBook);

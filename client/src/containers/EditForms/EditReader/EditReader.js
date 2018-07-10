@@ -14,19 +14,35 @@ class EditReader extends Component {
     documentNumber: '',
     groupId: '',
     inventoryCode: '',
-    isFind: true
+    isFind: false
   };
 
   componentDidMount() {
     this.props.onGetGroups();
-    console.log('Mounted');
   }
 
-  componentDidUpdate() {
-    if (this.props.findingReader) {
-      this.setState({isFind: true});
-    } else {
-      this.setState({isFind: false});
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.findingReader);
+    if (!nextProps.findingReader) {
+      this.setState({
+        firstName: '',
+        lastName: '',
+        documentNumber: '',
+        groupId: '',
+        inventoryCode: '',
+        isFind: false
+      });
+      return null;
+    }
+
+    if (nextProps.findingReader !== this.props.findingReader) {
+      this.setState({
+        firstName: nextProps.findingReader.firstName,
+        lastName: nextProps.findingReader.lastName,
+        documentNumber: nextProps.findingReader.documentNumber,
+        groupId: nextProps.findingReader.groupId,
+        isFind: true
+      });
     }
   }
 
@@ -45,7 +61,13 @@ class EditReader extends Component {
 
   formSubmitHandler = event => {
     event.preventDefault();
-    this.props.onEditReader(this.state);
+    this.props.onEditReader({
+      _id: this.props.findingReader._id,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      documentNumber: this.state.documentNumber,
+      groupId: this.state.groupId
+    });
   };
 
   render() {
@@ -83,6 +105,7 @@ class EditReader extends Component {
                 propertyName="lastName"
                 title="Фамилия"
                 type="text"
+                value={this.state.lastName}
                 changeHandler={this.onChangeHandler}
                 error={this.props.error &&
                 this.props.error.message}

@@ -49,6 +49,7 @@ class DeleteCategory extends Component {
     const categories = this.props.categories.map(category => {
       return { id: category._id, title: category.title };
     });
+    categories.unshift({id: '', title:  'Выберите категорию ...'});
 
     return (
       <Fragment>

@@ -6,7 +6,7 @@ const Reader = require('../models/Reader');
 const createRouter = () => {
   const router = express.Router();
 
-  router.get('/', [auth, permit('admin','librarian')], async(req, res) => {
+  router.get('/', [auth, permit('admin', 'librarian')], async(req, res) => {
 
     if (req.user.role === 'admin') {
       try {
@@ -24,7 +24,16 @@ const createRouter = () => {
         return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
       }
     }
+  });
 
+  router.get('/by-pin/:pin', auth, async(req, res) => {
+    try {
+      const reader = await Reader.findOne({inventoryCode: req.params.pin});
+      if (reader) return res.send(reader);
+      else return res.status(400).send({message: 'Читатель с таким ПИН не найден'});
+    } catch (e) {
+      return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
+    }
   });
 
   router.post('/',[auth, permit('admin', 'librarian')], async (req, res) => {
@@ -67,24 +76,22 @@ const createRouter = () => {
       } else return res.status(400).send({error: "Хотя бы один читатель должен быть выбран, а поле для номера приказа должно быть заполнено"});
   });
 
-  router.put('/:id',[auth, permit('admin')], auth, async (req, res) => {
-    const id = req.params.id;
-    let reader;
-
+  router.put('/:id', auth, async (req, res) => {
     try {
-      reader = await Reader.findOne({_id: id});
+      const reader = await Reader.findById(req.params.id);
+      if (reader) {
+        reader.firstName = req.body.firstName;
+        reader.lastName = req.body.lastName;
+        reader.documentNumber = req.body.documentNumber;
+        reader.groupId = req.body.groupId;
+        await reader.save();
+        res.status(200).send({message: 'Данные читателя сохранены'});
+      } else {
+        return res.status(400).send({error: 'Читатель с таким ПИН не найден'});
+      }
+    } catch (e) {
+      return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
     }
-    catch (error) {
-      res.status(500).send(error);
-    }
-
-    for (let i in req.body) {
-      reader[i] ? reader[i] = req.body[i] : null
-    }
-
-    await reader.save();
-
-    res.send(reader);
   });
 
   return router;

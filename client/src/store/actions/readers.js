@@ -57,7 +57,7 @@ export const addNewReader = data => {
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
-          NotificationManager.info(error.response.data.message);
+          NotificationManager.error(error.response.data.message);
       }
     )
   }
@@ -76,7 +76,7 @@ export const editReader = data => {
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
-          NotificationManager.info(error.response.data.message);
+          NotificationManager.error(error.response.data.message);
       }
     )
   }
@@ -88,7 +88,7 @@ const getReadersForRemoveSuccess = data => {
 
 export const getReaderByPin = pin => {
   return dispatch => {
-    return axios.get(`/reader/:${pin}`).then(
+    return axios.get(`/reader/by-pin/${pin}`).then(
       response => {
         dispatch(getReaderByPinSuccess(response.data));
       },
@@ -97,7 +97,7 @@ export const getReaderByPin = pin => {
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
-          NotificationManager.info(error.response.data.message);
+          NotificationManager.error(error.response.data.message);
       }
     )
   }
@@ -141,7 +141,7 @@ export const sendReaders = readersData => {
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
-          NotificationManager.info(error.response.data.message);
+          NotificationManager.error(error.response.data.message);
 
       }
     )
