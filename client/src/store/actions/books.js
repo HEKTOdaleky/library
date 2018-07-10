@@ -137,7 +137,11 @@ export const getBookByBarcode = barcode => {
         dispatch(getBookByBarcodeSuccess(response.data))
       },
       error => {
-        dispatch(getBookByBarcodeFailure(error.response.data))
+        dispatch(getBookByBarcodeFailure(error.response.data));
+        if (error.response.data.error)
+          NotificationManager.error(error.response.data.error);
+        if (error.response.data.message)
+          NotificationManager.info(error.response.data.message);
       }
     )
   }

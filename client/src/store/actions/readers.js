@@ -97,7 +97,7 @@ export const getReaderByBarcode = barcode => {
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
-          NotificationManager.error(error.response.data.message);
+          NotificationManager.info(error.response.data.message);
       }
     )
   }
