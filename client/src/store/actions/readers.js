@@ -5,10 +5,11 @@ import {push} from "react-router-redux";
 import {
   ADD_NEW_READER_FAILURE,
   ADD_NEW_READER_SUCCESS,
+  CLEAR_FINDING_READER,
   EDIT_READER_FAILURE,
   EDIT_READER_SUCCESS,
-  GET_READER_BY_PIN_FAILURE,
-  GET_READER_BY_PIN_SUCCESS,
+  GET_READER_BY_BARCODE_FAILURE,
+  GET_READER_BY_BARCODE_SUCCESS,
   GET_READERS_FOR_REMOVE_FAILURE,
   GET_READERS_FOR_REMOVE_SUCCESS,
   SEND_READERS_FAILURE,
@@ -31,12 +32,16 @@ const editReaderFailure = error => {
   return {type: EDIT_READER_FAILURE, error};
 };
 
-const getReaderByPinSuccess = data => {
-  return {type: GET_READER_BY_PIN_SUCCESS, data};
+const getReaderByBarcodeSuccess = data => {
+  return {type: GET_READER_BY_BARCODE_SUCCESS, data};
 };
 
-const getReaderByPinFailure = error => {
-  return {type: GET_READER_BY_PIN_FAILURE, error};
+const getReaderByBarcodeFailure = error => {
+  return {type: GET_READER_BY_BARCODE_FAILURE, error};
+};
+
+export const clearFindingReader = () => {
+  return {type: CLEAR_FINDING_READER};
 };
 
 export const addNewReader = data => {
@@ -52,7 +57,7 @@ export const addNewReader = data => {
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
-          NotificationManager.info(error.response.data.message);
+          NotificationManager.error(error.response.data.message);
       }
     )
   }
@@ -71,31 +76,33 @@ export const editReader = data => {
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
-          NotificationManager.info(error.response.data.message);
+          NotificationManager.error(error.response.data.message);
       }
     )
   }
 };
+
 const getReadersForRemoveSuccess = data => {
   return {type: GET_READERS_FOR_REMOVE_SUCCESS, data};
 };
 
-export const getReaderByPin = pin => {
+export const getReaderByBarcode = barcode => {
   return dispatch => {
-    return axios.get(`/reader/:${pin}`).then(
+    return axios.get(`/reader/barcode/${barcode}`).then(
       response => {
-        dispatch(getReaderByPinSuccess(response.data));
+        dispatch(getReaderByBarcodeSuccess(response.data));
       },
       error => {
-        dispatch(getReaderByPinFailure(error.response.data));
+        dispatch(getReaderByBarcodeFailure(error.response.data));
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
-          NotificationManager.info(error.response.data.message);
+          NotificationManager.error(error.response.data.message);
       }
     )
   }
 };
+
 const getReadersForRemoveFailure = error => {
   return {type: GET_READERS_FOR_REMOVE_FAILURE, error};
 };
@@ -134,7 +141,7 @@ export const sendReaders = readersData => {
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
-          NotificationManager.info(error.response.data.message);
+          NotificationManager.error(error.response.data.message);
 
       }
     )

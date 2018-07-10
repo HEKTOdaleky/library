@@ -42,6 +42,8 @@ class DeleteLanguage extends Component {
     const lang = this.props.languages.map(lang => {
       return { id: lang._id, title: lang.title };
     });
+    lang.unshift({id: '', title:  'Выберите язык ...'});
+
     return (
       <Fragment>
         <ModalForm

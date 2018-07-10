@@ -71,7 +71,6 @@ const createRouter = () => {
 
     router.get("/:id",[auth, permit('admin', 'librarian')], async (req, res) => {
         const id = req.params.id;
-
         try {
             const book = await Book.findById(id);
             if (book) {
@@ -82,7 +81,24 @@ const createRouter = () => {
         }
     });
 
+
+    router.put("/:id", [auth, permit('admin', 'librarian')], async (req, res) => {
+        const id = req.params.id;
+
+        const changeData = await Book.findById(id);
+
+        const book = new Book(changeData);
+        try {
+          const newBook = await book.save();
+
+          if (newBook) res.send({message: "Данные о книге успешно обновлены!"});
+        } catch (error) {
+          return res.status(400).send({message: "Ошибка! Изменения не сохранились!"});
+        }
+    });
+
     router.delete("/:id", [auth, permit('admin', 'librarian')], async (req, res) => {
+
         const id = req.params.id;
         try {
             const bookData = await Book.findById(id);
@@ -93,17 +109,23 @@ const createRouter = () => {
                 await book.save();
                 res.send({message: "Статус книги изменен"});
             } else {
-                return res
-                    .status(400)
-                    .send({
-                        message:
-                            "Не удалось изменить статус книги. Проверьте правильность данных."
-                    });
+                return res.status(400).send({ message: "Не удалось изменить статус книги. Проверьте правильность данных." });
             }
         } catch (error) {
             return res.status(500).send({message: error});
         }
     });
+
+  router.get('/barcode/:barcode', [auth, permit('admin', 'librarian')], async(req, res) => {
+    try {
+      const status = await Status.findOne({name: "В наличии"});
+      const book = await Book.findOne({inventoryCode: req.params.barcode, $and: [{statusId: status.id}]}).populate(['statusId', 'categoryId', 'language']);
+      if (book) return res.send(book);
+      else return res.status(400).send({error: 'Книга с таким штрихкодом не найдена'});
+    } catch (e) {
+      return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
+    }
+  });
 
     return router;
 };

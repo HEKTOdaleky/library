@@ -6,7 +6,7 @@ const Reader = require('../models/Reader');
 const createRouter = () => {
   const router = express.Router();
 
-  router.get('/', [auth, permit('admin','librarian')], async(req, res) => {
+  router.get('/', [auth, permit('admin', 'librarian')], async(req, res) => {
 
     if (req.user.role === 'admin') {
       try {
@@ -24,7 +24,17 @@ const createRouter = () => {
         return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
       }
     }
+  });
 
+  router.get('/barcode/:barcode', auth, async(req, res) => {
+    try {
+      const reader = await Reader.findOne({inventoryCode: req.params.barcode, $and: [{isActive: true}, {markToRemove: false}]})
+      .populate('groupId');
+      if (reader) return res.send(reader);
+      else return res.status(400).send({message: 'Читатель с таким штрихкодом не найден'});
+    } catch (e) {
+      return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
+    }
   });
 
   router.post('/',[auth, permit('admin', 'librarian')], async (req, res) => {
@@ -53,38 +63,32 @@ const createRouter = () => {
       readers: req.body.readers,
       order: req.body.order
     };
-    console.log("data:________", data);
 
-      if (data.order !== '' && data.readers.length > 0) {
-        await data.readers.map(async item => {
-          try {
-            await Reader.findOneAndUpdate({_id: item}, {$set: {isActive: false, comment: data.order }});
-          } catch (e) {
-            return res.status(500).send({message: 'Ошибка. Не удалось удалить читателя!'});
-          }
-        });
-        res.send({message: "Читатели успешно перенесены в архив"});
-      } else return res.status(400).send({error: "Хотя бы один читатель должен быть выбран, а поле для номера приказа должно быть заполнено"});
+    if (data.order !== '' && data.readers.length > 0) {
+      await data.readers.map(async item => {
+        try {
+          await Reader.findOneAndUpdate({_id: item}, {$set: {isActive: false, comment: data.order }});
+        } catch (e) {
+          return res.status(500).send({message: 'Ошибка. Не удалось удалить читателя!'});
+        }
+      });
+      res.send({message: "Читатели успешно перенесены в архив"});
+    } else
+      return res.status(400).send({error: "Хотя бы один читатель должен быть выбран, а поле для номера приказа должно быть заполнено"});
   });
 
-  router.put('/:id',[auth, permit('admin')], auth, async (req, res) => {
-    const id = req.params.id;
-    let reader;
-
+  router.put('/:id', auth, async (req, res) => {
     try {
-      reader = await Reader.findOne({_id: id});
+      await Reader.findOneAndUpdate({_id: req.params.id}, {$set: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        documentNumber: req.body.documentNumber,
+        groupId: req.body.groupId
+      }});
+      res.status(200).send({message: 'Данные читателя сохранены'});
+    } catch (e) {
+      return res.status(400).send({message: "Не удалось отредактировать данные читателя", e});
     }
-    catch (error) {
-      res.status(500).send(error);
-    }
-
-    for (let i in req.body) {
-      reader[i] ? reader[i] = req.body[i] : null
-    }
-
-    await reader.save();
-
-    res.send(reader);
   });
 
   return router;

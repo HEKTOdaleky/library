@@ -37,6 +37,8 @@ class DeleteStatus extends Component {
     const status = this.props.status.map(state => {
       return { id: state._id, title: state.name };
     });
+    status.unshift({id: '', title:  'Выберите статус ...'});
+
     return (
       <Fragment>
         <ModalForm

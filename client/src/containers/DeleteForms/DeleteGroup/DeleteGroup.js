@@ -34,9 +34,11 @@ class DeleteGroup extends Component {
   };
 
   render() {
-    const status = this.props.groups.map(state => {
+    const groups = this.props.groups.map(state => {
       return { id: state._id, title: state.name };
     });
+    groups.unshift({id: '', title:  'Выберите группу ...'});
+
     return (
       <Fragment>
         <ModalForm
@@ -54,7 +56,7 @@ class DeleteGroup extends Component {
             propertyName="groupId"
             title="Группа"
             type="select"
-            options={status}
+            options={groups}
             value={this.state.groupId}
             changeHandler={this.onChangeHandler}
           />

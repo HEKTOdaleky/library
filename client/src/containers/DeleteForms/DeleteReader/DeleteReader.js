@@ -76,7 +76,7 @@ class DeleteReader extends Component {
                   <th># Код</th>
                   <th>Фамилия</th>
                   <th>Имя</th>
-                  <th>Доукмент</th>
+                  <th>Документ</th>
                   <th>Группа</th>
                   <th>Дата регистрации</th>
                   <th />
@@ -84,7 +84,7 @@ class DeleteReader extends Component {
               </thead>
               <tbody>
                 {this.props.readers &&
-                  this.props.readers.map(item => (
+                  this.props.readers.map((item, index) => (
                     <tr key={item._id}>
                       <td>{item.inventoryCode}</td>
                       <td>{item.lastName}</td>
@@ -99,7 +99,7 @@ class DeleteReader extends Component {
                           type="checkbox"
                           style={{ marginBottom: "0", marginTop: "0" }}
                           onChange={() => this.addReadersForDelete(item._id)}
-                          name={item._id}
+                          name={'checkbox' + index}
                         />
                       </td>
                     </tr>
