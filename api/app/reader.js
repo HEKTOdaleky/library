@@ -78,19 +78,15 @@ const createRouter = () => {
 
   router.put('/:id', auth, async (req, res) => {
     try {
-      const reader = await Reader.findById(req.params.id);
-      if (reader) {
-        reader.firstName = req.body.firstName;
-        reader.lastName = req.body.lastName;
-        reader.documentNumber = req.body.documentNumber;
-        reader.groupId = req.body.groupId;
-        await reader.save();
-        res.status(200).send({message: 'Данные читателя сохранены'});
-      } else {
-        return res.status(400).send({error: 'Читатель с таким кодом не найден'});
-      }
+      await Reader.findOneAndUpdate({_id: req.params.id}, {$set: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        documentNumber: req.body.documentNumber,
+        groupId: req.body.groupId
+      }});
+      res.status(200).send({message: 'Данные читателя сохранены'});
     } catch (e) {
-      return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
+      return res.status(400).send({message: "Не удалось отредактировать данные читателя", e});
     }
   });
 
