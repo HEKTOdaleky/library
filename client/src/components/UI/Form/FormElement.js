@@ -25,7 +25,7 @@ const FormElement = props => {
       controlId={props.propertyName}
       validationState={props.error && 'error'}
     >
-      <Col componentClass={ControlLabel} sm={2}>
+      <Col componentClass={ControlLabel} sm={props.titleLength || 2}>
         {props.title}
       </Col>
       <Col sm={props.inputLength || 10}>
@@ -61,7 +61,8 @@ FormElement.propTypes = {
   changeHandler: PropTypes.func.isRequired,
   autoComplete: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.object),
-  inputLength: PropTypes.number
+  inputLength: PropTypes.number,
+  titleLength: PropTypes.number,
 };
 
 export default FormElement;
