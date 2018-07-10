@@ -8,8 +8,8 @@ import {
   CLEAR_FINDING_READER,
   EDIT_READER_FAILURE,
   EDIT_READER_SUCCESS,
-  GET_READER_BY_PIN_FAILURE,
-  GET_READER_BY_PIN_SUCCESS,
+  GET_READER_BY_BARCODE_FAILURE,
+  GET_READER_BY_BARCODE_SUCCESS,
   GET_READERS_FOR_REMOVE_FAILURE,
   GET_READERS_FOR_REMOVE_SUCCESS,
   SEND_READERS_FAILURE,
@@ -32,12 +32,12 @@ const editReaderFailure = error => {
   return {type: EDIT_READER_FAILURE, error};
 };
 
-const getReaderByPinSuccess = data => {
-  return {type: GET_READER_BY_PIN_SUCCESS, data};
+const getReaderByBarcodeSuccess = data => {
+  return {type: GET_READER_BY_BARCODE_SUCCESS, data};
 };
 
-const getReaderByPinFailure = error => {
-  return {type: GET_READER_BY_PIN_FAILURE, error};
+const getReaderByBarcodeFailure = error => {
+  return {type: GET_READER_BY_BARCODE_FAILURE, error};
 };
 
 export const clearFindingReader = () => {
@@ -86,14 +86,14 @@ const getReadersForRemoveSuccess = data => {
   return {type: GET_READERS_FOR_REMOVE_SUCCESS, data};
 };
 
-export const getReaderByPin = pin => {
+export const getReaderByBarcode = barcode => {
   return dispatch => {
-    return axios.get(`/reader/by-pin/${pin}`).then(
+    return axios.get(`/reader/barcode/${barcode}`).then(
       response => {
-        dispatch(getReaderByPinSuccess(response.data));
+        dispatch(getReaderByBarcodeSuccess(response.data));
       },
       error => {
-        dispatch(getReaderByPinFailure(error.response.data));
+        dispatch(getReaderByBarcodeFailure(error.response.data));
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)

@@ -26,11 +26,11 @@ const createRouter = () => {
     }
   });
 
-  router.get('/by-pin/:pin', auth, async(req, res) => {
+  router.get('/barcode/:barcode', auth, async(req, res) => {
     try {
-      const reader = await Reader.findOne({inventoryCode: req.params.pin, $and: [{isActive: true}, {markToRemove: false}]}).populate('groupId');
+      const reader = await Reader.findOne({inventoryCode: req.params.barcode, $and: [{isActive: true}, {markToRemove: false}]}).populate('groupId');
       if (reader) return res.send(reader);
-      else return res.status(400).send({message: 'Читатель с таким ПИН не найден'});
+      else return res.status(400).send({message: 'Читатель с таким кодом не найден'});
     } catch (e) {
       return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
     }
@@ -87,7 +87,7 @@ const createRouter = () => {
         await reader.save();
         res.status(200).send({message: 'Данные читателя сохранены'});
       } else {
-        return res.status(400).send({error: 'Читатель с таким ПИН не найден'});
+        return res.status(400).send({error: 'Читатель с таким кодом не найден'});
       }
     } catch (e) {
       return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});

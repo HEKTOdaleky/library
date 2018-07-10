@@ -53,7 +53,6 @@ const ReaderSchema = new Schema({
 
 ReaderSchema.pre('save', async function (next) {
   if (!this.isNew || this.inventoryCode) return next();
-  console.log('не новый');
 
   const counter = await Counter.findOne();
   counter.readerCode = counter.readerCode + 1;

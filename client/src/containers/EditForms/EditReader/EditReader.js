@@ -4,7 +4,7 @@ import FormElement from "../../../components/UI/Form/FormElement";
 import {connect} from "react-redux";
 
 import {getGroups} from "../../../store/actions/groups";
-import {clearFindingReader, editReader, getReaderByPin} from "../../../store/actions/readers";
+import {clearFindingReader, editReader, getReaderByBarcode} from "../../../store/actions/readers";
 
 class EditReader extends Component {
 
@@ -166,7 +166,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onGetGroups: () => dispatch(getGroups()),
-    onFindReader: pin => dispatch(getReaderByPin(pin)),
+    onFindReader: barcode => dispatch(getReaderByBarcode(barcode)),
     onEditReader: data => dispatch(editReader(data)),
     onClearFindingReader: () => dispatch(clearFindingReader())
   }

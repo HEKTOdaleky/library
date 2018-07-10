@@ -12,7 +12,7 @@ import {
   Panel,
   Row
 } from "react-bootstrap";
-import { getReaderByPin } from "../../store/actions/readers";
+import {getReaderByBarcode} from "../../store/actions/readers";
 
 class Librarian extends Component {
 
@@ -110,7 +110,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFindReader: pin => dispatch(getReaderByPin(pin)),
+    onFindReader: barcode => dispatch(getReaderByBarcode(barcode)),
 
   };
 };
