@@ -9,8 +9,6 @@ import {
   BOOK_UPDATE_DATA_SUCCESS,
   GET_BOOK_BY_BARCODE_FAILURE,
   GET_BOOK_BY_BARCODE_SUCCESS,
-  GET_BOOK_BY_ID_FAILURE,
-  GET_BOOK_BY_ID_SUCCESS,
   GET_BOOKS_FROM_FULLSEARCH_FAILURE,
   GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
   GET_BOOKS_FROM_SEARCH_FAILURE,
@@ -89,6 +87,7 @@ const bookUpdateDataError = updateError => {
 };
 
 export const updateBookData = data => {
+  console.log(data);
   return dispatch => {
     axios.put(`/books/${data._id}`, data).then(response => {
       dispatch(bookUpdateDataSuccess(response.data));
@@ -101,26 +100,6 @@ export const updateBookData = data => {
     })
   }
 };
-
-const getBookByIdSuccess = bookData => {
-  return {type: GET_BOOK_BY_ID_SUCCESS, bookData}
-};
-
-const getBookByIdFailure = error => {
-  return {type: GET_BOOK_BY_ID_FAILURE, error}
-};
-
-export const getBookById = id => {
-  return dispatch => {
-    axios.get(`/books/${id}`).then(response => {
-      dispatch(getBookByIdSuccess(response.data))
-    },
-    error => {
-      dispatch(getBookByIdFailure(error.response.data))
-    })
-  }
-};
-
 
 const getBookByBarcodeSuccess = data => {
   return {type: GET_BOOK_BY_BARCODE_SUCCESS, data};

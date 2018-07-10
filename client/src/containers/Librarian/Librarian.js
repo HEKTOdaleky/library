@@ -28,10 +28,7 @@ class Librarian extends Component {
 
   formSearchReaderHandler = event => {
     event.preventDefault();
-
     this.props.getReaderByBarcode(this.state.readerCode);
-    console.log( this.state.readerCode)
-
     this.setState({readerCode: ''});
   };
 

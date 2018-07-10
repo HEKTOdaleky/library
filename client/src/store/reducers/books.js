@@ -5,8 +5,6 @@ import {
   BOOK_UPDATE_DATA_SUCCESS,
   GET_BOOK_BY_BARCODE_FAILURE,
   GET_BOOK_BY_BARCODE_SUCCESS,
-  GET_BOOK_BY_ID_FAILURE,
-  GET_BOOK_BY_ID_SUCCESS,
   GET_BOOKS_FROM_FULLSEARCH_FAILURE,
   GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
   GET_BOOKS_FROM_SEARCH_FAILURE,
@@ -15,7 +13,6 @@ import {
 
 const initialState = {
   books: [],
-  book: [],
   bookError: null,
   booksError: null,
   postError: null,
@@ -33,10 +30,6 @@ const reducer = (state = initialState, action) => {
       return { ...state, books: action.bookData, booksError: null };
     case GET_BOOKS_FROM_FULLSEARCH_FAILURE:
       return { ...state, booksError: action.error };
-    case GET_BOOK_BY_ID_SUCCESS:
-      return { ...state, book: action.bookData, bookError: null };
-    case GET_BOOK_BY_ID_FAILURE:
-      return { ...state, bookError: action.error };
     case BOOK_POST_DATA_SUCCESS:
       return { ...state, postError: null };
     case BOOK_POST_DATA_FAILURE:

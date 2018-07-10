@@ -83,17 +83,22 @@ const createRouter = () => {
 
 
     router.put("/:id", [auth, permit('admin', 'librarian')], async (req, res) => {
-        const id = req.params.id;
-
-        const changeData = await Book.findById(id);
-
-        const book = new Book(changeData);
+        console.log(req.params.id);
         try {
-          const newBook = await book.save();
-
-          if (newBook) res.send({message: "Данные о книге успешно обновлены!"});
+            await Book.findOneAndUpdate({_id: req.body.id}, {$set: {
+                title: req.body.title,
+                author: req.body.author,
+                year: req.body.year,
+                categoryId: req.body.categoryId,
+                statusId: req.body.statusId,
+                publishHouse: req.body.publishHouse,
+                language: req.body.language,
+                price: req.body.price,
+                registerDate: req.body.registerDate
+            }});
+            res.status(200).send({message: "Данные о книге успешно обновлены!"});
         } catch (error) {
-          return res.status(400).send({message: "Ошибка! Изменения не сохранились!"});
+            return res.status(400).send({message: "Изменения не применились!"});
         }
     });
 
