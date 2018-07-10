@@ -10,7 +10,7 @@ import {
   GET_BOOKS_FROM_FULLSEARCH_FAILURE,
   GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
   GET_BOOKS_FROM_SEARCH_FAILURE,
-  GET_BOOKS_FROM_SEARCH_SUCCESS, GET_LANGUAGES_SUCCESS
+  GET_BOOKS_FROM_SEARCH_SUCCESS
 } from "./actionTypes";
 
 const getBooksFromSearchSuccess = booksData => {
@@ -84,16 +84,16 @@ const bookUpdateDataError = updateError => {
   return {type: BOOK_UPDATE_DATA_FAILURE, updateError}
 };
 
-export const updateBookData = id => {
+export const updateBookData = data => {
   return dispatch => {
-    axios.put("/books/" + id).then(response => {
+    axios.put(`/books/${data._id}`, data).then(response => {
       dispatch(bookUpdateDataSuccess(response.data));
       dispatch(push("/admin"));
       NotificationManager.success(response.data.message);
     },
     error => {
-      NotificationManager.error(error.response.data.message);
       dispatch(bookUpdateDataError(error.response.data));
+      NotificationManager.error(error.response.data.message);
     })
   }
 };
@@ -108,9 +108,11 @@ const getBookByIdFailure = error => {
 
 export const getBookById = id => {
   return dispatch => {
-    axios.get("/books/" + id).then(
-      response => dispatch(getBookByIdSuccess(response.data)),
-      error => dispatch(getBookByIdFailure(error.response.data))
-    )
+    axios.get(`/books/${id}`).then(response => {
+      dispatch(getBookByIdSuccess(response.data))
+    },
+    error => {
+      dispatch(getBookByIdFailure(error.response.data))
+    })
   }
 };
