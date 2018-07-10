@@ -28,7 +28,7 @@ const createRouter = () => {
 
   router.get('/barcode/:barcode', auth, async(req, res) => {
     try {
-      const reader = await Reader.findOne({inventoryCode: req.params.pin, $and: [{isActive: true}, {markToRemove: false}]})
+      const reader = await Reader.findOne({inventoryCode: req.params.barcode, $and: [{isActive: true}, {markToRemove: false}]})
       .populate('groupId');
       if (reader) return res.send(reader);
       else return res.status(400).send({message: 'Читатель с таким штрихкодом не найден'});

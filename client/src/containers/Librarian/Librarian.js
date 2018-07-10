@@ -29,6 +29,9 @@ class Librarian extends Component {
   formSearchReaderHandler = event => {
     event.preventDefault();
 
+    this.props.getReaderByBarcode(this.state.readerCode);
+    console.log( this.state.readerCode)
+
     this.setState({readerCode: ''});
   };
 
@@ -117,8 +120,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFindReader: barcode => dispatch(getReaderByBarcode(barcode)),
-
+    getReaderByBarcode: barcode => dispatch(getReaderByBarcode(barcode)),
     getBookByBarcode: barcode => dispatch(getBookByBarcode(barcode))
   };
 };
