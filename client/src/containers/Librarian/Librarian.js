@@ -63,6 +63,7 @@ class Librarian extends Component {
                 </Form>
               </Panel.Title>
             </Panel.Heading>
+            <Panel.Body>{''}</Panel.Body>
             {this.props.findingBook && this.props.findingBook ?
               <ListGroup>
                 <ListGroupItem>Название:  <strong>{book.title}</strong></ListGroupItem>
@@ -93,6 +94,7 @@ class Librarian extends Component {
                 </Form>
               </Panel.Title>
             </Panel.Heading>
+            <Panel.Body>{''}</Panel.Body>
             {this.props.findingReader && this.props.findingReader ?
               <ListGroup>
                 <ListGroupItem>Фамилия:  <strong>{reader.lastName}</strong></ListGroupItem>

@@ -333,12 +333,12 @@ db.once("open", async () => {
       language: l1._id
     },
     {
-      inventoryCode: "000019",
+      inventoryCode: "6921734968111",
       title: "Русско-кыргызский разговорник",
       author: "Акимов Шерикбек, Байтерекова Женишкуль Саматовна",
       year: 2009,
       categoryId: c14._id,
-      statusId: status3._id,
+      statusId: status1._id,
       publishHouse: "АСТ",
       language: l2._id
     }
@@ -383,12 +383,11 @@ db.once("open", async () => {
       markToRemove: true
     },
     {
-      inventoryCode: "000006",
+      inventoryCode: "4700000480678",
       firstName: "Петр",
       lastName: "Петров",
       documentNumber: "6351-10",
-      groupId: g1._id,
-      markToRemove: true
+      groupId: g1._id
     }
   ]);
 
