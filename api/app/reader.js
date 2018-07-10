@@ -53,18 +53,18 @@ const createRouter = () => {
       readers: req.body.readers,
       order: req.body.order
     };
-    console.log("data:________", data);
 
-      if (data.order !== '' && data.readers.length > 0) {
-        await data.readers.map(async item => {
-          try {
-            await Reader.findOneAndUpdate({_id: item}, {$set: {isActive: false, comment: data.order }});
-          } catch (e) {
-            return res.status(500).send({message: 'Ошибка. Не удалось удалить читателя!'});
-          }
-        });
-        res.send({message: "Читатели успешно перенесены в архив"});
-      } else return res.status(400).send({error: "Хотя бы один читатель должен быть выбран, а поле для номера приказа должно быть заполнено"});
+    if (data.order !== '' && data.readers.length > 0) {
+      await data.readers.map(async item => {
+        try {
+          await Reader.findOneAndUpdate({_id: item}, {$set: {isActive: false, comment: data.order }});
+        } catch (e) {
+          return res.status(500).send({message: 'Ошибка. Не удалось удалить читателя!'});
+        }
+      });
+      res.send({message: "Читатели успешно перенесены в архив"});
+    } else
+      return res.status(400).send({error: "Хотя бы один читатель должен быть выбран, а поле для номера приказа должно быть заполнено"});
   });
 
   router.put('/:id',[auth, permit('admin')], auth, async (req, res) => {

@@ -12,5 +12,6 @@ module.exports = {
     deleteStatus: baseUrl + '/delete-status',
     deleteLang: baseUrl + '/delete-language',
     deleteGroup: baseUrl + '/delete-group',
-    deleteCategory: baseUrl + '/delete-category'
+    deleteCategory: baseUrl + '/delete-category',
+    deleteReader: baseUrl + '/delete-reader'
 };

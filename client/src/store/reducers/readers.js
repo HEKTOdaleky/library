@@ -32,7 +32,7 @@ const reducer = (state = initialState, action) => {
     case GET_READER_BY_PIN_FAILURE:
       return { ...state, findingReader: null, error: action.error };
     case GET_READERS_FOR_REMOVE_SUCCESS:
-      return { ...state, readers: action.data };
+      return { ...state, readers: action.data, error: null };
     case GET_READERS_FOR_REMOVE_FAILURE:
       return { ...state, error: action.error };
     case SEND_READERS_FAILURE:

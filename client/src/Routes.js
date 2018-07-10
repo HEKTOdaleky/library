@@ -32,7 +32,6 @@ const Routes = ({user}) => {
                             component={Librarian}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/admin" exact
                             component={Admin}/>
-
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-book" exact
                             component={AddBook}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-group" exact
