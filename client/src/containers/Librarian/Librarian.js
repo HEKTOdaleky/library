@@ -13,6 +13,7 @@ import {
   Row
 } from "react-bootstrap";
 import {getReaderByBarcode} from "../../store/actions/readers";
+import { getBookByBarcode } from "../../store/actions/books";
 
 class Librarian extends Component {
 
@@ -27,18 +28,20 @@ class Librarian extends Component {
 
   formSearchReaderHandler = event => {
     event.preventDefault();
-    this.props.onFindReader(this.state.readerCode);
+
     this.setState({readerCode: ''});
   };
 
   formSearchBookHandler = event => {
     event.preventDefault();
+    this.props.getBookByBarcode(this.state.bookCode);
+    this.setState({bookCode: ''});
 
   };
 
   render() {
     const reader = this.props.findingReader;
-
+    const book = this.props.findingBook;
     return (
       <Row>
         <Col xs={12} md={6}>
@@ -51,7 +54,7 @@ class Librarian extends Component {
                     <FormControl
                       name="bookCode"
                       type="text"
-                      placeholder="Штрихкод книги"
+                      placeholder="Штрихкод"
                       value={this.state.bookCode}
                       onChange={this.changeHandler}
                       style={{marginRight: '30px', width: '150px'}}/>
@@ -60,11 +63,15 @@ class Librarian extends Component {
                 </Form>
               </Panel.Title>
             </Panel.Heading>
-            <ListGroup>
-              <ListGroupItem>Item1</ListGroupItem>
-              <ListGroupItem>Item 2</ListGroupItem>
-              <ListGroupItem>&hellip;</ListGroupItem>
-            </ListGroup>
+            {this.props.findingBook && this.props.findingBook ?
+              <ListGroup>
+                <ListGroupItem>Название:  <strong>{book.title}</strong></ListGroupItem>
+                <ListGroupItem>Автор:  <strong>{book.author}</strong></ListGroupItem>
+                <ListGroupItem>Год:  <strong>{book.year}</strong></ListGroupItem>
+                <ListGroupItem>Издательский дом:  <strong>{book.publishHouse}</strong></ListGroupItem>
+                <ListGroupItem>Категория:  <strong>{book.categoryId.title}</strong></ListGroupItem>
+                <ListGroupItem>Язык издания:  <strong>{book.language.title}</strong></ListGroupItem>
+              </ListGroup> : null}
           </Panel>
         </Col>
         <Col xs={12} md={6}>
@@ -77,7 +84,7 @@ class Librarian extends Component {
                     <FormControl
                       name="readerCode"
                       type="text"
-                      placeholder="Штрихкод читателя"
+                      placeholder="Штрихкод"
                       value={this.state.readerCode}
                       onChange={this.changeHandler}
                       style={{marginRight: '30px', width: '150px'}}/>
@@ -103,8 +110,8 @@ class Librarian extends Component {
 const mapStateToProps = state => {
   return {
     error: state.readers.error,
-    findingReader: state.readers.findingReader
-
+    findingReader: state.readers.findingReader,
+    findingBook: state.books.findingBook
   };
 };
 
@@ -112,6 +119,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onFindReader: barcode => dispatch(getReaderByBarcode(barcode)),
 
+    getBookByBarcode: barcode => dispatch(getBookByBarcode(barcode))
   };
 };
 

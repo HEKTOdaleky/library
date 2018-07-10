@@ -189,7 +189,6 @@ class editBook extends Component {
   }
 }
 
-
 const mapStateToProps = state => {
   return {
     languages: state.languages.languages,
