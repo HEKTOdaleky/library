@@ -5,6 +5,7 @@ import {push} from "react-router-redux";
 import {
   ADD_NEW_READER_FAILURE,
   ADD_NEW_READER_SUCCESS,
+  CLEAR_FINDING_READER,
   EDIT_READER_FAILURE,
   EDIT_READER_SUCCESS,
   GET_READER_BY_PIN_FAILURE,
@@ -39,6 +40,10 @@ const getReaderByPinFailure = error => {
   return {type: GET_READER_BY_PIN_FAILURE, error};
 };
 
+export const clearFindingReader = () => {
+  return {type: CLEAR_FINDING_READER};
+};
+
 export const addNewReader = data => {
   return dispatch => {
     return axios.post('/reader', data).then(
@@ -52,7 +57,7 @@ export const addNewReader = data => {
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
-          NotificationManager.info(error.response.data.message);
+          NotificationManager.error(error.response.data.message);
       }
     )
   }
@@ -71,18 +76,19 @@ export const editReader = data => {
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
-          NotificationManager.info(error.response.data.message);
+          NotificationManager.error(error.response.data.message);
       }
     )
   }
 };
+
 const getReadersForRemoveSuccess = data => {
   return {type: GET_READERS_FOR_REMOVE_SUCCESS, data};
 };
 
 export const getReaderByPin = pin => {
   return dispatch => {
-    return axios.get(`/reader/:${pin}`).then(
+    return axios.get(`/reader/by-pin/${pin}`).then(
       response => {
         dispatch(getReaderByPinSuccess(response.data));
       },
@@ -91,11 +97,12 @@ export const getReaderByPin = pin => {
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
-          NotificationManager.info(error.response.data.message);
+          NotificationManager.error(error.response.data.message);
       }
     )
   }
 };
+
 const getReadersForRemoveFailure = error => {
   return {type: GET_READERS_FOR_REMOVE_FAILURE, error};
 };
@@ -134,7 +141,7 @@ export const sendReaders = readersData => {
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
-          NotificationManager.info(error.response.data.message);
+          NotificationManager.error(error.response.data.message);
 
       }
     )

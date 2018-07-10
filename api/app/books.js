@@ -71,7 +71,6 @@ const createRouter = () => {
 
     router.get("/:id",[auth, permit('admin', 'librarian')], async (req, res) => {
         const id = req.params.id;
-
         try {
             const book = await Book.findById(id);
             if (book) {
@@ -82,7 +81,24 @@ const createRouter = () => {
         }
     });
 
+
+    router.put("/:id", [auth, permit('admin', 'librarian')], async (req, res) => {
+        const id = req.params.id;
+
+        const changeData = await Book.findById(id);
+
+        const book = new Book(changeData);
+        try {
+          const newBook = await book.save();
+
+          if (newBook) res.send({message: "Данные о книге успешно обновлены!"});
+        } catch (error) {
+          return res.status(400).send({message: "Ошибка! Изменения не сохранились!"});
+        }
+    });
+
     router.delete("/:id", [auth, permit('admin', 'librarian')], async (req, res) => {
+
         const id = req.params.id;
         try {
             const bookData = await Book.findById(id);

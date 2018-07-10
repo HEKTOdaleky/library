@@ -34,6 +34,7 @@ class AddReader extends Component {
     const groups = this.props.groups.map(group => {
       return {id: group._id, title: group.name};
     });
+    groups.unshift({id: '', title:  'Выберите группу ...'});
 
     return (
       <Fragment>
@@ -108,7 +109,8 @@ class AddReader extends Component {
 const mapStateToProps = state => {
   return {
     groups: state.groups.groups,
-    error: state.readers.error
+    error: state.readers.error,
+    findingReader: state.readers.findingReader
   }
 };
 
