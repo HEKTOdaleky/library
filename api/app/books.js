@@ -109,12 +109,7 @@ const createRouter = () => {
                 await book.save();
                 res.send({message: "Статус книги изменен"});
             } else {
-                return res
-                    .status(400)
-                    .send({
-                        message:
-                            "Не удалось изменить статус книги. Проверьте правильность данных."
-                    });
+                return res.status(400).send({ message: "Не удалось изменить статус книги. Проверьте правильность данных." });
             }
         } catch (error) {
             return res.status(500).send({message: error});

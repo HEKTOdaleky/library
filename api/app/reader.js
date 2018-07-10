@@ -28,7 +28,7 @@ const createRouter = () => {
 
   router.get('/by-pin/:pin', auth, async(req, res) => {
     try {
-      const reader = await Reader.findOne({inventoryCode: req.params.pin});
+      const reader = await Reader.findOne({inventoryCode: req.params.pin, $and: [{isActive: true}, {markToRemove: false}]}).populate('groupId');
       if (reader) return res.send(reader);
       else return res.status(400).send({message: 'Читатель с таким ПИН не найден'});
     } catch (e) {

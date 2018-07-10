@@ -47,11 +47,11 @@ class Librarian extends Component {
               <Panel.Title>
                 <Form inline onSubmit={this.formSearchBookHandler}>
                   <FormGroup>
-                    <ControlLabel style={{marginRight: '30px'}}>Пинкод книги</ControlLabel>
+                    <ControlLabel style={{marginRight: '30px'}}>Штрихкод книги</ControlLabel>
                     <FormControl
                       name="bookCode"
                       type="text"
-                      placeholder="пинкод книги"
+                      placeholder="Штрихкод книги"
                       value={this.state.bookCode}
                       onChange={this.changeHandler}
                       style={{marginRight: '30px', width: '150px'}}/>
@@ -73,11 +73,11 @@ class Librarian extends Component {
               <Panel.Title>
                 <Form inline onSubmit={this.formSearchReaderHandler}>
                   <FormGroup>
-                    <ControlLabel style={{marginRight: '30px'}}>Пинкод читателя</ControlLabel>
+                    <ControlLabel style={{marginRight: '30px'}}>Штрихкод читателя</ControlLabel>
                     <FormControl
                       name="readerCode"
                       type="text"
-                      placeholder="пинкод читателя"
+                      placeholder="Штрихкод читателя"
                       value={this.state.readerCode}
                       onChange={this.changeHandler}
                       style={{marginRight: '30px', width: '150px'}}/>
@@ -86,12 +86,12 @@ class Librarian extends Component {
                 </Form>
               </Panel.Title>
             </Panel.Heading>
-            <Panel.Body>Panel content</Panel.Body>
-            {this.props.findingReader ?
+            {this.props.findingReader && this.props.findingReader ?
               <ListGroup>
-                <ListGroupItem>{reader.lastName}</ListGroupItem>
-                <ListGroupItem>{reader.firstName}</ListGroupItem>
-                <ListGroupItem>{}</ListGroupItem>
+                <ListGroupItem>Фамилия:  <strong>{reader.lastName}</strong></ListGroupItem>
+                <ListGroupItem>Имя: <strong>{reader.firstName}</strong></ListGroupItem>
+                <ListGroupItem>Документ: <strong>{reader.documentNumber}</strong></ListGroupItem>
+                <ListGroupItem>Группа: <strong>{reader.groupId.name}</strong></ListGroupItem>
               </ListGroup> : null}
           </Panel>
         </Col>
