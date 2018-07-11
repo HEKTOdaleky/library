@@ -3,16 +3,16 @@ import {NotificationManager} from "react-notifications";
 import {push} from "react-router-redux";
 
 import {
-  BOOK_POST_DATA_FAILURE,
-  BOOK_POST_DATA_SUCCESS,
-  BOOK_UPDATE_DATA_FAILURE,
-  BOOK_UPDATE_DATA_SUCCESS,
-  GET_BOOK_BY_BARCODE_FAILURE,
-  GET_BOOK_BY_BARCODE_SUCCESS,
-  GET_BOOKS_FROM_FULLSEARCH_FAILURE,
-  GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
-  GET_BOOKS_FROM_SEARCH_FAILURE,
-  GET_BOOKS_FROM_SEARCH_SUCCESS
+    BOOK_POST_DATA_FAILURE,
+    BOOK_POST_DATA_SUCCESS,
+    BOOK_UPDATE_DATA_FAILURE,
+    BOOK_UPDATE_DATA_SUCCESS,
+    GET_BOOK_BY_BARCODE_FAILURE,
+    GET_BOOK_BY_BARCODE_SUCCESS,
+    GET_BOOKS_FROM_FULLSEARCH_FAILURE,
+    GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
+    GET_BOOKS_FROM_SEARCH_FAILURE,
+    GET_BOOKS_FROM_SEARCH_SUCCESS
 } from "./actionTypes";
 
 const getBooksFromSearchSuccess = booksData => {
@@ -72,56 +72,68 @@ export const postBooksData = (data) => {
             dispatch(push("/admin"));
             NotificationManager.success(response.data.message);
         }, error => {
-          NotificationManager.error(error.response.data.message);
-          dispatch(bookPostDataError(error.response.data));
+            NotificationManager.error(error.response.data.message);
+            dispatch(bookPostDataError(error.response.data));
         })
     }
 };
 
 const bookUpdateDataSuccess = book => {
-  return {type: BOOK_UPDATE_DATA_SUCCESS, book}
+    return {type: BOOK_UPDATE_DATA_SUCCESS, book}
 };
 
 const bookUpdateDataError = updateError => {
-  return {type: BOOK_UPDATE_DATA_FAILURE, updateError}
+    return {type: BOOK_UPDATE_DATA_FAILURE, updateError}
 };
 
 export const updateBookData = data => {
-  console.log(data);
-  return dispatch => {
-    axios.put(`/books/${data._id}`, data).then(response => {
-      dispatch(bookUpdateDataSuccess(response.data));
-      dispatch(push("/admin"));
-      NotificationManager.success(response.data.message);
-    },
-    error => {
-      dispatch(bookUpdateDataError(error.response.data));
-      NotificationManager.error(error.response.data.message);
-    })
-  }
+    console.log(data);
+    return dispatch => {
+        axios.put(`/books/${data._id}`, data).then(response => {
+                dispatch(bookUpdateDataSuccess(response.data));
+                dispatch(push("/admin"));
+                NotificationManager.success(response.data.message);
+            },
+            error => {
+                dispatch(bookUpdateDataError(error.response.data));
+                NotificationManager.error(error.response.data.message);
+            })
+    }
 };
 
 const getBookByBarcodeSuccess = data => {
-  return {type: GET_BOOK_BY_BARCODE_SUCCESS, data};
+    return {type: GET_BOOK_BY_BARCODE_SUCCESS, data};
 };
 
 const getBookByBarcodeFailure = error => {
-  return {type: GET_BOOK_BY_BARCODE_FAILURE, error};
+    return {type: GET_BOOK_BY_BARCODE_FAILURE, error};
 };
 
 export const getBookByBarcode = barcode => {
-  return dispatch => {
-    axios.get(`/books/barcode/${barcode}`).then(
-      response => {
-        dispatch(getBookByBarcodeSuccess(response.data))
-      },
-      error => {
-        dispatch(getBookByBarcodeFailure(error.response.data));
-        if (error.response.data.error)
-          NotificationManager.error(error.response.data.error);
-        if (error.response.data.message)
-          NotificationManager.info(error.response.data.message);
-      }
-    )
-  }
+    return dispatch => {
+        axios.get(`/books/barcode/${barcode}`).then(
+            response => {
+                dispatch(getBookByBarcodeSuccess(response.data))
+            },
+            error => {
+                dispatch(getBookByBarcodeFailure(error.response.data));
+                if (error.response.data.error)
+                    NotificationManager.error(error.response.data.error);
+                if (error.response.data.message)
+                    NotificationManager.info(error.response.data.message);
+            }
+        )
+    }
+};
+
+export const getBookForDelete = () => {
+    return dispatch => {
+        axios.get("/books/for-delete").then(response => {
+            dispatch(getBooksFromSearchSuccess(response.data.books));
+            NotificationManager.success(response.data.message);
+        }, error => {
+            NotificationManager.error(error.response.data.message);
+            dispatch(bookPostDataError(error.response.data));
+        })
+    }
 };

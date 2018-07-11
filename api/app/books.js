@@ -7,16 +7,16 @@ const permit = require('../middleware/permit');
 const createRouter = () => {
     const router = express.Router();
 
-    router.get("/", [auth, permit('admin', 'librarian')], async (req, res) => {
+    router.get("/for-delete", [auth, permit('admin', 'librarian')], async (req, res) => {
 
         try {
             const forDeleteState = await Status.findOne({name: 'На удаление'});
-            const books = await Book.find({statusId: forDeleteState});
+            const books = await Book.find({statusId: forDeleteState._id});
             if (books) {
-                res.send(books);
+                res.send({books,message:"Книги на удаление подгружены"});
             }
         } catch (error) {
-            return res.status(500).send({error});
+            return res.status(500).send({error,message:"Книги не загружены"});
         }
     });
 

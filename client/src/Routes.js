@@ -20,6 +20,7 @@ import DeleteGroup from "./containers/DeleteForms/DeleteGroup/DeleteGroup";
 import DeleteReader from "./containers/DeleteForms/DeleteReader/DeleteReader";
 import EditBook from "./containers/EditForms/EditBook/EditBook";
 import EditReader from "./containers/EditForms/EditReader/EditReader";
+import DeleteBookAdmin from "./containers/DeleteForms/DeleteBook/DeleteBookAdmin/DeleteBookAdmin";
 
 const ProtectedRoute = ({isAllowed, ...props}) =>
     isAllowed ? <Route {...props} /> : <Redirect to="/login"/>;
@@ -61,6 +62,8 @@ const Routes = ({user}) => {
                           component={EditBook}/>
           <ProtectedRoute isAllowed={user && user.role === "admin"} path="/edit-reader" exact
                           component={EditReader}/>
+            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-book" exact
+                            component={DeleteBookAdmin}/>
 
 
             <Route path="/login" exact component={Login}/>
