@@ -6,29 +6,7 @@ import Login from "./containers/Login/Login";
 import Library from "./containers/Library/Library";
 import Admin from "./containers/Admin/Admin";
 import Librarian from "./containers/Librarian/Librarian";
-
-<
-<
-<
-<
-<
-<< HEAD
-    import AddBook from "./containers/AddForms/AddBook/AddBook";
-import AddGroup from "./containers/AddForms/AddGroup/AddGroup";
-import AddLanguage from "./containers/AddForms/AddLanguage/AddLanguage";
-import AddStatus from "./containers/AddForms/AddStatus/AddStatus";
-import AddReader from "./containers/AddForms/AddReader/AddReader";
-import AddCategory from "./containers/AddForms/AddCategory/AddCategory";
-import NewUser from "./containers/AddForms/NewUser/NewUser";
-import DeleteStatus from "./containers/DeleteForms/DeleteStatus/DeleteStatus";
-import DeleteLanguage from "./containers/DeleteForms/DeleteLanguage/DeleteLanguage";
-import DeleteCategory from "./containers/DeleteForms/DeleteCategory/DeleteCategory";
-import DeleteGroup from "./containers/DeleteForms/DeleteGroup/DeleteGroup";
-import DeleteReader from "./containers/DeleteForms/DeleteReader/DeleteReader";
-import EditBook from "./containers/EditForms/EditBook/EditBook";
-import EditReader from "./containers/EditForms/EditReader/EditReader";
 import DeleteBookAdmin from "./containers/DeleteForms/DeleteBook/DeleteBookAdmin/DeleteBookAdmin";
-=======
 import AddBook from "./containers/AdminForms/AddForms/AddBook/AddBook";
 import AddGroup from "./containers/AdminForms/AddForms/AddGroup/AddGroup";
 import AddLanguage from "./containers/AdminForms/AddForms/AddLanguage/AddLanguage";
@@ -44,7 +22,6 @@ import DeleteReader from "./containers/AdminForms/DeleteForms/DeleteReader/Delet
 import EditBook from "./containers/AdminForms/EditForms/EditBook/EditBook";
 import EditReader from "./containers/AdminForms/EditForms/EditReader/EditReader";
 import GetBook from "./containers/LibrarianForms/GetBook/GetBook";
->>>>>>> dc2d01ad7f4b99519fe7c4eedb75c5d19c087587
 
 const ProtectedRoute = ({isAllowed, ...props}) =>
 isAllowed ? <Route {...props} />

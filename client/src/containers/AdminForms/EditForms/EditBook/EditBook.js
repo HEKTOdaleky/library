@@ -1,23 +1,12 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
-<<<<<<< HEAD:client/src/containers/EditForms/EditBook/EditBook.js
-import {getLanguage} from "../../../store/actions/languages";
-import {getStatus} from "../../../store/actions/status";
-import {getCategories} from "../../../store/actions/categories";
-import {Button, Col, Collapse, Form, FormGroup, PageHeader, Well} from "react-bootstrap";
-import dateFormat from 'dateformat';
-import FormElement from "../../../components/UI/Form/FormElement";
-import {getBookByBarcode, updateBookData} from "../../../store/actions/books";
-=======
 import {getLanguage} from "../../../../store/actions/languages";
 import {getStatus} from "../../../../store/actions/status";
 import {getCategories} from "../../../../store/actions/categories";
-import {Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
+import { Button, Col, Collapse, Form, FormGroup, PageHeader, Well } from "react-bootstrap";
 import dateFormat from 'dateformat';
 import FormElement from "../../../../components/UI/Form/FormElement";
-import {getBookById, updateBookData} from "../../../../store/actions/books";
->>>>>>> dc2d01ad7f4b99519fe7c4eedb75c5d19c087587:client/src/containers/AdminForms/EditForms/EditBook/EditBook.js
-
+import { getBookByBarcode, updateBookData } from "../../../../store/actions/books";
 
 class editBook extends Component {
   state = {
