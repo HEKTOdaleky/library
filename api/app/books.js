@@ -7,16 +7,18 @@ const permit = require('../middleware/permit');
 const createRouter = () => {
     const router = express.Router();
 
-    // router.get("/", async (req, res) => {
-    //   try {
-    //     const books = await Book.find();
-    //     if (books) {
-    //       res.send(books);
-    //     }
-    //   } catch (error) {
-    //     return res.status(500).send({ error });
-    //   }
-    // });
+    router.get("/", [auth, permit('admin', 'librarian')], async (req, res) => {
+
+        try {
+            const forDeleteState = await Status.findOne({name: 'forDelete'});
+            const books = await Book.find({statusId: forDeleteState});
+            if (books) {
+                res.send(books);
+            }
+        } catch (error) {
+            return res.status(500).send({error});
+        }
+    });
 
     router.post('/search', async (req, res) => {
         if (req.body.searchKey === '') {
@@ -69,7 +71,7 @@ const createRouter = () => {
 
     });
 
-    router.get("/:id",[auth, permit('admin', 'librarian')], async (req, res) => {
+    router.get("/:id", [auth, permit('admin', 'librarian')], async (req, res) => {
         const id = req.params.id;
         try {
             const book = await Book.findById(id);
@@ -85,17 +87,19 @@ const createRouter = () => {
     router.put("/:id", [auth, permit('admin', 'librarian')], async (req, res) => {
         console.log(req.params.id);
         try {
-            await Book.findOneAndUpdate({_id: req.body.id}, {$set: {
-                title: req.body.title,
-                author: req.body.author,
-                year: req.body.year,
-                categoryId: req.body.categoryId,
-                statusId: req.body.statusId,
-                publishHouse: req.body.publishHouse,
-                language: req.body.language,
-                price: req.body.price,
-                registerDate: req.body.registerDate
-            }});
+            await Book.findOneAndUpdate({_id: req.body.id}, {
+                $set: {
+                    title: req.body.title,
+                    author: req.body.author,
+                    year: req.body.year,
+                    categoryId: req.body.categoryId,
+                    statusId: req.body.statusId,
+                    publishHouse: req.body.publishHouse,
+                    language: req.body.language,
+                    price: req.body.price,
+                    registerDate: req.body.registerDate
+                }
+            });
             res.status(200).send({message: "Данные о книге успешно обновлены!"});
         } catch (error) {
             return res.status(400).send({message: "Изменения не применились!"});
@@ -114,23 +118,26 @@ const createRouter = () => {
                 await book.save();
                 res.send({message: "Статус книги изменен"});
             } else {
-                return res.status(400).send({ message: "Не удалось изменить статус книги. Проверьте правильность данных." });
+                return res.status(400).send({message: "Не удалось изменить статус книги. Проверьте правильность данных."});
             }
         } catch (error) {
             return res.status(500).send({message: error});
         }
     });
 
-  router.get('/barcode/:barcode', [auth, permit('admin', 'librarian')], async(req, res) => {
-    try {
-      const status = await Status.findOne({name: "В наличии"});
-      const book = await Book.findOne({inventoryCode: req.params.barcode, $and: [{statusId: status.id}]}).populate(['statusId', 'categoryId', 'language']);
-      if (book) return res.send(book);
-      else return res.status(400).send({error: 'Книга с таким штрихкодом не найдена'});
-    } catch (e) {
-      return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
-    }
-  });
+    router.get('/barcode/:barcode', [auth, permit('admin', 'librarian')], async (req, res) => {
+        try {
+            const status = await Status.findOne({name: "В наличии"});
+            const book = await Book.findOne({
+                inventoryCode: req.params.barcode,
+                $and: [{statusId: status.id}]
+            }).populate(['statusId', 'categoryId', 'language']);
+            if (book) return res.send(book);
+            else return res.status(400).send({error: 'Книга с таким штрихкодом не найдена'});
+        } catch (e) {
+            return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
+        }
+    });
 
     return router;
 };
