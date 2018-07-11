@@ -10,7 +10,7 @@ const createRouter = () => {
     router.get("/", [auth, permit('admin', 'librarian')], async (req, res) => {
 
         try {
-            const forDeleteState = await Status.findOne({name: 'forDelete'});
+            const forDeleteState = await Status.findOne({name: 'На удаление'});
             const books = await Book.find({statusId: forDeleteState});
             if (books) {
                 res.send(books);
