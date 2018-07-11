@@ -137,3 +137,17 @@ export const getBookForDelete = () => {
         })
     }
 };
+export const removeBookForDelete = (data) => {
+
+    return dispatch => {
+
+
+        axios.post("/books/for-delete", data).then(response => {
+            NotificationManager.success(response.data.message);
+            dispatch(push("/admin"));
+        }, error => {
+            NotificationManager.error(error.response.data.message);
+            dispatch(bookPostDataError(error.response.data));
+        })
+    }
+};

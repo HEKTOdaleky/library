@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
-import {getBookForDelete} from "../../../../store/actions/books";
+import {getBookForDelete, removeBookForDelete} from "../../../../store/actions/books";
 import {Button, ListGroup, ListGroupItem} from "react-bootstrap";
 
 class DeleteBookAdmin extends Component {
@@ -18,7 +18,9 @@ class DeleteBookAdmin extends Component {
                     })
                 }
             </ListGroup>
-            <Button>Удалить всё</Button>
+            <Button onClick={() => {
+                this.props.removeBookForDelete(this.props.books)
+            }}>Удалить всё</Button>
         </Fragment>)
     }
 
@@ -33,7 +35,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getBookForDelete: () =>
-            dispatch(getBookForDelete())
+            dispatch(getBookForDelete()),
+        removeBookForDelete: data =>
+            dispatch(removeBookForDelete(data))
 
     };
 };

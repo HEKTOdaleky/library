@@ -13,10 +13,34 @@ const createRouter = () => {
             const forDeleteState = await Status.findOne({name: 'На удаление'});
             const books = await Book.find({statusId: forDeleteState._id});
             if (books) {
-                res.send({books,message:"Книги на удаление подгружены"});
+                res.send({books, message: "Книги на удаление подгружены"});
             }
         } catch (error) {
-            return res.status(500).send({error,message:"Книги не загружены"});
+            return res.status(500).send({error, message: "Книги не загружены"});
+        }
+    });
+    router.post('/for-delete', [auth, permit('admin')], async (req, res) => {
+        const books = req.body;
+
+        try {
+            let deteled = await Status.findOne({name: 'Удалено'});
+            if (!deteled) {
+                deteled = new Status({name: 'Удалено', description: 'Удалено'});
+                await deteled.save();
+            }
+
+            books.map(async book => {
+                    let newBook = await Book.findOne({_id: book._id});
+                    newBook.statusId = deteled;
+                    await newBook.save();
+                }
+            );
+
+            res.send({message: "Книги успешно удалены"})
+
+        }
+        catch (e) {
+
         }
     });
 
