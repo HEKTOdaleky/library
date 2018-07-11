@@ -36,7 +36,6 @@ class GetBook extends Component {
     event.preventDefault();
     this.props.getBookByBarcode(this.state.bookCode);
     this.setState({bookCode: ''});
-
   };
 
   render() {
