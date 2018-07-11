@@ -6,7 +6,14 @@ import Login from "./containers/Login/Login";
 import Library from "./containers/Library/Library";
 import Admin from "./containers/Admin/Admin";
 import Librarian from "./containers/Librarian/Librarian";
-import AddBook from "./containers/AddForms/AddBook/AddBook";
+
+<
+<
+<
+<
+<
+<< HEAD
+    import AddBook from "./containers/AddForms/AddBook/AddBook";
 import AddGroup from "./containers/AddForms/AddGroup/AddGroup";
 import AddLanguage from "./containers/AddForms/AddLanguage/AddLanguage";
 import AddStatus from "./containers/AddForms/AddStatus/AddStatus";
@@ -21,9 +28,28 @@ import DeleteReader from "./containers/DeleteForms/DeleteReader/DeleteReader";
 import EditBook from "./containers/EditForms/EditBook/EditBook";
 import EditReader from "./containers/EditForms/EditReader/EditReader";
 import DeleteBookAdmin from "./containers/DeleteForms/DeleteBook/DeleteBookAdmin/DeleteBookAdmin";
+=======
+import AddBook from "./containers/AdminForms/AddForms/AddBook/AddBook";
+import AddGroup from "./containers/AdminForms/AddForms/AddGroup/AddGroup";
+import AddLanguage from "./containers/AdminForms/AddForms/AddLanguage/AddLanguage";
+import AddStatus from "./containers/AdminForms/AddForms/AddStatus/AddStatus";
+import AddReader from "./containers/AdminForms/AddForms/AddReader/AddReader";
+import AddCategory from "./containers/AdminForms/AddForms/AddCategory/AddCategory";
+import NewUser from "./containers/AdminForms/AddForms/NewUser/NewUser";
+import DeleteStatus from "./containers/AdminForms/DeleteForms/DeleteStatus/DeleteStatus";
+import DeleteLanguage from "./containers/AdminForms/DeleteForms/DeleteLanguage/DeleteLanguage";
+import DeleteCategory from "./containers/AdminForms/DeleteForms/DeleteCategory/DeleteCategory";
+import DeleteGroup from "./containers/AdminForms/DeleteForms/DeleteGroup/DeleteGroup";
+import DeleteReader from "./containers/AdminForms/DeleteForms/DeleteReader/DeleteReader";
+import EditBook from "./containers/AdminForms/EditForms/EditBook/EditBook";
+import EditReader from "./containers/AdminForms/EditForms/EditReader/EditReader";
+import GetBook from "./containers/LibrarianForms/GetBook/GetBook";
+>>>>>>> dc2d01ad7f4b99519fe7c4eedb75c5d19c087587
 
 const ProtectedRoute = ({isAllowed, ...props}) =>
-    isAllowed ? <Route {...props} /> : <Redirect to="/login"/>;
+isAllowed ? <Route {...props} />
+:
+<Redirect to="/login"/>;
 
 const Routes = ({user}) => {
     return (
@@ -41,12 +67,14 @@ const Routes = ({user}) => {
                             component={AddLanguage}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-status" exact
                             component={AddStatus}/>
-            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-reader" exact
+            <ProtectedRoute isAllowed={user && (user.role === "admin" || user.role === 'librarian')} path="/add-reader"
+                            exact
                             component={AddReader}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-category" exact
                             component={AddCategory}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/create-new-user" exact
                             component={NewUser}/>
+
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-status" exact
                             component={DeleteStatus}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-group" exact
@@ -56,18 +84,21 @@ const Routes = ({user}) => {
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-category" exact
                             component={DeleteCategory}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-reader" exact
-                              component={DeleteReader}/>
+                            component={DeleteReader}/>
 
-          <ProtectedRoute isAllowed={user && user.role === "admin"} path="/edit-book" exact
-                          component={EditBook}/>
-          <ProtectedRoute isAllowed={user && user.role === "admin"} path="/edit-reader" exact
-                          component={EditReader}/>
+            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/edit-book" exact
+                            component={EditBook}/>
+            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/edit-reader" exact
+                            component={EditReader}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-book" exact
                             component={DeleteBookAdmin}/>
 
 
+            <ProtectedRoute isAllowed={user && user.role === "librarian"} path="/get-book" exact
+                            component={GetBook}/>
+
             <Route path="/login" exact component={Login}/>
-            <Route render={() => <h1 style={{textAlign: "center"}}>Page not found</h1>} />
+            <Route render={() => <h1 style={{textAlign: "center"}}>Page not found</h1>}/>
         </Switch>
     );
 };

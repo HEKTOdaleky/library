@@ -141,6 +141,7 @@ export const removeBookForDelete = (data) => {
 
     return dispatch => {
 
+<<<<<<< HEAD
 
         axios.post("/books/for-delete", data).then(response => {
             NotificationManager.success(response.data.message);
@@ -150,4 +151,18 @@ export const removeBookForDelete = (data) => {
             dispatch(bookPostDataError(error.response.data));
         })
     }
+=======
+export const getBookByBarcode = barcode => {
+  return dispatch => {
+    axios.get(`/books/barcode/${barcode}`).then(
+      response => {
+        dispatch(getBookByBarcodeSuccess(response.data))
+      },
+      error => {
+        dispatch(getBookByBarcodeFailure(error.response.data));
+        NotificationManager.error(error.response.data.error);
+      }
+    )
+  }
+>>>>>>> dc2d01ad7f4b99519fe7c4eedb75c5d19c087587
 };

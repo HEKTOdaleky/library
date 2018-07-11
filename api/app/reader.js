@@ -26,7 +26,7 @@ const createRouter = () => {
     }
   });
 
-  router.get('/barcode/:barcode', auth, async(req, res) => {
+  router.get('/barcode/:barcode', [auth, permit('admin', 'librarian')], async(req, res) => {
     try {
       const reader = await Reader.findOne({inventoryCode: req.params.barcode, $and: [{isActive: true}, {markToRemove: false}]})
       .populate('groupId');
