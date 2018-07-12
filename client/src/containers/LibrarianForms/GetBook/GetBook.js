@@ -1,110 +1,72 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import {
-  Button,
-  Col,
-  ControlLabel,
-  Form,
-  FormControl,
-  FormGroup,
-  ListGroup,
-  ListGroupItem,
-  Panel,
+  Button, Col, ControlLabel, Form, FormControl, FormGroup, Panel,
   Row
 } from "react-bootstrap";
 import {getReaderByBarcode} from "../../../store/actions/readers";
 import { getBookByBarcode } from "../../../store/actions/books";
+import GetBookFormForBook from "../../../components/GetBookFormForBook/GetBookFormForBook";
+import GetBookFormForReader from "../../../components/GetBookFormForReader/GetBookFormForReader";
+import { sendDataToJournal } from "../../../store/actions/journals";
 
 class GetBook extends Component {
 
   state = {
-    bookCode: '',
-    readerCode: ''
+    estimatedDate: "",
   };
 
   changeHandler = event => {
     this.setState({[event.target.name]: event.target.value});
   };
 
-  formSearchReaderHandler = event => {
+  getBookToReader = event => {
     event.preventDefault();
-    this.props.getReaderByBarcode(this.state.readerCode);
-    this.setState({readerCode: ''});
-  };
-
-  formSearchBookHandler = event => {
-    event.preventDefault();
-    this.props.getBookByBarcode(this.state.bookCode);
-    this.setState({bookCode: ''});
+    const data = {
+      bookId: this.props.findingBook._id,
+      userId: this.props.findingReader._id,
+      estimatedDate: this.state.estimatedDate
+    };
+    this.props.sendDataToJournal(data);
   };
 
   render() {
-    const reader = this.props.findingReader;
-    const book = this.props.findingBook;
     return (
-      <Row>
-        <Col xs={12} md={6}>
-          <Panel bsStyle="primary">
-            <Panel.Heading>
-              <Panel.Title>
-                <Form inline onSubmit={this.formSearchBookHandler}>
-                  <FormGroup>
-                    <ControlLabel style={{marginRight: '30px'}}>Штрихкод книги</ControlLabel>
-                    <FormControl
-                      name="bookCode"
-                      type="text"
-                      placeholder="Штрихкод"
-                      value={this.state.bookCode}
-                      onChange={this.changeHandler}
-                      style={{marginRight: '30px', width: '150px'}}/>
-                  </FormGroup>
-                  <Button bsSize="small" type="submit">Найти</Button>
-                </Form>
-              </Panel.Title>
-            </Panel.Heading>
-            <Panel.Body>{''}</Panel.Body>
-            {this.props.findingBook && this.props.findingBook ?
-              <ListGroup>
-                <ListGroupItem>Название:  <strong>{book.title}</strong></ListGroupItem>
-                <ListGroupItem>Автор:  <strong>{book.author}</strong></ListGroupItem>
-                <ListGroupItem>Год:  <strong>{book.year}</strong></ListGroupItem>
-                <ListGroupItem>Издательский дом:  <strong>{book.publishHouse}</strong></ListGroupItem>
-                <ListGroupItem>Категория:  <strong>{book.categoryId.title}</strong></ListGroupItem>
-                <ListGroupItem>Язык издания:  <strong>{book.language.title}</strong></ListGroupItem>
-              </ListGroup> : null}
-          </Panel>
-        </Col>
-
-        <Col xs={12} md={6}>
-          <Panel bsStyle="primary">
-            <Panel.Heading>
-              <Panel.Title>
-                <Form inline onSubmit={this.formSearchReaderHandler}>
-                  <FormGroup>
-                    <ControlLabel style={{marginRight: '30px'}}>Штрихкод читателя</ControlLabel>
-                    <FormControl
-                      name="readerCode"
-                      type="text"
-                      placeholder="Штрихкод"
-                      value={this.state.readerCode}
-                      onChange={this.changeHandler}
-                      style={{marginRight: '30px', width: '150px'}}/>
-                  </FormGroup>
-                  <Button bsSize="small" type="submit">Найти</Button>
-                </Form>
-              </Panel.Title>
-            </Panel.Heading>
-            <Panel.Body>{''}</Panel.Body>
-            {this.props.findingReader && this.props.findingReader ?
-              <ListGroup>
-                <ListGroupItem>Фамилия:  <strong>{reader.lastName}</strong></ListGroupItem>
-                <ListGroupItem>Имя: <strong>{reader.firstName}</strong></ListGroupItem>
-                <ListGroupItem>Документ: <strong>{reader.documentNumber}</strong></ListGroupItem>
-                <ListGroupItem>Группа: <strong>{reader.groupId.name}</strong></ListGroupItem>
-              </ListGroup> : null}
-          </Panel>
-        </Col>
-      </Row>
+      <Fragment>
+        <Row>
+          <GetBookFormForBook
+            getBook={this.props.getBookByBarcode}
+            book={this.props.findingBook}/>
+          <GetBookFormForReader
+            getReader={this.props.getReaderByBarcode}
+            reader={this.props.findingReader}/>
+        </Row>
+        <Panel bsStyle="primary">
+          <Panel.Body>
+            <Form horizontal>
+              <FormGroup controlId="estimatedDate">
+                <Col componentClass={ControlLabel} sm={2}>Дата возврата</Col>
+                <Col sm={4}>
+                  <FormControl
+                    name="estimatedDate"
+                    type="date"
+                    onChange={this.changeHandler}
+                    value={this.state.estimatedDate}/>
+                </Col>
+              </FormGroup>
+              <FormGroup>
+                <Col sm={12}>
+                  <Button disabled={!(this.props.findingBook && this.props.findingReader && this.state.estimatedDate)}
+                          bsStyle="primary" bsSize="large"
+                          block style={{marginTop: '20px'}} onClick={this.getBookToReader}>
+                    Выдать книгу читателю
+                  </Button>
+                </Col>
+              </FormGroup>
+            </Form>
+          </Panel.Body>
+        </Panel>
+      </Fragment>
     );
   }
 }
@@ -120,9 +82,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getReaderByBarcode: barcode => dispatch(getReaderByBarcode(barcode)),
-    getBookByBarcode: barcode => dispatch(getBookByBarcode(barcode))
+    getBookByBarcode: barcode => dispatch(getBookByBarcode(barcode)),
+    sendDataToJournal: data => dispatch(sendDataToJournal(data))
   };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetBook);
