@@ -127,6 +127,10 @@ export const getBookByBarcode = barcode => {
     }
 };
 
+export const clearFindingBook = () => {
+  return {type: CLEAR_FINDING_BOOK};
+};
+
 export const getBookForDelete = () => {
     return dispatch => {
         axios.get("/books/for-delete").then(response => {
@@ -138,21 +142,15 @@ export const getBookForDelete = () => {
         })
     }
 };
+
 export const removeBookForDelete = (data) => {
-
-    return dispatch => {
-
-
-        axios.post("/books/for-delete", data).then(response => {
-            NotificationManager.success(response.data.message);
-            dispatch(push("/admin"));
-        }, error => {
-            NotificationManager.error(error.response.data.message);
-            dispatch(bookPostDataError(error.response.data));
-        })
-    }
-};
-
-export const clearFindingBook = () => {
-  return {type: CLEAR_FINDING_BOOK};
+  return dispatch => {
+    axios.post("/books/for-delete", data).then(response => {
+      NotificationManager.success(response.data.message);
+      dispatch(push("/admin"));
+    }, error => {
+      NotificationManager.error(error.response.data.message);
+      dispatch(bookPostDataError(error.response.data));
+    })
+  }
 };

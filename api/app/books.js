@@ -8,7 +8,6 @@ const createRouter = () => {
     const router = express.Router();
 
     router.get("/for-delete", [auth, permit('admin', 'librarian')], async (req, res) => {
-
         try {
             const forDeleteState = await Status.findOne({name: 'На удаление'});
             const books = await Book.find({statusId: forDeleteState._id});
