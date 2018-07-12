@@ -45,7 +45,7 @@ class TakeBook extends Component {
                 </Form>
               </Panel.Title>
             </Panel.Heading>
-            <Pane.Body>{''}</Pane.Body>
+            <Panel.Body>{''}</Panel.Body>
             {this.props.findingBook && this.props.findingBook ?
               <ListGroup>
                 <ListGroupItem>Название:  <strong>{book.title}</strong></ListGroupItem>
