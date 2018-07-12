@@ -2,7 +2,7 @@ import {
   BOOK_POST_DATA_FAILURE,
   BOOK_POST_DATA_SUCCESS,
   BOOK_UPDATE_DATA_FAILURE,
-  BOOK_UPDATE_DATA_SUCCESS,
+  BOOK_UPDATE_DATA_SUCCESS, CLEAR_FINDING_BOOK, CLEAR_FINDING_READER,
   GET_BOOK_BY_BARCODE_FAILURE,
   GET_BOOK_BY_BARCODE_SUCCESS,
   GET_BOOKS_FROM_FULLSEARCH_FAILURE,
@@ -42,6 +42,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, findingBook: action.data, error: null };
     case GET_BOOK_BY_BARCODE_FAILURE:
       return { ...state, error: action.error };
+    case CLEAR_FINDING_BOOK:
+      return {...state, findingBook: null};
     default:
       return state;
   }
