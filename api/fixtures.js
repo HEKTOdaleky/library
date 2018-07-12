@@ -412,7 +412,8 @@ db.once("open", async () => {
             firstName: "Петр",
             lastName: "Петров",
             documentNumber: "6351-10",
-            groupId: g1._id
+            groupId: g1._id,
+            markToRemove: true
         }
     ]);
 
