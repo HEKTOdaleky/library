@@ -5,8 +5,8 @@ import {getStatus} from "../../../../store/actions/status";
 import {getCategories} from "../../../../store/actions/categories";
 import { Button, Col, Collapse, Form, FormGroup, PageHeader, Well } from "react-bootstrap";
 import dateFormat from 'dateformat';
-import FormElement from "../../../components/UI/Form/FormElement";
-import {clearFindingBook, getBookByBarcode, updateBookData} from "../../../store/actions/books";
+import FormElement from "../../../../components/UI/Form/FormElement";
+import {clearFindingBook, getBookByBarcode, updateBookData} from "../../../../store/actions/books";
 
 
 class editBook extends Component {
