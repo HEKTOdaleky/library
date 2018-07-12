@@ -46,7 +46,7 @@ class GetBookFormForBook extends Component {
                     onChange={this.changeHandler}
                     style={{marginRight: '30px', width: '150px'}}/>
                 </FormGroup>
-                <Button bsSize="small" type="submit" disabled={!this.state.bookCode}>Найти</Button>
+                <Button bsSize="small" type="submit" disabled={!this.state.bookCode}>Найти книгу</Button>
               </Form>
             </Panel.Title>
           </Panel.Heading>
