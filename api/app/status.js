@@ -7,10 +7,11 @@ const permit = require('../middleware/permit');
 
 const router = express.Router();
 
+
 const createRouter = () => {
 
     router.get('/', [auth, permit('admin', 'librarian')], (req, res) => {
-        Status.find().then(results => {
+        Status.find().where("name").ne('Удалено').then(results => {
             res.send(results)
         }).catch(() => res.sendStatus(500));
     });
@@ -18,7 +19,7 @@ const createRouter = () => {
     router.delete('/:id', [auth, permit('admin', 'librarian')], async (req, res) => {
         const id = req.params.id;
         const currentBook = await Book.findOne({statusId: id});
-        if (currentBook )
+        if (currentBook)
             res.status(400).send({message: "Невозможно удалить статус, который используется"});
         else {
             await Status.deleteOne({_id: id});
