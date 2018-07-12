@@ -12,6 +12,7 @@ import statusReducer from './reducers/status';
 import categoriesReducer from './reducers/categories';
 import groupsReducer from './reducers/groups';
 import readersReducer from './reducers/readers';
+import journalsReducer from './reducers/journal';
 
 const rootReducer = combineReducers({
     users: userReducer,
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
     status: statusReducer,
     categories: categoriesReducer,
     groups: groupsReducer,
-    readers: readersReducer
+    readers: readersReducer,
+    journals: journalsReducer,
 });
 
 export const history = createHistory();

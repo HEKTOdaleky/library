@@ -13,18 +13,19 @@ import { sendDataToJournal } from "../../../store/actions/journals";
 class GetBook extends Component {
 
   state = {
-    closeData: "",
+    estimatedDate: "",
   };
 
   changeHandler = event => {
     this.setState({[event.target.name]: event.target.value});
   };
 
-  getBookClickHandler = () => {
+  getBookToReader = event => {
+    event.preventDefault();
     const data = {
       bookId: this.props.findingBook._id,
-      readerId: this.props.findingReader,
-      closeData: this.state.closeData
+      userId: this.props.findingReader._id,
+      estimatedDate: this.state.estimatedDate
     };
     this.props.sendDataToJournal(data);
   };
@@ -43,22 +44,21 @@ class GetBook extends Component {
         <Panel bsStyle="primary">
           <Panel.Body>
             <Form horizontal>
-              <FormGroup controlId="closeData">
+              <FormGroup controlId="estimatedDate">
                 <Col componentClass={ControlLabel} sm={2}>Дата возврата</Col>
                 <Col sm={4}>
                   <FormControl
-                    name="closeData"
+                    name="estimatedDate"
                     type="date"
                     onChange={this.changeHandler}
-                    value={this.state.closeData}/>
+                    value={this.state.estimatedDate}/>
                 </Col>
               </FormGroup>
               <FormGroup>
                 <Col sm={12}>
-                  <Button disabled={!(this.props.findingBook && this.props.findingReader && this.state.closeData)}
+                  <Button disabled={!(this.props.findingBook && this.props.findingReader && this.state.estimatedDate)}
                           bsStyle="primary" bsSize="large"
-                          block style={{marginTop: '20px'}}
-                          onClick={this.props.getBookClickHandler}>
+                          block style={{marginTop: '20px'}} onClick={this.getBookToReader}>
                     Выдать книгу читателю
                   </Button>
                 </Col>
