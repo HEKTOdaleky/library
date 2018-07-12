@@ -33,7 +33,6 @@ class editBook extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.findingBook) {
-      console.log(nextProps.findingBook._id);
       this.setState({
         id: nextProps.findingBook._id,
         title: nextProps.findingBook.title,
