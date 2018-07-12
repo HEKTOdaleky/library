@@ -6,7 +6,8 @@ import {getCategories} from "../../../../store/actions/categories";
 import { Button, Col, Collapse, Form, FormGroup, PageHeader, Well } from "react-bootstrap";
 import dateFormat from 'dateformat';
 import FormElement from "../../../../components/UI/Form/FormElement";
-import { getBookByBarcode, updateBookData } from "../../../../store/actions/books";
+import {clearFindingBook, getBookByBarcode, updateBookData} from "../../../../store/actions/books";
+
 
 class editBook extends Component {
   state = {
@@ -32,7 +33,6 @@ class editBook extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.findingBook) {
-      console.log(nextProps.findingBook._id);
       this.setState({
         id: nextProps.findingBook._id,
         title: nextProps.findingBook.title,
@@ -47,6 +47,10 @@ class editBook extends Component {
         isFind: true
       });
     }
+  }
+
+  componentWillUnmount() {
+    this.props.clearFindingBook();
   }
 
   onChangeHandler = event => {
@@ -236,7 +240,8 @@ const mapDispatchToProps = dispatch => {
     getStatus: () => dispatch(getStatus()),
     getCategories: () => dispatch(getCategories()),
     getBookByBarcode: barcode => dispatch(getBookByBarcode(barcode)),
-    updateBookData: data => dispatch(updateBookData(data))
+    updateBookData: data => dispatch(updateBookData(data)),
+    clearFindingBook: () => dispatch(clearFindingBook())
   };
 };
 

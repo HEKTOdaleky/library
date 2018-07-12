@@ -3,16 +3,17 @@ import {NotificationManager} from "react-notifications";
 import {push} from "react-router-redux";
 
 import {
-    BOOK_POST_DATA_FAILURE,
-    BOOK_POST_DATA_SUCCESS,
-    BOOK_UPDATE_DATA_FAILURE,
-    BOOK_UPDATE_DATA_SUCCESS,
-    GET_BOOK_BY_BARCODE_FAILURE,
-    GET_BOOK_BY_BARCODE_SUCCESS,
-    GET_BOOKS_FROM_FULLSEARCH_FAILURE,
-    GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
-    GET_BOOKS_FROM_SEARCH_FAILURE,
-    GET_BOOKS_FROM_SEARCH_SUCCESS
+  BOOK_POST_DATA_FAILURE,
+  BOOK_POST_DATA_SUCCESS,
+  BOOK_UPDATE_DATA_FAILURE,
+  BOOK_UPDATE_DATA_SUCCESS,
+  CLEAR_FINDING_BOOK,
+  GET_BOOK_BY_BARCODE_FAILURE,
+  GET_BOOK_BY_BARCODE_SUCCESS,
+  GET_BOOKS_FROM_FULLSEARCH_FAILURE,
+  GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
+  GET_BOOKS_FROM_SEARCH_FAILURE,
+  GET_BOOKS_FROM_SEARCH_SUCCESS
 } from "./actionTypes";
 
 const getBooksFromSearchSuccess = booksData => {
@@ -124,6 +125,10 @@ export const getBookByBarcode = barcode => {
             }
         )
     }
+};
+
+export const clearFindingBook = () => {
+  return {type: CLEAR_FINDING_BOOK};
 };
 
 export const getBookForDelete = () => {
