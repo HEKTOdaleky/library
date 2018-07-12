@@ -3,16 +3,16 @@ import {NotificationManager} from "react-notifications";
 import {push} from "react-router-redux";
 
 import {
-    BOOK_POST_DATA_FAILURE,
-    BOOK_POST_DATA_SUCCESS,
-    BOOK_UPDATE_DATA_FAILURE,
-    BOOK_UPDATE_DATA_SUCCESS,
-    GET_BOOK_BY_BARCODE_FAILURE,
-    GET_BOOK_BY_BARCODE_SUCCESS,
-    GET_BOOKS_FROM_FULLSEARCH_FAILURE,
-    GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
-    GET_BOOKS_FROM_SEARCH_FAILURE,
-    GET_BOOKS_FROM_SEARCH_SUCCESS
+  BOOK_POST_DATA_FAILURE,
+  BOOK_POST_DATA_SUCCESS,
+  BOOK_UPDATE_DATA_FAILURE,
+  BOOK_UPDATE_DATA_SUCCESS, GET_BOOK_BY_BARCODE_BOOK_FAILURE, GET_BOOK_BY_BARCODE_BOOK_SUCCESS,
+  GET_BOOK_BY_BARCODE_FAILURE,
+  GET_BOOK_BY_BARCODE_SUCCESS,
+  GET_BOOKS_FROM_FULLSEARCH_FAILURE,
+  GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
+  GET_BOOKS_FROM_SEARCH_FAILURE,
+  GET_BOOKS_FROM_SEARCH_SUCCESS
 } from "./actionTypes";
 
 const getBooksFromSearchSuccess = booksData => {
@@ -126,14 +126,22 @@ export const getBookByBarcode = barcode => {
     }
 };
 
+const getBookByBarcodeBookSuccess = data => {
+  return {type: GET_BOOK_BY_BARCODE_BOOK_SUCCESS, data};
+};
+
+const getBookByBarcodeBookFailure = error => {
+  return {type: GET_BOOK_BY_BARCODE_BOOK_FAILURE, error};
+};
+
 export const getBookByBarcodeBook = barcode => {
   return dispatch => {
     axios.get(`/books/barcode-book/${barcode}`).then(
       response => {
-        dispatch(getBookByBarcodeSuccess(response.data))
+        dispatch(getBookByBarcodeBookSuccess(response.data))
       },
       error => {
-        dispatch(getBookByBarcodeFailure(error.response.data));
+        dispatch(getBookByBarcodeBookFailure(error.response.data));
         if (error.response.data.error)
           NotificationManager.error(error.response.data.error);
         if (error.response.data.message)
