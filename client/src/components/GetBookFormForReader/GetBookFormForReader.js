@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from "react";
+import React, { Component } from "react";
 import {
   Button,
   Col,
@@ -46,7 +46,7 @@ class GetBookFormForReader extends Component {
                     onChange={this.changeHandler}
                     style={{marginRight: '30px', width: '150px'}}/>
                 </FormGroup>
-                <Button bsSize="small" type="submit">Найти</Button>
+                <Button bsSize="small" type="submit" disabled={!this.state.readerCode}>Найти</Button>
               </Form>
             </Panel.Title>
           </Panel.Heading>
