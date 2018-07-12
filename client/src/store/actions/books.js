@@ -126,6 +126,23 @@ export const getBookByBarcode = barcode => {
     }
 };
 
+export const getBookByBarcodeBook = barcode => {
+  return dispatch => {
+    axios.get(`/books/barcode-book/${barcode}`).then(
+      response => {
+        dispatch(getBookByBarcodeSuccess(response.data))
+      },
+      error => {
+        dispatch(getBookByBarcodeFailure(error.response.data));
+        if (error.response.data.error)
+          NotificationManager.error(error.response.data.error);
+        if (error.response.data.message)
+          NotificationManager.info(error.response.data.message);
+      }
+    )
+  }
+};
+
 export const getBookForDelete = () => {
     return dispatch => {
         axios.get("/books/for-delete").then(response => {

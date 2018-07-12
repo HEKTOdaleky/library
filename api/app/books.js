@@ -162,6 +162,20 @@ const createRouter = () => {
         }
     });
 
+  router.get('/barcode-book/:barcode', [auth, permit('admin', 'librarian')], async (req, res) => {
+    try {
+      const status = await Status.findOne({name: "Выдана"});
+      const book = await Book.findOne({
+        inventoryCode: req.params.barcode,
+        $and: [{statusId: status.id}]
+      }).populate(['statusId', 'categoryId', 'language']);
+      if (book) return res.send(book);
+      else return res.status(400).send({error: 'Книга с таким штрихкодом не найдена'});
+    } catch (e) {
+      return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
+    }
+  });
+
     return router;
 };
 
