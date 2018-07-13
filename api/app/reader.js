@@ -91,6 +91,23 @@ const createRouter = () => {
     }
   });
 
+  router.delete('/mark-reader', [auth, permit('librarian')], async (req, res) => {
+    let data = {
+      readerId: req.body.readerId,
+      closeDate: req.body.closeDate
+    };
+
+    if (data.readerId) {
+        try {
+          await Reader.findOneAndUpdate({_id: data.readerId}, {$set: {markToRemove: true, comment: data.closeDate.toString() }});
+        } catch (e) {
+          return res.status(500).send({message: 'Ошибка. Не удалось отправить читателя на удаление!'});
+        }
+      res.send({message: "Читатели успешно отправлен на одобрение к удалению!"});
+    } else
+      return res.status(400).send({error: "Ошибка в обработке данных. Читатель не найден!"});
+  });
+
   return router;
 };
 module.exports = createRouter;
