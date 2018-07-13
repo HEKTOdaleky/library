@@ -23,6 +23,7 @@ import EditBook from "./containers/AdminForms/EditForms/EditBook/EditBook";
 import EditReader from "./containers/AdminForms/EditForms/EditReader/EditReader";
 import GetBook from "./containers/LibrarianForms/GetBook/GetBook";
 import TakeBook from "./containers/LibrarianForms/TakeBook/TakeBook";
+import DeleteReaderLibrarian from "./containers/LibrarianForms/DeleteReaderLibrarian/DeleteReaderLibrarian";
 
 const ProtectedRoute = ({isAllowed, ...props}) =>
 isAllowed ? <Route {...props} />
@@ -77,6 +78,9 @@ const Routes = ({user}) => {
 
             <ProtectedRoute isAllowed={user && user.role === "librarian"} path="/take-book" exact
                           component={TakeBook}/>
+
+            <ProtectedRoute isAllowed={user && user.role === "librarian"} path="/mark-reader" exact
+                          component={DeleteReaderLibrarian}/>
 
             <Route path="/login" exact component={Login}/>
             <Route render={() => <h1 style={{textAlign: "center"}}>Page not found</h1>}/>
