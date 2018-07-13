@@ -16,5 +16,6 @@ module.exports = {
     deleteReader: baseUrl + '/delete-reader',
     getBook: baseUrl + '/get-book',
     editBook: baseUrl + '/edit-book',
-    deleteBook: baseUrl + '/delete-book'
+    deleteBook: baseUrl + '/delete-book',
+    takeBook: baseUrl + '/take-book'
 };
