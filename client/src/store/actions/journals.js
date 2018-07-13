@@ -42,7 +42,7 @@ export const sendDataTakeBookToJournal = data => {
         dispatch(sendDataToJournalSuccess(response.data));
         dispatch(push("/librarian"));
         NotificationManager.success(response.data.message);
-        console.log(response)
+        dispatch(clearFindingBook());
       },
       error => {
         dispatch(sendDataToJournalFailure(error.response.data));
