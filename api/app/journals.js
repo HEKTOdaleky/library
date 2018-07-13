@@ -1,5 +1,6 @@
 const express = require('express');
 const Journal = require('../models/Journal');
+const TakeBookJournal = require('../models/TakeBookJournal');
 const Book = require('../models/Book');
 const Status = require('../models/Status');
 const auth = require('../middleware/auth');
@@ -32,7 +33,7 @@ const createRouter = () => {
       closeDate: req.body.closeDate
     };
 
-    const newRecordTakeBookInJournal = new Journal(data);
+    const newRecordTakeBookInJournal = new TakeBookJournal(data);
     try {
       console.log(data);
       await newRecordTakeBookInJournal.save();
