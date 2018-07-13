@@ -82,10 +82,6 @@ export const editReader = data => {
   }
 };
 
-const getReadersForRemoveSuccess = data => {
-  return {type: GET_READERS_FOR_REMOVE_SUCCESS, data};
-};
-
 export const getReaderByBarcode = barcode => {
   return dispatch => {
     return axios.get(`/reader/barcode/${barcode}`).then(
@@ -101,6 +97,10 @@ export const getReaderByBarcode = barcode => {
       }
     )
   }
+};
+
+const getReadersForRemoveSuccess = data => {
+  return {type: GET_READERS_FOR_REMOVE_SUCCESS, data};
 };
 
 const getReadersForRemoveFailure = error => {

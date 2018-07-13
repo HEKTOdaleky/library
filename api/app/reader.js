@@ -7,7 +7,7 @@ const createRouter = () => {
   const router = express.Router();
 
   router.get('/', [auth, permit('admin', 'librarian')], async(req, res) => {
-
+    
     if (req.user.role === 'admin') {
       try {
         const readers = await Reader.find({$and: [{markToRemove: true}, {isActive: true}]}).populate('groupId');
