@@ -26,6 +26,7 @@ db.once("open", async () => {
         await db.dropCollection("readers");
         await db.dropCollection("users");
         await db.dropCollection("journals");
+        await db.dropCollection("takebookjournals")
     } catch (e) {
         console.log("Collections were not present, skipping drop...");
     }
