@@ -12,7 +12,7 @@ const BookMenu = () => {
         <MenuItem>Принять книгу</MenuItem>
       </LinkContainer>
       <LinkContainer to="/remove-book">
-        <MenuItem>Удалить книгу</MenuItem>
+        <MenuItem>Книгу на удаление</MenuItem>
       </LinkContainer>
     </NavDropdown>
   );

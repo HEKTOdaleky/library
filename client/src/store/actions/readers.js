@@ -4,7 +4,7 @@ import {push} from "react-router-redux";
 
 import {
   ADD_NEW_READER_FAILURE,
-  ADD_NEW_READER_SUCCESS,
+  ADD_NEW_READER_SUCCESS, CLEAR_FINDING_BOOK,
   CLEAR_FINDING_READER,
   EDIT_READER_FAILURE,
   EDIT_READER_SUCCESS,
@@ -147,3 +147,4 @@ export const sendReaders = readersData => {
     )
   }
 };
+

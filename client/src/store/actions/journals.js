@@ -1,8 +1,10 @@
 import axios from "../../axios-api";
 import { NotificationManager } from "react-notifications";
-// import { push } from "react-router-redux";
-import { SEND_DATA_TO_JOURNAL_FAILURE, SEND_DATA_TO_JOURNAL_SUCCESS } from "./actionTypes";
 import { push } from "react-router-redux";
+
+import { clearFindingBook } from "./books";
+import { clearFindingReader } from "./readers";
+import { SEND_DATA_TO_JOURNAL_FAILURE, SEND_DATA_TO_JOURNAL_SUCCESS } from "./actionTypes";
 
 const sendDataToJournalSuccess = data => {
   return {type: SEND_DATA_TO_JOURNAL_SUCCESS, data};
@@ -19,6 +21,8 @@ export const sendDataToJournal = data => {
         dispatch(sendDataToJournalSuccess(response.data));
         dispatch(push("/librarian"));
         NotificationManager.success(response.data.message);
+        dispatch(clearFindingBook());
+        dispatch(clearFindingReader());
       },
       error => {
         dispatch(sendDataToJournalFailure(error.response.data));
