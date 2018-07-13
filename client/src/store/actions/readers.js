@@ -148,3 +148,23 @@ export const sendReaders = readersData => {
   }
 };
 
+
+export const sendReaderToRemove = readerData => {
+  return dispatch => {
+    axios.delete('/reader/mark-reader', {data: readerData}).then(
+      response => {
+        dispatch(sendReadersSuccess(response.data));
+        dispatch(push('/librarian'));
+        NotificationManager.success(response.data.message);
+      },
+      error => {
+        dispatch(sendReadersFailure(error.response.data));
+        if (error.response.data.error)
+          NotificationManager.error(error.response.data.error);
+        if (error.response.data.message)
+          NotificationManager.error(error.response.data.message);
+
+      }
+    )
+  }
+};
