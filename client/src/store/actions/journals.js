@@ -30,3 +30,23 @@ export const sendDataToJournal = data => {
     )
   }
 };
+
+export const sendDataTakeBookToJournal = data => {
+  return dispatch => {
+    axios.post('/journal/take-book', data).then(
+      response => {
+        dispatch(sendDataToJournalSuccess(response.data));
+        dispatch(push("/librarian"));
+        NotificationManager.success(response.data.message);
+        console.log(response)
+      },
+      error => {
+        dispatch(sendDataToJournalFailure(error.response.data));
+        if (error.response.data.error)
+          NotificationManager.error(error.response.data.error);
+        if (error.response.data.message)
+          NotificationManager.info(error.response.data.message);
+      }
+    )
+  }
+};

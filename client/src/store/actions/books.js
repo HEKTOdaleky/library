@@ -138,7 +138,7 @@ export const getBookByBarcodeBook = barcode => {
   return dispatch => {
     axios.get(`/books/barcode-book/${barcode}`).then(
       response => {
-        dispatch(getBookByBarcodeBookSuccess(response.data))
+        dispatch(getBookByBarcodeBookSuccess(response.data));
       },
       error => {
         dispatch(getBookByBarcodeBookFailure(error.response.data));

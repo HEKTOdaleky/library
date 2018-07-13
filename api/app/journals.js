@@ -26,6 +26,24 @@ const createRouter = () => {
     }
   });
 
+  router.post('/take-book', [auth, permit('librarian')], async (req, res) => {
+    const data = {
+      bookId: req.body.bookId,
+      closeDate: req.body.closeDate
+    };
+
+    const newRecordTakeBookInJournal = new Journal(data);
+    try {
+      console.log(data);
+      await newRecordTakeBookInJournal.save();
+      const status = await Status.findOne({name: "В наличии"});
+      await Book.findOneAndUpdate({_id: data.bookId}, {$set: {statusId: status }});
+      return res.send({message: "Книга принята успешно"});
+    } catch (e) {
+      return res.send({error: "Не удалось сохранить запись в журнал"});
+    }
+  });
+
 
   return router;
 };

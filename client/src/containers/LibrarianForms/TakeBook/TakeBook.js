@@ -6,10 +6,12 @@ import {
 } from "react-bootstrap";
 
 import {getBookByBarcodeBook} from "../../../store/actions/books";
+import {sendDataTakeBookToJournal} from "../../../store/actions/journals"
 
 class TakeBook extends Component {
   state = {
-    bookCode: ''
+    bookCode: '',
+    closeDate: ''
   };
 
   changeHandler = event => {
@@ -22,8 +24,18 @@ class TakeBook extends Component {
     this.setState({bookCode: ''});
   };
 
+  takeBookToReader = event => {
+    event.preventDefault();
+    const data = {
+      bookId: this.props.findingTakeBook._id,
+      closeDate: this.state.closeDate
+    };
+    console.log(data);
+    this.props.sendDataTakeBookToJournal(data);
+  };
+
   render() {
-    const book = this.props.findingBook;
+    const book = this.props.findingTakeBook;
     return (
       <Fragment>
         <Row>
@@ -47,7 +59,7 @@ class TakeBook extends Component {
                 </Panel.Title>
               </Panel.Heading>
               <Panel.Body>{''}</Panel.Body>
-              {this.props.findingBook && this.props.findingBook ?
+              {book && book ?
                 <ListGroup>
                   <ListGroupItem>Название: <strong>{book.title}</strong></ListGroupItem>
                   <ListGroupItem>Автор: <strong>{book.author}</strong></ListGroupItem>
@@ -62,21 +74,21 @@ class TakeBook extends Component {
         <Panel bsStyle="primary">
           <Panel.Body>
             <Form horizontal>
-              <FormGroup controlId="estimatedDate">
+              <FormGroup controlId="closeDate">
                 <Col componentClass={ControlLabel} sm={2}>Дата возврата</Col>
                 <Col sm={4}>
                   <FormControl
-                    name="estimatedDate"
+                    name="closeDate"
                     type="date"
                     onChange={this.changeHandler}
-                    value={this.state.estimatedDate}/>
+                    value={this.state.closeDate}/>
                 </Col>
               </FormGroup>
               <FormGroup>
                 <Col sm={12}>
-                  <Button disabled={!(this.props.findingBook && this.state.estimatedDate)}
+                  <Button disabled={!(this.props.findingTakeBook && this.state.closeDate)}
                           bsStyle="primary" bsSize="large"
-                          block style={{marginTop: '20px'}}>
+                          block style={{marginTop: '20px'}} onClick={this.takeBookToReader}>
                     Принять книгу у читателя
                   </Button>
                 </Col>
@@ -91,14 +103,14 @@ class TakeBook extends Component {
 
 const mapStateToProps = state => {
   return {
-    findingBook: state.books.findingBook
+    findingTakeBook: state.books.findingTakeBook
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     getBookByBarcodeBook: barcode => dispatch(getBookByBarcodeBook(barcode)),
-
+    sendDataTakeBookToJournal: data => dispatch(sendDataTakeBookToJournal(data))
   }
 };
 
