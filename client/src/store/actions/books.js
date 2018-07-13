@@ -7,6 +7,7 @@ import {
   BOOK_POST_DATA_SUCCESS,
   BOOK_UPDATE_DATA_FAILURE,
   BOOK_UPDATE_DATA_SUCCESS, GET_BOOK_BY_BARCODE_BOOK_FAILURE, GET_BOOK_BY_BARCODE_BOOK_SUCCESS,
+  CLEAR_FINDING_BOOK,
   GET_BOOK_BY_BARCODE_FAILURE,
   GET_BOOK_BY_BARCODE_SUCCESS,
   GET_BOOKS_FROM_FULLSEARCH_FAILURE,
@@ -149,6 +150,10 @@ export const getBookByBarcodeBook = barcode => {
       }
     )
   }
+};
+
+export const clearFindingBook = () => {
+  return {type: CLEAR_FINDING_BOOK};
 };
 
 export const getBookForDelete = () => {

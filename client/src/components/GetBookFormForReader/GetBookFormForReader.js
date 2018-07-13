@@ -46,7 +46,7 @@ class GetBookFormForReader extends Component {
                     onChange={this.changeHandler}
                     style={{marginRight: '30px', width: '150px'}}/>
                 </FormGroup>
-                <Button bsSize="small" type="submit" disabled={!this.state.readerCode}>Найти</Button>
+                <Button bsSize="small" type="submit" disabled={!this.state.readerCode}>Найти читателя</Button>
               </Form>
             </Panel.Title>
           </Panel.Heading>

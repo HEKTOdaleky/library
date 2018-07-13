@@ -9,11 +9,12 @@ import { getBookByBarcode } from "../../../store/actions/books";
 import GetBookFormForBook from "../../../components/GetBookFormForBook/GetBookFormForBook";
 import GetBookFormForReader from "../../../components/GetBookFormForReader/GetBookFormForReader";
 import { sendDataToJournal } from "../../../store/actions/journals";
+import dateFormat from "dateformat";
 
 class GetBook extends Component {
 
   state = {
-    estimatedDate: "",
+    estimatedDate: dateFormat(new Date(), "dd-mm-yyyy"),
   };
 
   changeHandler = event => {

@@ -9,7 +9,7 @@ const ReaderMenu = () => {
         <MenuItem>Новый читатель</MenuItem>
       </LinkContainer>
       <LinkContainer to="/mark-reader">
-        <MenuItem>Удалить читателя</MenuItem>
+        <MenuItem>Читателя на удаление</MenuItem>
       </LinkContainer>
 
     </NavDropdown>

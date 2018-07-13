@@ -19,7 +19,7 @@ const port = process.env.PORT || 8000;
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(config.db.url);
+mongoose.connect(config.db.url + "/" + config.db.name);
 // mongoose.set('debug', true);
 
 const db = mongoose.connection;
