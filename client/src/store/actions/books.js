@@ -160,7 +160,7 @@ export const getBookForDelete = () => {
     return dispatch => {
         axios.get("/books/for-delete").then(response => {
             dispatch(getBooksFromSearchSuccess(response.data.books));
-            NotificationManager.success(response.data.message);
+            // NotificationManager.success(response.data.message);
         }, error => {
             NotificationManager.error(error.response.data.message);
             dispatch(bookPostDataError(error.response.data));

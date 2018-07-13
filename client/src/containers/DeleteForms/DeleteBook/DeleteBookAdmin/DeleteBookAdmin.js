@@ -42,7 +42,7 @@ class DeleteBookAdmin extends Component {
                     <Button disabled={!this.state.order} onClick={
                         this.removeAllBooksHandler
                     }>Удалить всё</Button>
-                </Fragment>) : <div ><p style={{textAlign:"center", margin:"50px"}}>Нет книг для удаления</p></div>}</Fragment>)
+                </Fragment>) : <div><p className="nothing-delete" style={{textAlign:"center", margin:"50px"}}>Нет книг для удаления</p></div>}</Fragment>)
     }
 
 };
