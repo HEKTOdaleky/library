@@ -27,15 +27,14 @@ class TakeBook extends Component {
   takeBookToReader = event => {
     event.preventDefault();
     const data = {
-      bookId: this.props.findingTakeBook._id,
+      bookId: this.props.findingBook._id,
       closeDate: this.state.closeDate
     };
-    console.log(data);
     this.props.sendDataTakeBookToJournal(data);
   };
 
   render() {
-    const book = this.props.findingTakeBook;
+    const book = this.props.findingBook;
     return (
       <Fragment>
         <Row>
@@ -86,7 +85,7 @@ class TakeBook extends Component {
               </FormGroup>
               <FormGroup>
                 <Col sm={12}>
-                  <Button disabled={!(this.props.findingTakeBook && this.state.closeDate)}
+                  <Button disabled={!(this.props.findingBook && this.state.closeDate)}
                           bsStyle="primary" bsSize="large"
                           block style={{marginTop: '20px'}} onClick={this.takeBookToReader}>
                     Принять книгу у читателя
@@ -103,7 +102,7 @@ class TakeBook extends Component {
 
 const mapStateToProps = state => {
   return {
-    findingTakeBook: state.books.findingTakeBook
+    findingBook: state.books.findingBook
   }
 };
 

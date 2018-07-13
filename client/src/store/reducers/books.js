@@ -45,7 +45,7 @@ const reducer = (state = initialState, action) => {
     case GET_BOOK_BY_BARCODE_FAILURE:
       return { ...state, error: action.error };
     case GET_BOOK_BY_BARCODE_BOOK_SUCCESS:
-      return { ...state, findingTakeBook: action.data, error: null};
+      return { ...state, findingBook: action.data, error: null};
     case GET_BOOK_BY_BARCODE_BOOK_FAILURE:
       return { ...state, error: action.error};
     case CLEAR_FINDING_BOOK:

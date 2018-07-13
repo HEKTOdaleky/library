@@ -39,4 +39,9 @@ module.exports = function () {
       return input.addValue(value);
     });
 
+  this.Given(/^я захожу на страницу принятия книги у читателя$/, function () {
+    return browser.url(urls.takeBook);
+  });
+
+
 };
