@@ -11,6 +11,9 @@ const BookMenu = () => {
       <LinkContainer to="/take-book">
         <MenuItem>Принять книгу</MenuItem>
       </LinkContainer>
+      <LinkContainer to="/add-book">
+        <MenuItem>Добавить книгу</MenuItem>
+      </LinkContainer>
       <LinkContainer to="/remove-book">
         <MenuItem>Книгу на удаление</MenuItem>
       </LinkContainer>

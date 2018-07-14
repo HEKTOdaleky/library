@@ -28,8 +28,7 @@ import DeleteBookLibr from "./containers/LibrarianForms/DeleteBookLibr/DeleteBoo
 
 const ProtectedRoute = ({isAllowed, ...props}) =>
     isAllowed ? <Route {...props} />
-        :
-        <Redirect to="/login"/>;
+        : <Redirect to="/login"/>;
 
 const Routes = ({user}) => {
     return (
@@ -39,7 +38,7 @@ const Routes = ({user}) => {
                             component={Librarian}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/admin" exact
                             component={Admin}/>
-            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-book" exact
+            <ProtectedRoute isAllowed={user && (user.role === "admin" || user.role === 'librarian')} path="/add-book" exact
                             component={AddBook}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-group" exact
                             component={AddGroup}/>
@@ -48,8 +47,7 @@ const Routes = ({user}) => {
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-status" exact
                             component={AddStatus}/>
             <ProtectedRoute isAllowed={user && (user.role === "admin" || user.role === 'librarian')} path="/add-reader"
-                            exact
-                            component={AddReader}/>
+                            exact component={AddReader}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-category" exact
                             component={AddCategory}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/create-new-user" exact
