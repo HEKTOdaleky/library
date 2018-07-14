@@ -45,6 +45,32 @@ const createRouter = () => {
         }
     });
 
+    router.post('/for-delete-mark', [auth, permit('librarian')], async (req, res) => {
+        const book = req.body.book;
+        const mark = req.body.mark;
+
+        try {
+            let deteled = await Status.findOne({name: 'На удаление'});
+            if (!deteled) {
+                deteled = new Status({name: 'На удаление', description: 'На удаление'});
+                await deteled.save();
+            }
+
+            let newBook = await Book.findOne({_id: book._id});
+            newBook.statusId = deteled;
+            if (mark)
+                newBook.mark = mark;
+            await newBook.save();
+
+
+            res.send({message: "Книги помечена на удаление"})
+
+        }
+        catch (e) {
+
+        }
+    });
+
     router.post('/search', async (req, res) => {
         if (req.body.searchKey === '') {
             res.status(400).send({error: "Поле поиска не должно быть пустым!"});
