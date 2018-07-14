@@ -182,6 +182,8 @@ export const removeBookForDelete = (data) => {
 
 export const markBookForDelete = (data) => {
     return dispatch => {
+        console.log(data);
+
         axios.post("/books/for-delete-mark", data).then(response => {
             NotificationManager.success(response.data.message);
             dispatch(push("/librarian"));

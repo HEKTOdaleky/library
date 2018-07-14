@@ -49,14 +49,17 @@ const createRouter = () => {
         const book = req.body.book;
         const mark = req.body.mark;
 
+
+
         try {
             let deteled = await Status.findOne({name: 'На удаление'});
             if (!deteled) {
                 deteled = new Status({name: 'На удаление', description: 'На удаление'});
                 await deteled.save();
             }
+            console.log(req.body);
 
-            let newBook = await Book.findOne({_id: book._id});
+            let newBook = await Book.findOne({_id: book});
             newBook.statusId = deteled;
             if (mark)
                 newBook.mark = mark;
