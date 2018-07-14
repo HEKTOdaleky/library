@@ -7,11 +7,12 @@ import {
 
 import {getBookByBarcodeBook} from "../../../store/actions/books";
 import {sendDataTakeBookToJournal} from "../../../store/actions/journals"
+import dateFormat from "dateformat";
 
 class TakeBook extends Component {
   state = {
     bookCode: '',
-    closeDate: ''
+    closeDate: dateFormat(new Date(), "yyyy-mm-dd")
   };
 
   changeHandler = event => {
