@@ -14,7 +14,7 @@ import dateFormat from "dateformat";
 class GetBook extends Component {
 
   state = {
-    estimatedDate: dateFormat(new Date(), "dd-mm-yyyy"),
+    estimatedDate: dateFormat(new Date(), "yyyy-mm-dd"),
   };
 
   changeHandler = event => {
