@@ -8,20 +8,41 @@ class DeleteBookAdmin extends Component {
         this.props.getBookForDelete();
     }
 
+    state = {
+        order: ""
+    };
+    orderInputChangeHandler = event => {
+        this.setState({order: event.target.value})
+    };
+    removeAllBooksHandler = () => {
+
+        this.props.removeBookForDelete({books: this.props.books, order: this.state.order})
+    };
+
+
     render() {
-        return (<Fragment>
-            <ListGroup>
-                {
-                    this.props.books.map(book => {
-                        return (<ListGroupItem
-                            key={book._id}>{book.title + ' ' + book.author + ' ' + book.year}</ListGroupItem>)
-                    })
-                }
-            </ListGroup>
-            <Button onClick={() => {
-                this.props.removeBookForDelete(this.props.books)
-            }}>Удалить всё</Button>
-        </Fragment>)
+        return (
+            <Fragment>{this.props.books.length>0 ? (
+                <Fragment>
+                    <input
+                        type="text"
+                        style={{width: "100%"}}
+                        onChange={this.orderInputChangeHandler}
+                        name="order"
+                        value={this.state.order}
+                    />
+                    <ListGroup>
+                        {
+                            this.props.books.map(book => {
+                                return (<ListGroupItem
+                                    key={book._id}>{book.title + ' ' + book.author + ' ' + book.year}</ListGroupItem>)
+                            })
+                        }
+                    </ListGroup>
+                    <Button disabled={!this.state.order} onClick={
+                        this.removeAllBooksHandler
+                    }>Удалить всё</Button>
+                </Fragment>) : <div><p className="nothing-delete" style={{textAlign:"center", margin:"50px"}}>Нет книг для удаления</p></div>}</Fragment>)
     }
 
 };

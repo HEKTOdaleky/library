@@ -390,15 +390,15 @@ db.once("open", async () => {
             firstName: "Азамат",
             lastName: "Исаков",
             documentNumber: "6351-09",
-            groupId: g2._id,
-            markToRemove: true
+            groupId: g2._id
         },
         {
             inventoryCode: "000004",
             firstName: "Искендер",
             lastName: "Ядгаров",
             documentNumber: "6351-49",
-            groupId: g2._id
+            groupId: g2._id,
+            markToRemove: true
         },
         {
             inventoryCode: "000005",
@@ -409,7 +409,7 @@ db.once("open", async () => {
             markToRemove: true
         },
         {
-            inventoryCode: "4700000480678",
+            inventoryCode: "000006",
             firstName: "Петр",
             lastName: "Петров",
             documentNumber: "6351-10",
