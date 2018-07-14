@@ -179,3 +179,15 @@ export const removeBookForDelete = (data) => {
     })
   }
 };
+
+export const markBookForDelete = (data) => {
+    return dispatch => {
+        axios.post("/books/for-delete-mark", data).then(response => {
+            NotificationManager.success(response.data.message);
+            dispatch(push("/librarian"));
+        }, error => {
+            NotificationManager.error(error.response.data.message);
+            dispatch(bookPostDataError(error.response.data));
+        })
+    }
+};
