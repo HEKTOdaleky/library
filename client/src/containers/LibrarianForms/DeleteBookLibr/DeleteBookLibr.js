@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {getBookByBarcode, markBookForDelete} from "../../../store/actions/books";
+import {getBookByBarcode, getBookByBarcodeCancel, markBookForDelete} from "../../../store/actions/books";
 import {connect} from "react-redux";
 import GetBookFormForBook from "../../../components/GetBookFormForBook/GetBookFormForBook";
 import {Button} from "react-bootstrap";
@@ -8,6 +8,11 @@ class DeleteBookLibr extends Component {
     state = {
         comment: ''
     };
+
+    componentWillUnmount() {
+        this.props.getBookByBarcodeCancel();
+    }
+
     inputChangeHandler = event => {
         this.setState({comment: event.target.value})
     };
@@ -26,9 +31,9 @@ class DeleteBookLibr extends Component {
                     book={this.props.findingBook}/>
                 {this.props.findingBook ? <div>
                     <input value={this.state.comment}
-                           style={{marginTop: '20px', width: "100%",fontSize:"18px"}}
+                           style={{marginTop: '20px', width: "100%", fontSize: "18px"}}
                            onChange={this.inputChangeHandler}
-                    placeholder="Введите причину удаления книги"/>
+                           placeholder="Введите причину удаления книги"/>
 
                     <Button disabled={!this.state.comment}
                             bsStyle="primary" bsSize="large"
@@ -51,7 +56,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getBookByBarcode: barcode => dispatch(getBookByBarcode(barcode)),
-        markBookForDelete: data => dispatch(markBookForDelete(data))
+        markBookForDelete: data => dispatch(markBookForDelete(data)),
+        getBookByBarcodeCancel: () => dispatch(getBookByBarcodeCancel())
 
     };
 };

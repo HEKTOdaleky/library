@@ -3,17 +3,19 @@ import {NotificationManager} from "react-notifications";
 import {push} from "react-router-redux";
 
 import {
-  BOOK_POST_DATA_FAILURE,
-  BOOK_POST_DATA_SUCCESS,
-  BOOK_UPDATE_DATA_FAILURE,
-  BOOK_UPDATE_DATA_SUCCESS, GET_BOOK_BY_BARCODE_BOOK_FAILURE, GET_BOOK_BY_BARCODE_BOOK_SUCCESS,
-  CLEAR_FINDING_BOOK,
-  GET_BOOK_BY_BARCODE_FAILURE,
-  GET_BOOK_BY_BARCODE_SUCCESS,
-  GET_BOOKS_FROM_FULLSEARCH_FAILURE,
-  GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
-  GET_BOOKS_FROM_SEARCH_FAILURE,
-  GET_BOOKS_FROM_SEARCH_SUCCESS
+    BOOK_POST_DATA_FAILURE,
+    BOOK_POST_DATA_SUCCESS,
+    BOOK_UPDATE_DATA_FAILURE,
+    BOOK_UPDATE_DATA_SUCCESS,
+    CLEAR_FINDING_BOOK,
+    GET_BOOK_BY_BARCODE_BOOK_FAILURE,
+    GET_BOOK_BY_BARCODE_BOOK_SUCCESS,
+    GET_BOOK_BY_BARCODE_FAILURE,
+    GET_BOOK_BY_BARCODE_SUCCESS,
+    GET_BOOKS_FROM_FULLSEARCH_FAILURE,
+    GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
+    GET_BOOKS_FROM_SEARCH_FAILURE,
+    GET_BOOKS_FROM_SEARCH_SUCCESS
 } from "./actionTypes";
 
 const getBooksFromSearchSuccess = booksData => {
@@ -105,6 +107,9 @@ export const updateBookData = data => {
 const getBookByBarcodeSuccess = data => {
     return {type: GET_BOOK_BY_BARCODE_SUCCESS, data};
 };
+export const getBookByBarcodeCancel = () => {
+    return {type: GET_BOOK_BY_BARCODE_SUCCESS, data: null};
+};
 
 const getBookByBarcodeFailure = error => {
     return {type: GET_BOOK_BY_BARCODE_FAILURE, error};
@@ -128,32 +133,32 @@ export const getBookByBarcode = barcode => {
 };
 
 const getBookByBarcodeBookSuccess = data => {
-  return {type: GET_BOOK_BY_BARCODE_BOOK_SUCCESS, data};
+    return {type: GET_BOOK_BY_BARCODE_BOOK_SUCCESS, data};
 };
 
 const getBookByBarcodeBookFailure = error => {
-  return {type: GET_BOOK_BY_BARCODE_BOOK_FAILURE, error};
+    return {type: GET_BOOK_BY_BARCODE_BOOK_FAILURE, error};
 };
 
 export const getBookByBarcodeBook = barcode => {
-  return dispatch => {
-    axios.get(`/books/barcode-book/${barcode}`).then(
-      response => {
-        dispatch(getBookByBarcodeBookSuccess(response.data));
-      },
-      error => {
-        dispatch(getBookByBarcodeBookFailure(error.response.data));
-        if (error.response.data.error)
-          NotificationManager.error(error.response.data.error);
-        if (error.response.data.message)
-          NotificationManager.info(error.response.data.message);
-      }
-    )
-  }
+    return dispatch => {
+        axios.get(`/books/barcode-book/${barcode}`).then(
+            response => {
+                dispatch(getBookByBarcodeBookSuccess(response.data));
+            },
+            error => {
+                dispatch(getBookByBarcodeBookFailure(error.response.data));
+                if (error.response.data.error)
+                    NotificationManager.error(error.response.data.error);
+                if (error.response.data.message)
+                    NotificationManager.info(error.response.data.message);
+            }
+        )
+    }
 };
 
 export const clearFindingBook = () => {
-  return {type: CLEAR_FINDING_BOOK};
+    return {type: CLEAR_FINDING_BOOK};
 };
 
 export const getBookForDelete = () => {
@@ -169,15 +174,15 @@ export const getBookForDelete = () => {
 };
 
 export const removeBookForDelete = (data) => {
-  return dispatch => {
-    axios.post("/books/for-delete", data).then(response => {
-      NotificationManager.success(response.data.message);
-      dispatch(push("/admin"));
-    }, error => {
-      NotificationManager.error(error.response.data.message);
-      dispatch(bookPostDataError(error.response.data));
-    })
-  }
+    return dispatch => {
+        axios.post("/books/for-delete", data).then(response => {
+            NotificationManager.success(response.data.message);
+            dispatch(push("/admin"));
+        }, error => {
+            NotificationManager.error(error.response.data.message);
+            dispatch(bookPostDataError(error.response.data));
+        })
+    }
 };
 
 export const markBookForDelete = (data) => {
