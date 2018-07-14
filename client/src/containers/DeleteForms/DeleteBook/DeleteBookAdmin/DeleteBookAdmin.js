@@ -1,11 +1,14 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
-import {getBookForDelete, removeBookForDelete} from "../../../../store/actions/books";
+import {getBookForDelete, getBooksFromSearchNull, removeBookForDelete} from "../../../../store/actions/books";
 import {Button, ListGroup, ListGroupItem} from "react-bootstrap";
 
 class DeleteBookAdmin extends Component {
     componentDidMount() {
         this.props.getBookForDelete();
+    }
+    componentWillUnmount(){
+        this.props.getBooksFromSearchNull()
     }
 
     state = {
@@ -58,7 +61,8 @@ const mapDispatchToProps = dispatch => {
         getBookForDelete: () =>
             dispatch(getBookForDelete()),
         removeBookForDelete: data =>
-            dispatch(removeBookForDelete(data))
+            dispatch(removeBookForDelete(data)),
+        getBooksFromSearchNull:()=>dispatch(getBooksFromSearchNull())
 
     };
 };

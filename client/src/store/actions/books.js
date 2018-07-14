@@ -22,6 +22,9 @@ const getBooksFromSearchSuccess = booksData => {
     return {type: GET_BOOKS_FROM_SEARCH_SUCCESS, booksData};
 };
 
+export const getBooksFromSearchNull = () => {
+    return {type: GET_BOOKS_FROM_SEARCH_SUCCESS, booksData: []};
+};
 const getBooksFromSearchFailure = error => {
     return {type: GET_BOOKS_FROM_SEARCH_FAILURE, error};
 };
