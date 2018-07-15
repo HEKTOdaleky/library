@@ -30,7 +30,8 @@ class DeleteBookLibr extends Component {
                     getBook={this.props.getBookByBarcode}
                     book={this.props.findingBook}/>
                 {this.props.findingBook ? <div>
-                    <input value={this.state.comment}
+                    <input className="reason" name="reason" value={this.state.comment}
+                           type="text"
                            style={{marginTop: '20px', width: "100%", fontSize: "18px"}}
                            onChange={this.inputChangeHandler}
                            placeholder="Введите причину удаления книги"/>
