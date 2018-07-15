@@ -18,6 +18,7 @@ const BookMenu = () => {
         <MenuItem>Книгу на удаление</MenuItem>
       </LinkContainer>
     </NavDropdown>
+
   );
 };
 
