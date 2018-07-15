@@ -66,7 +66,7 @@ const createRouter = () => {
             await newBook.save();
 
 
-            res.send({message: "Книги помечена на удаление"})
+            res.send({message: "Книга помечена на удаление"})
 
         }
         catch (e) {
