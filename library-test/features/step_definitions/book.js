@@ -13,8 +13,6 @@ module.exports = function () {
         const notification = browser.element('.notification-message .message');
         notification.waitForExist(5000);
         const notificationText = browser.element('.notification-message .message').getText();
-        console.log(message, "Message");
-        console.log(notificationText, "NotificationText");
         return expect(notificationText).toBe(`${message}`);
     });
 

@@ -7,7 +7,6 @@ module.exports = function () {
         const notification = browser.element('.reason');
         notification.waitForExist(5000);
         const input = browser.element(`input[name='${fieldName}']`);
-        console.log(fieldName, "INPUUUT");
         return input.setValue(value);
     });
 
