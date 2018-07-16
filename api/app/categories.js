@@ -27,16 +27,17 @@ const createRouter = () => {
     try {
       const isCategoryExist = await Category.findOne({title});
       if (isCategoryExist) res.status(400).send({error: 'Такая категория уже существует'});
+      else {
+        try {
+          const category = new Category({title});
+          const newCategory = await category.save();
+          if (newCategory) res.send({message: "Категория успешно добавлена"});
+        } catch (e) {
+          return res.status(400).send({error: 'Ошибка! Не удалось добавить категорию'});
+        }
+      }
     } catch (e) {
       return res.status(400).send({error: e});
-    }
-
-    try {
-      const category = new Category({title});
-      const newCategory = await category.save();
-      if (newCategory) res.send({message: "Категория успешно добавлена"});
-    } catch (e) {
-      return res.status(400).send({error: 'Ошибка! Не удалось добавить категорию'});
     }
 
   });

@@ -337,7 +337,7 @@ db.once("open", async () => {
             language: l1._id
         },
         {
-            inventoryCode: "6921734968111",
+            inventoryCode: "000019",
             title: "Русско-кыргызский разговорник",
             author: "Акимов Шерикбек, Байтерекова Женишкуль Саматовна",
             year: 2009,
@@ -348,7 +348,7 @@ db.once("open", async () => {
         }
         ,
         {
-            inventoryCode: "6921734968188",
+            inventoryCode: "000020",
             title: "Капитанская дочка",
             author: "Пушкин",
             year: 2009,
@@ -359,7 +359,7 @@ db.once("open", async () => {
         }
         ,
         {
-            inventoryCode: "6921734968189",
+            inventoryCode: "000021",
             title: "Руслан и Людмила",
             author: "Пушкин",
             year: 2009,

@@ -7,6 +7,7 @@ module.exports = function () {
     this.When(/^я выбираю в поле "([^"]*)" значение "([^"]*)"$/, function (element, optionNum) {
         const input = browser.element(`select[name='${element}']`);
         input.selectByIndex(optionNum);
+
     });
 
     this.Then(/^появляется плагин "([^"]*)"$/, function (message) {
@@ -28,7 +29,7 @@ module.exports = function () {
   });
 
   this.Then(/^я вижу внизу результат в виде списка$/, function () {
-    browser.waitForExist('.list-group', 2000);
+    browser.waitForExist('.list-group', 1000);
     return browser.element('.list-group');
   });
 
