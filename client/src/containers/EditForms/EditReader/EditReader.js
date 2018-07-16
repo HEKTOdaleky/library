@@ -82,8 +82,8 @@ class EditReader extends Component {
         <Form horizontal onSubmit={this.formFindSubmitHandler} style={{padding: '0 20px'}}>
           <FormElement
             propertyName="inventoryCode"
-            title="ПИН"
-            placeholder="ПИН"
+            title="Баркод"
+            placeholder="Баркод"
             type="text"
             inputLength={6}
             changeHandler={this.onChangeHandler}
