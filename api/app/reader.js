@@ -7,7 +7,7 @@ const createRouter = () => {
   const router = express.Router();
 
   router.get('/', [auth, permit('admin', 'librarian')], async(req, res) => {
-
+    
     if (req.user.role === 'admin') {
       try {
         const readers = await Reader.find({$and: [{markToRemove: true}, {isActive: true}]}).populate('groupId');
@@ -26,12 +26,12 @@ const createRouter = () => {
     }
   });
 
-  router.get('/barcode/:barcode', auth, async(req, res) => {
+  router.get('/barcode/:barcode', [auth, permit('admin', 'librarian')], async(req, res) => {
     try {
       const reader = await Reader.findOne({inventoryCode: req.params.barcode, $and: [{isActive: true}, {markToRemove: false}]})
       .populate('groupId');
       if (reader) return res.send(reader);
-      else return res.status(400).send({message: 'Читатель с таким штрихкодом не найден'});
+      else return res.status(400).send({error: 'Читатель с таким штрихкодом не найден'});
     } catch (e) {
       return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
     }
@@ -89,6 +89,23 @@ const createRouter = () => {
     } catch (e) {
       return res.status(400).send({message: "Не удалось отредактировать данные читателя", e});
     }
+  });
+
+  router.delete('/mark-reader', [auth, permit('librarian')], async (req, res) => {
+    let data = {
+      readerId: req.body.readerId,
+      closeDate: req.body.closeDate
+    };
+
+    if (data.readerId) {
+        try {
+          await Reader.findOneAndUpdate({_id: data.readerId}, {$set: {markToRemove: true, comment: data.closeDate.toString() }});
+        } catch (e) {
+          return res.status(500).send({message: 'Ошибка. Не удалось отправить читателя на удаление!'});
+        }
+      res.send({message: "Читатель успешно отправлен на одобрение к удалению!"});
+    } else
+      return res.status(400).send({error: "Ошибка в обработке данных. Читатель не найден!"});
   });
 
   return router;

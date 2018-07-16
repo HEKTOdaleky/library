@@ -4,6 +4,7 @@ import {Provider} from 'react-redux';
 import { ConnectedRouter } from "react-router-redux";
 
 import './index.css';
+import 'semantic-ui-css/semantic.min.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import store, {history} from "./store/configureStore";

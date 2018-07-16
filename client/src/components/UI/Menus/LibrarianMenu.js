@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
 import { Nav, NavItem } from "react-bootstrap";
-import {LinkContainer} from "react-router-bootstrap";
+import BookMenu from "./BookMenu/BookMenu";
+import ReaderMenu from "./ReaderMenu/ReaderMenu";
 
 class LibrarianMenu extends Component {
 
   render() {
     return (
       <Nav pullLeft>
-        <LinkContainer to="/librarian" activeKey={5} >
-          <NavItem eventKey={1}>Выдача книг</NavItem>
-        </LinkContainer>
-        <LinkContainer to="/">
-          <NavItem eventKey={2}>Списание книг</NavItem>
-        </LinkContainer>
+        <NavItem eventKey={1} href="/librarian">
+          Главная
+        </NavItem>
+       <BookMenu/>
+       <ReaderMenu/>
       </Nav>
     );
   }

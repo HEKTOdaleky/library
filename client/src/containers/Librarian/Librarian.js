@@ -1,127 +1,73 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  Button,
-  Col,
-  ControlLabel,
-  Form,
-  FormControl,
-  FormGroup,
-  ListGroup,
-  ListGroupItem,
-  Panel,
-  Row
-} from "react-bootstrap";
-import {getReaderByBarcode} from "../../store/actions/readers";
-import { getBookByBarcode } from "../../store/actions/books";
+import { Col, Grid, Row, Thumbnail } from "react-bootstrap";
+import apply from "../../assets/images/apply.png"
+import denied from "../../assets/images/denied.png"
+import get from "../../assets/images/get.png"
+import take from "../../assets/images/book.png"
+import add from "../../assets/images/add.png"
+import remove from "../../assets/images/delete.png"
+import { Header, Segment } from "semantic-ui-react";
+import './Librarian.css';
 
 class Librarian extends Component {
-
-  state = {
-    bookCode: '',
-    readerCode: ''
-  };
-
-  changeHandler = event => {
-    this.setState({[event.target.name]: event.target.value});
-  };
-
-  formSearchReaderHandler = event => {
-    event.preventDefault();
-
-    this.props.getReaderByBarcode(this.state.readerCode);
-    console.log( this.state.readerCode)
-
-    this.setState({readerCode: ''});
-  };
-
-  formSearchBookHandler = event => {
-    event.preventDefault();
-    this.props.getBookByBarcode(this.state.bookCode);
-    this.setState({bookCode: ''});
-
-  };
-
   render() {
-    const reader = this.props.findingReader;
-    const book = this.props.findingBook;
     return (
-      <Row>
-        <Col xs={12} md={6}>
-          <Panel bsStyle="primary">
-            <Panel.Heading>
-              <Panel.Title>
-                <Form inline onSubmit={this.formSearchBookHandler}>
-                  <FormGroup>
-                    <ControlLabel style={{marginRight: '30px'}}>Штрихкод книги</ControlLabel>
-                    <FormControl
-                      name="bookCode"
-                      type="text"
-                      placeholder="Штрихкод"
-                      value={this.state.bookCode}
-                      onChange={this.changeHandler}
-                      style={{marginRight: '30px', width: '150px'}}/>
-                  </FormGroup>
-                  <Button bsSize="small" type="submit">Найти</Button>
-                </Form>
-              </Panel.Title>
-            </Panel.Heading>
-            {this.props.findingBook && this.props.findingBook ?
-              <ListGroup>
-                <ListGroupItem>Название:  <strong>{book.title}</strong></ListGroupItem>
-                <ListGroupItem>Автор:  <strong>{book.author}</strong></ListGroupItem>
-                <ListGroupItem>Год:  <strong>{book.year}</strong></ListGroupItem>
-                <ListGroupItem>Издательский дом:  <strong>{book.publishHouse}</strong></ListGroupItem>
-                <ListGroupItem>Категория:  <strong>{book.categoryId.title}</strong></ListGroupItem>
-                <ListGroupItem>Язык издания:  <strong>{book.language.title}</strong></ListGroupItem>
-              </ListGroup> : null}
-          </Panel>
-        </Col>
-        <Col xs={12} md={6}>
-          <Panel bsStyle="primary">
-            <Panel.Heading>
-              <Panel.Title>
-                <Form inline onSubmit={this.formSearchReaderHandler}>
-                  <FormGroup>
-                    <ControlLabel style={{marginRight: '30px'}}>Штрихкод читателя</ControlLabel>
-                    <FormControl
-                      name="readerCode"
-                      type="text"
-                      placeholder="Штрихкод"
-                      value={this.state.readerCode}
-                      onChange={this.changeHandler}
-                      style={{marginRight: '30px', width: '150px'}}/>
-                  </FormGroup>
-                  <Button bsSize="small" type="submit">Найти</Button>
-                </Form>
-              </Panel.Title>
-            </Panel.Heading>
-            {this.props.findingReader && this.props.findingReader ?
-              <ListGroup>
-                <ListGroupItem>Фамилия:  <strong>{reader.lastName}</strong></ListGroupItem>
-                <ListGroupItem>Имя: <strong>{reader.firstName}</strong></ListGroupItem>
-                <ListGroupItem>Документ: <strong>{reader.documentNumber}</strong></ListGroupItem>
-                <ListGroupItem>Группа: <strong>{reader.groupId.name}</strong></ListGroupItem>
-              </ListGroup> : null}
-          </Panel>
-        </Col>
-      </Row>
+      <Grid>
+        <Segment raised textAlign='center'>
+          <Header as='h2'>Книги</Header>
+          <Row>
+            <Col xs={12} sm={6} md={3}>
+              <Thumbnail src={get} alt="Выдать книгу" href="/get-book">
+                <p>Выдать книгу</p>
+              </Thumbnail>
+            </Col>
+            <Col xs={12} sm={6} md={3}>
+              <Thumbnail src={take} alt="Принять книгу" href="/take-book" >
+                <p>Принять книгу</p>
+              </Thumbnail>
+            </Col>
+            <Col xs={12} sm={6} md={3}>
+              <Thumbnail src={add} alt="Добавить книгу" href="/add-book" >
+                <p>Добавить книгу</p>
+              </Thumbnail>
+            </Col>
+            <Col xs={12} sm={6} md={3}>
+              <Thumbnail src={remove} alt="Книга на удаление" href="/remove-book">
+                <p>Книга на удаление</p>
+              </Thumbnail>
+            </Col>
+           </Row>
+        </Segment>
+        <Segment raised textAlign='center'>
+          <Header as='h2'>Читатели</Header>
+          <Row className="center-block">
+            <Col xs={12} sm={6} md={6}>
+            <Thumbnail src={apply} alt="Добавить читателя" href="/add-reader">
+              <p>Новый читатель</p>
+            </Thumbnail>
+          </Col>
+            <Col xs={12} sm={6} md={6}>
+            <Thumbnail src={denied} alt="Удалить читателя" href="/mark-reader" >
+              <p>Читателя на удаление</p>
+            </Thumbnail>
+          </Col>
+          </Row>
+        </Segment>
+      </Grid>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    error: state.readers.error,
-    findingReader: state.readers.findingReader,
-    findingBook: state.books.findingBook
+
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getReaderByBarcode: barcode => dispatch(getReaderByBarcode(barcode)),
-    getBookByBarcode: barcode => dispatch(getBookByBarcode(barcode))
+
   };
 };
 
