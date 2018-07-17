@@ -1,13 +1,17 @@
 import React, {Component, Fragment} from 'react';
+import {Button, Col, Form, FormGroup, Table} from "react-bootstrap";
+import moment from "moment/moment";
+import FormElement from "../../../../components/UI/Form/FormElement";
 import {connect} from "react-redux";
 import {getBookForDelete, getBooksFromSearchNull, removeBookForDelete} from "../../../../store/actions/books";
-import {Button, ListGroup, ListGroupItem} from "react-bootstrap";
+
 
 class DeleteBookAdmin extends Component {
     componentDidMount() {
         this.props.getBookForDelete();
     }
-    componentWillUnmount(){
+
+    componentWillUnmount() {
         this.props.getBooksFromSearchNull()
     }
 
@@ -25,46 +29,84 @@ class DeleteBookAdmin extends Component {
 
     render() {
         return (
-            <Fragment>{this.props.books.length>0 ? (
-                <Fragment>
-                    <input
-                        type="text"
-                        style={{width: "100%"}}
-                        onChange={this.orderInputChangeHandler}
-                        name="order"
-                        value={this.state.order}
-                    />
-                    <ListGroup>
-                        {
-                            this.props.books.map(book => {
-                                return (<ListGroupItem
-                                    key={book._id}>{book.title + ' ' + book.author + ' ' + book.year}</ListGroupItem>)
-                            })
-                        }
-                    </ListGroup>
-                    <Button disabled={!this.state.order} onClick={
-                        this.removeAllBooksHandler
-                    }>Удалить всё</Button>
-                </Fragment>) : <div><p className="nothing-delete" style={{textAlign:"center", margin:"50px"}}>Нет книг для удаления</p></div>}</Fragment>)
+
+
+            <Fragment>
+                {this.props.books.length > 0
+                    ? (
+                        <Fragment>
+                            <Table striped bordered condensed hover responsive>
+                                <thead>
+                                <tr style={{textAlign: "center"}}>
+                                    <th># Код</th>
+                                    <th>Название</th>
+                                    <th>Автор</th>
+                                    <th>Категория</th>
+                                    <th>Год</th>
+                                    <th>Издание</th>
+                                    <th>Язык</th>
+                                    <th>Дата регистрации</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {this.props.books.map(book => (
+                                    <tr key={book._id}>
+                                        <td>{book._id}</td>
+                                        <td>{book.title}</td>
+                                        <td>{book.author}</td>
+                                        <td>{book.categoryId.title}</td>
+                                        <td>{book.year}</td>
+                                        <td>{book.publishHouse}</td>
+                                        <td>{book.language.title}</td>
+                                        <td>
+                                            {moment(book.registerDate).format("DD-MM-YYYY h:mm")}
+                                        </td>
+
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </Table>
+
+                            <Form horizontal onSubmit={this.submitFormHandler}>
+                                <FormElement
+                                    propertyName="order"
+                                    title="Номер приказа"
+                                    placeholder="Введите номер приказа на удаление книг"
+                                    type="text"
+                                    value={this.state.order}
+                                    changeHandler={this.orderInputChangeHandler}
+                                />
+                                <FormGroup>
+                                    <Col smOffset={2} sm={10}>
+                                        <Button disabled={!this.state.order} onClick={
+                                            this.removeAllBooksHandler
+                                        }>Удалить всё</Button>
+                                    </Col>
+                                </FormGroup>
+                            </Form>
+                        </Fragment>) : <div>В данный момент нет книг для удаления</div>}</Fragment>)
     }
-
 };
 
-const mapStateToProps = state => {
-    return {
-        books: state.books.books
+
+const
+    mapStateToProps = state => {
+        return {
+            books: state.books.books
+        };
     };
-};
 
-const mapDispatchToProps = dispatch => {
-    return {
-        getBookForDelete: () =>
-            dispatch(getBookForDelete()),
-        removeBookForDelete: data =>
-            dispatch(removeBookForDelete(data)),
-        getBooksFromSearchNull:()=>dispatch(getBooksFromSearchNull())
+const
+    mapDispatchToProps = dispatch => {
+        return {
+            getBookForDelete: () =>
+                dispatch(getBookForDelete()),
+            removeBookForDelete: data =>
+                dispatch(removeBookForDelete(data)),
+            getBooksFromSearchNull: () => dispatch(getBooksFromSearchNull())
 
+        };
     };
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeleteBookAdmin);
