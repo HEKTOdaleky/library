@@ -15,6 +15,7 @@ import {
   SEND_READERS_FAILURE,
   SEND_READERS_SUCCESS
 } from "./actionTypes";
+import store from "../configureStore";
 
 const addNewReaderSuccess = data => {
   return {type: ADD_NEW_READER_SUCCESS, data};
@@ -49,7 +50,10 @@ export const addNewReader = data => {
     return axios.post('/reader', data).then(
       response => {
         dispatch(addNewReaderSuccess(response.data));
-        dispatch(push('/admin'));
+        const user = store.getState().users.user;
+        console.log(user);
+        if (user.role === 'admin') dispatch(push('/admin'));
+        if (user.role === 'librarian') dispatch(push('/librarian'));
         NotificationManager.success(response.data.message);
       },
       error => {
