@@ -77,7 +77,7 @@ class NewUser extends Component {
                         title="Роль"
                         type="select"
                         options={[{
-                            title: "Админимтратор",
+                            title: "Администратор",
                             id: "admin"
                         }, {
                             title: "Библиотекарь",

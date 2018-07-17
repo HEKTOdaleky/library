@@ -22,6 +22,14 @@ const createRouter = () => {
             .catch(error => res.status(400).send(error))
     });
 
+    router.delete('/delete-user/:id', [auth, permit('admin')], async (req, res) => {
+       const user = await User.findOne({_id: req.params.id});
+
+       user.remove()
+         .then(() => res.send('Пользователь был удален'))
+         .catch(error => res.status(400).send(error));
+    });
+
     router.post('/sessions', async (req, res) => {
         let user;
         try {
