@@ -85,7 +85,9 @@ class DeleteBookAdmin extends Component {
                                     </Col>
                                 </FormGroup>
                             </Form>
-                        </Fragment>) : <div>В данный момент нет книг для удаления</div>}</Fragment>)
+                        </Fragment>) :
+                    <div><p className="nothing-delete" style={{textAlign: "center", margin: "50px"}}>Нет книг для
+                        удаления</p></div>}</Fragment>)
     }
 };
 
