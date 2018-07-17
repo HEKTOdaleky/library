@@ -52,7 +52,7 @@ class DeleteBookAdmin extends Component {
                                 <tbody>
                                 {this.props.books.map(book => (
                                     <tr key={book._id}>
-                                        <td>{book._id}</td>
+                                        <td>{book.inventoryCode}</td>
                                         <td>{book.title}</td>
                                         <td>{book.author}</td>
                                         <td>{book.categoryId.title}</td>
