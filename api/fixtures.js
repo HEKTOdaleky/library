@@ -346,28 +346,7 @@ db.once("open", async () => {
             publishHouse: "АСТ",
             language: l2._id
         }
-        ,
-        {
-            inventoryCode: "000020",
-            title: "Капитанская дочка",
-            author: "Пушкин",
-            year: 2009,
-            categoryId: c3._id,
-            statusId: forDeleteState._id,
-            publishHouse: "АСТ",
-            language: l1._id
-        }
-        ,
-        {
-            inventoryCode: "000021",
-            title: "Руслан и Людмила",
-            author: "Пушкин",
-            year: 2009,
-            categoryId: c3._id,
-            statusId: forDeleteState._id,
-            publishHouse: "АСТ",
-            language: l1._id
-        }
+
     );
 
     const [r1, r2, r3] = await Reader.create([
