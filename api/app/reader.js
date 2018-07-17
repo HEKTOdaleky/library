@@ -77,14 +77,24 @@ const createRouter = () => {
       return res.status(400).send({error: "Хотя бы один читатель должен быть выбран, а поле для номера приказа должно быть заполнено"});
   });
 
-  router.put('/:id', auth, async (req, res) => {
+  router.put('/:id', [auth, permit('admin', 'librarian')], async (req, res) => {
+    if (req.body.firstName === '' || req.body.lastName === '' || req.body.documentNumber === '')
+      return res.status(400).send({message: "Все поля должны быть заполнены"});
+
     try {
+      const existingReader = await Reader.findOne({documentNumber: req.body.documentNumber});
+
+      if (existingReader && existingReader._id.toString() !== req.params.id.toString()) {
+        return res.status(400).send({message: "Читатель с таким документом уже зарегистрирован"});
+      }
+
       await Reader.findOneAndUpdate({_id: req.params.id}, {$set: {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         documentNumber: req.body.documentNumber,
         groupId: req.body.groupId
       }});
+
       res.status(200).send({message: 'Данные читателя сохранены'});
     } catch (e) {
       return res.status(400).send({message: "Не удалось отредактировать данные читателя", e});

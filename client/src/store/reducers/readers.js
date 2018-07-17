@@ -21,7 +21,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CLEAR_FINDING_READER:
-      return {...state, findingReader: null};
+      return { ...state, findingReader: null, error: null };
     case ADD_NEW_READER_SUCCESS:
       return { ...state, newReader: action.data, error: null };
     case ADD_NEW_READER_FAILURE:

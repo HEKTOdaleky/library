@@ -22,7 +22,6 @@ class EditReader extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.findingReader);
     if (!nextProps.findingReader) {
       this.setState({
         firstName: '',
@@ -82,13 +81,11 @@ class EditReader extends Component {
         <Form horizontal onSubmit={this.formFindSubmitHandler} style={{padding: '0 20px'}}>
           <FormElement
             propertyName="inventoryCode"
-            title="ПИН"
-            placeholder="ПИН"
+            title="Баркод"
+            placeholder="Баркод"
             type="text"
             inputLength={6}
             changeHandler={this.onChangeHandler}
-            error={this.props.error &&
-            this.props.error.message}
           />
 
           <FormGroup>
@@ -107,8 +104,6 @@ class EditReader extends Component {
                 type="text"
                 value={this.state.lastName}
                 changeHandler={this.onChangeHandler}
-                error={this.props.error &&
-                this.props.error.message}
               />
 
               <FormElement
@@ -117,8 +112,6 @@ class EditReader extends Component {
                 type="text"
                 value={this.state.firstName}
                 changeHandler={this.onChangeHandler}
-                error={this.props.error &&
-                this.props.error.message}
               />
 
               <FormElement
@@ -127,8 +120,6 @@ class EditReader extends Component {
                 type="text"
                 value={this.state.documentNumber}
                 changeHandler={this.onChangeHandler}
-                error={this.props.error &&
-                this.props.error.message}
               />
 
               <FormElement
@@ -138,13 +129,11 @@ class EditReader extends Component {
                 options={groups}
                 value={this.state.groupId}
                 changeHandler={this.onChangeHandler}
-                error={this.props.error &&
-                this.props.error.message}
               />
 
               <FormGroup>
                 <Col smOffset={2} sm={10}>
-                  <Button bsStyle="primary" type="submit">Сохранить</Button>
+                  <Button bsStyle="primary" type="submit">Применить</Button>
                 </Col>
               </FormGroup>
             </Form>
