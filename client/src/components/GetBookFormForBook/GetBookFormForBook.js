@@ -31,7 +31,7 @@ class GetBookFormForBook extends Component {
     const book = this.props.book;
 
     return (
-      <Col xs={12} md={6}>
+      <Col xs={12}>
         <Panel bsStyle="primary">
           <Panel.Heading>
             <Panel.Title>

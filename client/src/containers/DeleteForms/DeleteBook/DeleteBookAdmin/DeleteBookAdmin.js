@@ -68,7 +68,7 @@ class DeleteBookAdmin extends Component {
                                 </tbody>
                             </Table>
 
-                            <Form horizontal onSubmit={this.submitFormHandler}>
+                            <Form horizontal>
                                 <FormElement
                                     propertyName="order"
                                     title="Номер приказа"
