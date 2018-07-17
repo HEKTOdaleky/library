@@ -11,8 +11,8 @@ class LibrarianMenu extends Component {
         <NavItem eventKey={1} href="/librarian">
           Главная
         </NavItem>
-       <BookMenu/>
-       <ReaderMenu/>
+       {/*<BookMenu/>*/}
+       {/*<ReaderMenu/>*/}
       </Nav>
     );
   }
