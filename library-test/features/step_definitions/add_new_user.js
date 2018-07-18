@@ -5,4 +5,9 @@ module.exports = function () {
         return browser.url(urls.createNewUser);
 
     });
+    this.Given(/^я захожу на страницу смены пароля пользователю$/, function () {
+        console.log("HELLO I'M CHANGE PASSWORD");
+        return browser.url(urls.changePassword);
+
+    });
 };
