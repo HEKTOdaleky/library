@@ -22,6 +22,30 @@ const createRouter = () => {
             .catch(error => res.status(400).send(error))
     });
 
+    router.post('/change-password', [auth, permit('admin')], async (req, res) => {
+        try {
+
+            const user = await User.findOne({username: req.body.username});
+            if (!user) {
+                res.status(404).send({message: "Такого пользователя не существует"});
+
+            }
+
+            else {
+
+                user.password = req.body.password;
+                user.token = user.generateToken();
+                await user.save();
+                res.send({user, message: "Вы успешно сменили пароль"})
+            }
+        }
+        catch (e) {
+            res.send({error: e, message: "Произошла неизвестная ошибка"})
+        }
+
+    });
+
+
     router.post('/sessions', async (req, res) => {
         let user;
         try {
