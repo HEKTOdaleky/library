@@ -54,7 +54,7 @@ class ChangePassword extends Component {
 
                     <FormElement
                         propertyName="password"
-                        title="Пароль"
+                        title="Новый пароль"
                         placeholder="Введите пароль"
                         type="password"
                         value={this.state.password}
@@ -64,7 +64,7 @@ class ChangePassword extends Component {
                     />
                     <FormElement
                         propertyName="confirmPassword"
-                        title="Подтвердите пароль"
+                        title="Подтвердите новый пароль"
                         placeholder="Подтвердите пароль"
                         type="password"
                         value={this.state.confirmPassword}

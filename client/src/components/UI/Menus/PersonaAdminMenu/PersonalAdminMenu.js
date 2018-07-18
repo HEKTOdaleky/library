@@ -13,6 +13,9 @@ class PersonalAdminMenu extends Component {
                 <LinkContainer to="/delete-new-user">
                     <MenuItem>Удалить пользователя</MenuItem>
                 </LinkContainer>
+                <LinkContainer to="/change-password">
+                    <MenuItem>Сменить пароль пользователю</MenuItem>
+                </LinkContainer>
             </NavDropdown>
         );
     }
