@@ -32,6 +32,10 @@ const createRouter = () => {
             }
 
             else {
+                if (req.body.password != req.body.confirmPassword) {
+                    res.status(400).send({_message: "Пароли не совпадают"});
+                    return;
+                }
 
                 user.password = req.body.password;
                 user.token = user.generateToken();

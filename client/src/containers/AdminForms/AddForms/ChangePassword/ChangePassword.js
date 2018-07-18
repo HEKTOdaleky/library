@@ -50,7 +50,6 @@ class ChangePassword extends Component {
                         changeHandler={this.inputChangeHandler}
                         autoComplete="current-username"
                         required
-                        error={false}
                     />
 
                     <FormElement
