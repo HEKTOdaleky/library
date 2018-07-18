@@ -1,8 +1,10 @@
 import React, {Component, Fragment} from 'react';
 import {Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
+import { connect } from "react-redux";
 
 import ModalForm from "../../../../components/UI/Modal/ModalForm";
 import FormElement from "../../../../components/UI/Form/FormElement";
+import {getUser} from "../../../../store/actions/users";
 
 class DeleteUser extends Component {
   state = {
@@ -11,12 +13,12 @@ class DeleteUser extends Component {
   };
 
   componentDidMount() {
-
+    this.props.getUser();
   };
 
   clickHandler = event => {
     event.preventDefault();
-    this.props.deleteUser(this.state.userId);
+    // this.props.deleteUser(this.state.userId);
     this.handleClose();
   };
 
@@ -35,10 +37,11 @@ class DeleteUser extends Component {
   };
 
   render() {
-    const user = this.props.user.map(state => {
+    const user = this.props.users.map(state => {
+    // console.log(state.username);
       return {id: state._id, title: state.username};
     });
-    user.unshift({id: '', title: 'Выберите пользователя ...'});
+    user.unshift({id: '', title:  'Выберите пользователя ...'});
 
     return (
       <Fragment>
@@ -81,13 +84,13 @@ class DeleteUser extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.user
+    users: state.users.users
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    getUser: () => dispatch(getUser())
   };
 };
 

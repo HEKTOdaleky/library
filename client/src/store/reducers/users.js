@@ -1,9 +1,9 @@
 import {
-    CREATE_USER_ERROR,
-    CREATE_USER_SUCCESS,
-    LOGIN_USER_FAILURE,
-    LOGIN_USER_SUCCESS,
-    LOGOUT_USER
+  CREATE_USER_ERROR,
+  CREATE_USER_SUCCESS, GET_USER_SUCCESS,
+  LOGIN_USER_FAILURE,
+  LOGIN_USER_SUCCESS,
+  LOGOUT_USER
 } from "../actions/actionTypes";
 
 
@@ -11,7 +11,8 @@ const initialState = {
     loginError: null,
     user: null,
     token: null,
-    createError: null
+    createError: null,
+    users: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -35,6 +36,8 @@ const reducer = (state = initialState, action) => {
             return {...state, createError: action.error};
         case CREATE_USER_SUCCESS:
             return {...state, createError: null};
+      case GET_USER_SUCCESS:
+          return {...state, users: action.users};
         default:
             return state;
     }

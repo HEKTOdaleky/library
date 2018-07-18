@@ -6,6 +6,14 @@ const permit = require('../middleware/permit');
 const createRouter = () => {
     const router = express.Router();
 
+    router.get('/', [auth, permit('admin')], async (req, res) => {
+        const users = await User.find();
+
+        if (users) {
+            res.send(users);
+        }
+    });
+
     router.post('/', [auth, permit('admin')], (req, res) => {
         if (req.body.password !== req.body.confirmPassword)
             res.status(400).send({_message: "Пароли не совпадают"});
