@@ -3,7 +3,7 @@ import {NotificationManager} from "react-notifications";
 import {push, replace} from "react-router-redux";
 import {
   CREATE_USER_ERROR,
-  CREATE_USER_SUCCESS, GET_USER_SUCCESS,
+  CREATE_USER_SUCCESS, DELETE_CATEGORY_FAILURE, DELETE_USER_SUCCESS, GET_USER_SUCCESS,
   LOGIN_USER_FAILURE,
   LOGIN_USER_SUCCESS,
   LOGOUT_USER
@@ -25,6 +25,14 @@ const createUserSuccess = () => {
 
 const getUserSuccess = users => {
   return {type: GET_USER_SUCCESS, users}
+};
+
+const deleteUserSuccess = success => {
+  return {type: DELETE_USER_SUCCESS, success};
+};
+
+const deleteUserFailure = error => {
+  return {type: DELETE_CATEGORY_FAILURE, error}
 };
 
 export const getUser = () => {
@@ -50,6 +58,23 @@ export const createNewUser = (data) => {
             );
         })
     }
+};
+
+export const deleteUser = data => {
+  return dispatch => {
+    axios.delete('/users/delete-user/' + data).then(
+      response => {
+        dispatch(deleteUserSuccess(response.data));
+        dispatch(push('/admin'));
+        NotificationManager.success(response.data);
+        // console.log(response.data)
+      },
+      error => {
+        dispatch(deleteUserFailure(error.response));
+        // NotificationManager.error(error.response.data.message);
+      }
+    )
+  }
 };
 
 export const loginUser = userData => {

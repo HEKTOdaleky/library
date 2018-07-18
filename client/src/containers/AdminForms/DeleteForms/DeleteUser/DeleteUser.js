@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import ModalForm from "../../../../components/UI/Modal/ModalForm";
 import FormElement from "../../../../components/UI/Form/FormElement";
-import {getUser} from "../../../../store/actions/users";
+import {deleteUser, getUser} from "../../../../store/actions/users";
 
 class DeleteUser extends Component {
   state = {
@@ -18,7 +18,7 @@ class DeleteUser extends Component {
 
   clickHandler = event => {
     event.preventDefault();
-    // this.props.deleteUser(this.state.userId);
+    this.props.deleteUser(this.state.userId);
     this.handleClose();
   };
 
@@ -38,7 +38,6 @@ class DeleteUser extends Component {
 
   render() {
     const user = this.props.users.map(state => {
-    // console.log(state.username);
       return {id: state._id, title: state.username};
     });
     user.unshift({id: '', title:  'Выберите пользователя ...'});
@@ -90,7 +89,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUser: () => dispatch(getUser())
+    getUser: () => dispatch(getUser()),
+    deleteUser: data => dispatch(deleteUser(data))
   };
 };
 
