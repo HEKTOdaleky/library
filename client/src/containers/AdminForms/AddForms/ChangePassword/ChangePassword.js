@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Alert, Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
 
 import FormElement from "../../../../components/UI/Form/FormElement";
+import {changeUserPassword} from "../../../../store/actions/users";
 
 class ChangePassword extends Component {
     state = {
@@ -23,6 +24,12 @@ class ChangePassword extends Component {
         if (this.state.password !== this.state.confirmPassword) {
             this.setState({passError: "Пароли не совпадают"});
         }
+        else
+            this.props.changeUserPassword({
+                username: this.state.username,
+                password: this.state.password,
+                confirmPassword: this.state.confirmPassword
+            })
     };
 
     render() {
@@ -80,11 +87,10 @@ class ChangePassword extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-});
+const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
-
+    changeUserPassword: data => dispatch(changeUserPassword(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);
