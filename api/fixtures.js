@@ -131,12 +131,21 @@ db.once("open", async () => {
         }
     );
 
-    const [g1, g2] = await Group.create(
+    const [g1, g2, g3, g4, g5] = await Group.create(
         {
             name: "ПО-1"
         },
         {
             name: "ПО-2"
+        },
+        {
+            name: "ПО-3"
+        },
+        {
+            name: "ПО-4"
+        },
+        {
+            name: "ПО-5"
         }
     );
 
@@ -355,7 +364,7 @@ db.once("open", async () => {
             firstName: "Иван",
             lastName: "Иванов",
             documentNumber: "4818-01",
-            groupId: g1._id
+            groupId: g5._id
         },
         {
             inventoryCode: "000002",

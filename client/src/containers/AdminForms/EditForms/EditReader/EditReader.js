@@ -39,7 +39,7 @@ class EditReader extends Component {
         firstName: nextProps.findingReader.firstName,
         lastName: nextProps.findingReader.lastName,
         documentNumber: nextProps.findingReader.documentNumber,
-        groupId: nextProps.findingReader.groupId,
+        groupId: nextProps.findingReader.groupId._id,
         isFind: true
       });
     }
@@ -70,10 +70,10 @@ class EditReader extends Component {
   };
 
   render() {
-
     const groups = this.props.groups.map(group => {
       return {id: group._id, title: group.name};
     });
+    groups.unshift({id: '', title:  'Выберите группу ...'});
 
     return (
       <Fragment>
