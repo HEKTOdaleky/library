@@ -10,7 +10,9 @@ const createRouter = () => {
     router.get("/for-delete", [auth, permit('admin', 'librarian')], async (req, res) => {
         try {
             const forDeleteState = await Status.findOne({name: 'На удаление'});
-            const books = await Book.find({statusId: forDeleteState._id});
+            const books = await Book.find({statusId: forDeleteState._id})
+                .populate({path: 'language', select: 'title'})
+                .populate({path: 'categoryId', select: 'title'});
             if (books) {
                 res.send({books, message: "Книги на удаление подгружены"});
             }
@@ -48,7 +50,6 @@ const createRouter = () => {
     router.post('/for-delete-mark', [auth, permit('librarian')], async (req, res) => {
         const book = req.body.book;
         const mark = req.body.mark;
-
 
 
         try {

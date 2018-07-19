@@ -2,7 +2,7 @@ Arguments:
   /home/saver/.nvm/versions/node/v8.11.3/bin/node /usr/bin/yarn start
 
 PATH: 
-  /home/saver/.nvm/versions/node/v8.11.3/bin:/home/saver/bin:/home/saver/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+  /home/saver/.nvm/versions/node/v8.11.3/bin:/home/saver/bin:/home/saver/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/go/bin
 
 Yarn version: 
   1.5.1

@@ -74,6 +74,18 @@ export const deleteUser = data => {
       }
     )
   }
+}
+export const changeUserPassword = data => {
+    return dispatch => {
+        axios.post('users/change-password', data).then(response => {
+            dispatch(push("/"));
+            NotificationManager.success(response.data.message);
+
+        }, error => {
+            dispatch(createUserError(error.response.data));
+            NotificationManager.error(error.response.data.message);
+        })
+    }
 };
 
 export const loginUser = userData => {

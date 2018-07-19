@@ -26,6 +26,7 @@ import TakeBook from "./containers/LibrarianForms/TakeBook/TakeBook";
 import DeleteReaderLibrarian from "./containers/LibrarianForms/DeleteReaderLibrarian/DeleteReaderLibrarian";
 import DeleteBookLibr from "./containers/LibrarianForms/DeleteBookLibr/DeleteBookLibr";
 import DeleteUser from "./containers/AdminForms/DeleteForms/DeleteUser/DeleteUser";
+import ChangePassword from "./containers/AdminForms/AddForms/ChangePassword/ChangePassword";
 
 const ProtectedRoute = ({isAllowed, ...props}) =>
     isAllowed ? <Route {...props} />
@@ -73,6 +74,8 @@ const Routes = ({user}) => {
                             component={DeleteBookAdmin}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-user" exact
                             component={DeleteUser}/>
+            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/change-password" exact
+                            component={ChangePassword}/>
 
 
             <ProtectedRoute isAllowed={user && user.role === "librarian"} path="/get-book" exact

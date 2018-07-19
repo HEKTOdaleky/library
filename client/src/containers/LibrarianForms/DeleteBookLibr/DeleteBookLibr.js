@@ -2,7 +2,8 @@ import React, {Component, Fragment} from 'react';
 import {getBookByBarcode, getBookByBarcodeCancel, markBookForDelete} from "../../../store/actions/books";
 import {connect} from "react-redux";
 import GetBookFormForBook from "../../../components/GetBookFormForBook/GetBookFormForBook";
-import {Button} from "react-bootstrap";
+import {Button, Col, Form, Panel, Row} from "react-bootstrap";
+import FormElement from "../../../components/UI/Form/FormElement";
 
 class DeleteBookLibr extends Component {
     state = {
@@ -26,23 +27,40 @@ class DeleteBookLibr extends Component {
     render() {
         return (
             <Fragment>
-                <GetBookFormForBook
-                    getBook={this.props.getBookByBarcode}
-                    book={this.props.findingBook}/>
-                {this.props.findingBook ? <div>
-                    <input className="reason" name="reason" value={this.state.comment}
-                           type="text"
-                           style={{marginTop: '20px', width: "100%", fontSize: "18px"}}
-                           onChange={this.inputChangeHandler}
-                           placeholder="Введите причину удаления книги"/>
+                <Row>
+                    <Col sm={12}>
+                        <GetBookFormForBook
+                            getBook={this.props.getBookByBarcode}
+                            book={this.props.findingBook}/>
+                        {this.props.findingBook ? <div>
+                            <Panel bsStyle="primary">
+                                <Panel.Body>
+                                    <Form horizontal>
+                                        <FormElement
+                                            className="reason"
+                                            propertyName="reason"
+                                            title="Причина удаления"
+                                            placeholder="Введите причину удаления книги"
+                                            type="text"
+                                            value={this.state.comment}
+                                            changeHandler={this.inputChangeHandler}
+                                        />
 
-                    <Button disabled={!this.state.comment}
-                            bsStyle="primary" bsSize="large"
-                            block style={{marginTop: '20px'}}
-                            onClick={this.setMarkForDelete}>
-                        Удалить
-                    </Button>
-                </div> : null}
+                                        <Col sm={12}>
+                                            <Button disabled={!this.state.comment}
+                                                    bsStyle="primary" bsSize="large"
+                                                    block style={{marginTop: '20px'}}
+                                                    onClick={this.setMarkForDelete}>
+                                                Удалить
+                                            </Button>
+                                        </Col>
+
+                                    </Form>
+                                </Panel.Body>
+                            </Panel>
+
+                        </div> : null}
+                    </Col></Row>
             </Fragment>
         )
     }
