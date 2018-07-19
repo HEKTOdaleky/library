@@ -23,7 +23,7 @@ const reducer = (state = initialState, action) => {
     case CLEAR_FINDING_READER:
       return { ...state, findingReader: null, error: null };
     case ADD_NEW_READER_SUCCESS:
-      return { ...state, newReader: action.data, error: null };
+      return { ...state, newReader: action.data.newReader, error: null };
     case ADD_NEW_READER_FAILURE:
       return { ...state, error: action.error };
     case EDIT_READER_SUCCESS:

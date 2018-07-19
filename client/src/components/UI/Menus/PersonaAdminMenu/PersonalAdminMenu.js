@@ -10,7 +10,7 @@ class PersonalAdminMenu extends Component {
                 <LinkContainer to="/create-new-user">
                     <MenuItem>Создать пользователя</MenuItem>
                 </LinkContainer>
-                <LinkContainer to="/delete-new-user">
+                <LinkContainer to="/delete-user">
                     <MenuItem>Удалить пользователя</MenuItem>
                 </LinkContainer>
                 <LinkContainer to="/change-password">

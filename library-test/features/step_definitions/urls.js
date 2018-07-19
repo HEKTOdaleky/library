@@ -21,6 +21,7 @@ module.exports = {
     removeBook: baseUrl + '/remove-book',
     takeBook: baseUrl + '/take-book',
     markReader: baseUrl + '/mark-reader',
-    changePassword: baseUrl + '/change-password'
+    changePassword: baseUrl + '/change-password',
+    deleteUser: baseUrl + '/delete-user'
 
 };
