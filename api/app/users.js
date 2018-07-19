@@ -18,12 +18,12 @@ const createRouter = () => {
         if (req.body.password !== req.body.confirmPassword)
             res.status(400).send({_message: "Пароли не совпадают"});
 
-
         const user = new User({
             username: req.body.username,
             password: req.body.password,
             role: req.body.role
         });
+
 
         user.save()
             .then(user => res.send(user))
@@ -34,7 +34,7 @@ const createRouter = () => {
        const user = await User.findOne({_id: req.params.id});
 
        user.remove()
-         .then(() => res.send('Пользователь был удален'))
+         .then(() => res.send({message:'Пользователь был удален'}))
          .catch(error => res.status(400).send(error));
     });
 

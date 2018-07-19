@@ -66,12 +66,11 @@ export const deleteUser = data => {
       response => {
         dispatch(deleteUserSuccess(response.data));
         dispatch(push('/admin'));
-        NotificationManager.success(response.data);
-        // console.log(response.data)
+        NotificationManager.success(response.data.message);
       },
       error => {
         dispatch(deleteUserFailure(error.response));
-        // NotificationManager.error(error.response.data.message);
+        NotificationManager.error("Пользователь не может быть удален!");
       }
     )
   }
