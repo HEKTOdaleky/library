@@ -74,7 +74,8 @@ export const deleteUser = data => {
       }
     )
   }
-}
+};
+
 export const changeUserPassword = data => {
     return dispatch => {
         axios.post('users/change-password', data).then(response => {
