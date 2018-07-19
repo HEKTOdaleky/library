@@ -1,0 +1,18 @@
+.cardToPrint{
+  border: 1px solid #333;
+  width: 350px;
+  height: 200px;
+  margin-bottom: 25px;
+}
+.cardToPrint__barcode{
+  padding-left: 95px;
+
+}
+.cardToPrint__user{
+  color: #000;
+  font-size: 20px;
+  padding: 0 10px 10px 30px;
+}
+.cardToPrint__item {
+  margin-bottom: 7px;
+}

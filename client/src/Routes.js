@@ -27,6 +27,7 @@ import DeleteReaderLibrarian from "./containers/LibrarianForms/DeleteReaderLibra
 import DeleteBookLibr from "./containers/LibrarianForms/DeleteBookLibr/DeleteBookLibr";
 import DeleteUser from "./containers/AdminForms/DeleteForms/DeleteUser/DeleteUser";
 import ChangePassword from "./containers/AdminForms/AddForms/ChangePassword/ChangePassword";
+import ReaderCardToPrint from "./components/ReaderCardToPrint/ReaderCardToPrint";
 
 const ProtectedRoute = ({isAllowed, ...props}) =>
     isAllowed ? <Route {...props} />
@@ -65,7 +66,6 @@ const Routes = ({user}) => {
                             component={DeleteCategory}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-reader" exact
                             component={DeleteReader}/>
-
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/edit-book" exact
                             component={EditBook}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/edit-reader" exact
@@ -80,16 +80,15 @@ const Routes = ({user}) => {
 
             <ProtectedRoute isAllowed={user && user.role === "librarian"} path="/get-book" exact
                             component={GetBook}/>
-
             <ProtectedRoute isAllowed={user && user.role === "librarian"} path="/take-book" exact
                             component={TakeBook}/>
-
             <ProtectedRoute isAllowed={user && user.role === "librarian"} path="/mark-reader" exact
                             component={DeleteReaderLibrarian}/>
             <ProtectedRoute isAllowed={user && user.role === "librarian"} path="/remove-book" exact
                             component={DeleteBookLibr}/>
 
             <Route path="/login" exact component={Login}/>
+            <Route path="/print-reader-card" exact component={ReaderCardToPrint}/>
             <Route render={() => <h1 style={{textAlign: "center"}}>Page not found</h1>}/>
         </Switch>
     );

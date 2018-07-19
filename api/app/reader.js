@@ -51,8 +51,12 @@ const createRouter = () => {
 
     try {
       const reader = new Reader(data);
-      const newReader = await reader.save();
-      if (newReader) res.send({message: "Новый читатель успешно добавлен", newReader});
+      const savedReader = await reader.save();
+      console.log(":________", savedReader);
+      if (savedReader) {
+        const newReader = await Reader.findOne({_id: savedReader._id}).populate('groupId');
+        res.send({message: "Новый читатель успешно добавлен", newReader});
+      }
     } catch (e) {
       return res.status(400).send({error: 'Читатель с таким документом уже зарегистрирован'});
     }
