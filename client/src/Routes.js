@@ -66,9 +66,10 @@ const Routes = ({user}) => {
                             component={DeleteCategory}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-reader" exact
                             component={DeleteReader}/>
-            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/edit-book" exact
+
+            <ProtectedRoute isAllowed={user && (user.role === "admin" || user.role === 'librarian')} path="/edit-book" exact
                             component={EditBook}/>
-            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/edit-reader" exact
+            <ProtectedRoute isAllowed={user && (user.role === "admin" || user.role === 'librarian')} path="/edit-reader" exact
                             component={EditReader}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-book" exact
                             component={DeleteBookAdmin}/>

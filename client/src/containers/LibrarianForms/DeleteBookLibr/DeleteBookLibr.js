@@ -28,15 +28,17 @@ class DeleteBookLibr extends Component {
         return (
             <Fragment>
                 <Row>
+                  <GetBookFormForBook
+                  getBook={this.props.getBookByBarcode}
+                  book={this.props.findingBook}
+                  length={12}/>
                     <Col sm={12}>
-                        <GetBookFormForBook
-                            getBook={this.props.getBookByBarcode}
-                            book={this.props.findingBook}/>
+
                         {this.props.findingBook ? <div>
                             <Panel bsStyle="primary">
                                 <Panel.Body>
                                     <Form horizontal>
-                                        <FormElement
+                                       <Col sm={12}> <FormElement
                                             className="reason"
                                             propertyName="reason"
                                             title="Причина удаления"
@@ -44,7 +46,7 @@ class DeleteBookLibr extends Component {
                                             type="text"
                                             value={this.state.comment}
                                             changeHandler={this.inputChangeHandler}
-                                        />
+                                       /></Col>
 
                                         <Col sm={12}>
                                             <Button disabled={!this.state.comment}

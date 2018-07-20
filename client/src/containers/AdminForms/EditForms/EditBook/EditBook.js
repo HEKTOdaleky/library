@@ -92,8 +92,8 @@ class editBook extends Component {
         <Form horizontal onSubmit={this.formFindSubmitHandler} style={{padding: '0 20px'}}>
           <FormElement
             propertyName="inventoryCode"
-            title="ПИН"
-            placeholder="ПИН"
+            title="Штрихкод книги"
+            placeholder="Штрихкод книги"
             type="text"
             inputLength={6}
             changeHandler={this.onChangeHandler}

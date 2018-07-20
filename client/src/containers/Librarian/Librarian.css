@@ -9,3 +9,9 @@
 .caption{
   font-size: 17px;
 }
+.ui.tabular.menu .active.item{
+  font-size: 18px;
+}
+.ui.tabular.menu .item{
+  font-size: 18px;
+}

@@ -1,5 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
+import dateFormat from "dateformat";
+
 import {
   Button, Col, ControlLabel, Form, FormControl, FormGroup, ListGroup, ListGroupItem, Panel,
   Row
@@ -10,7 +12,7 @@ import {getReaderByBarcode, sendReaderToRemove} from "../../../store/actions/rea
 class DeleteReaderLibrarian extends Component {
   state = {
     readerCode: '',
-    closeDate: ''
+    closeDate: dateFormat(new Date(), "yyyy-mm-dd")
   };
 
   changeHandler = event => {
@@ -44,11 +46,11 @@ class DeleteReaderLibrarian extends Component {
                 <Panel.Title>
                   <Form inline onSubmit={this.formSearchReaderHandler}>
                     <FormGroup>
-                      <ControlLabel style={{marginRight: "30px"}}>Читательский код читатель</ControlLabel>
+                      <ControlLabel style={{marginRight: "30px"}}>Штрихкод читателя</ControlLabel>
                       <FormControl
                         name="readerCode"
                         type="text"
-                        placeholder="Читательский код"
+                        placeholder="Штрихкод читателя"
                         value={this.state.readerCode}
                         onChange={this.changeHandler}
                         style={{marginRight: '30px', width: '150px'}}/>
