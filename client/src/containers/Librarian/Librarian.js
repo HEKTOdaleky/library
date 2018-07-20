@@ -7,7 +7,7 @@ import take from "../../assets/images/book.png"
 import add from "../../assets/images/add.png"
 import remove from "../../assets/images/delete.png"
 import edit from "../../assets/images/edit.png"
-import { Grid, Header, Menu, Segment } from "semantic-ui-react";
+import { Header, Menu, Segment } from "semantic-ui-react";
 import './Librarian.css';
 import { Col, Row, Thumbnail } from "react-bootstrap";
 
@@ -62,14 +62,19 @@ class Librarian extends Component {
           <Segment raised textAlign='center' attached='bottom'>
             <Header as='h2'>Читатели</Header>
             <Row className="center-block">
-              <Col xs={12} sm={6} md={6}>
+              <Col xs={12} sm={6} md={4}>
                 <Thumbnail src={apply} alt="Добавить читателя" href="/add-reader">
                   <p>Новый читатель</p>
                 </Thumbnail>
               </Col>
-              <Col xs={12} sm={6} md={6}>
+              <Col xs={12} sm={6} md={4}>
                 <Thumbnail src={denied} alt="Удалить читателя" href="/mark-reader" >
                   <p>Читателя на удаление</p>
+                </Thumbnail>
+              </Col>
+              <Col xs={12} sm={6} md={4}>
+                <Thumbnail src={edit} alt="Редактировать читателя" href="/edit-reader" >
+                  <p>Редактировать читателя</p>
                 </Thumbnail>
               </Col>
             </Row>
