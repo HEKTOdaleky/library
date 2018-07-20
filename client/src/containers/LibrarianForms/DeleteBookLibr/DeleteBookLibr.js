@@ -36,7 +36,7 @@ class DeleteBookLibr extends Component {
                             <Panel bsStyle="primary">
                                 <Panel.Body>
                                     <Form horizontal>
-                                        <FormElement
+                                       <Col sm={12}> <FormElement
                                             className="reason"
                                             propertyName="reason"
                                             title="Причина удаления"
@@ -44,7 +44,7 @@ class DeleteBookLibr extends Component {
                                             type="text"
                                             value={this.state.comment}
                                             changeHandler={this.inputChangeHandler}
-                                        />
+                                       /></Col>
 
                                         <Col sm={12}>
                                             <Button disabled={!this.state.comment}

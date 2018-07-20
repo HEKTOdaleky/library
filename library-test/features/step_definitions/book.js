@@ -24,6 +24,14 @@ module.exports = function () {
         return expect(notificationText).toBe(message);
     });
 
+
+    this.Then(/^вижу ошибку под полем "([^"]*)"$/, function (message) {
+        const notification = browser.element('.help-block');
+        notification.waitForExist(5000);
+        const notificationText = notification.getText();
+        return expect(notificationText).toBe(message);
+    });
+
   this.Given(/^я захожу на страницу выдачи книги библиотекарем$/, function () {
     return browser.url(urls.getBook);
   });
