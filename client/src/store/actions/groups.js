@@ -8,6 +8,8 @@ import {
   GET_GROUPS_SUCCESS
 } from "./actionTypes";
 
+import {sortArrayOfObjectsByKey} from "../../lib";
+
 const addGroupSuccess = group => {
   return { type: ADD_GROUP_SUCCESS, group };
 };
@@ -45,11 +47,10 @@ const getGroupsFailure = error => {
 
 export const getGroups = () => {
   return dispatch => {
-    return axios
-      .get("/groups").then(
-        response => dispatch(getGroupsSuccess(response.data)),
-        error => dispatch(getGroupsFailure(error))
-      );
+    return axios.get("/groups").then(
+      response => dispatch(getGroupsSuccess(response.data)),
+      error => dispatch(getGroupsFailure(error))
+    );
   };
 };
 
