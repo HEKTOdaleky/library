@@ -23,6 +23,16 @@ module.exports = function () {
         const notificationText = notification.getText();
         return expect(notificationText).toBe(message);
     });
+    this.Then(/^появляется ошибка "([^"]*)"$/, function (message) {
+        const notification = browser.element('.alert-danger');
+        console.log(message);
+        notification.waitForExist(5000);
+        const notificationText = notification.getText();
+
+        console.log(notificationText);
+        return expect(notificationText).toBe(message);
+    });
+
 
 
     this.Then(/^вижу ошибку под полем "([^"]*)"$/, function (message) {
