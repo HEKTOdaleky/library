@@ -1,15 +1,12 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { deleteLang, getLanguage } from "../../../../store/actions/languages";
-import {
-  Button,
-  Col,
-  Form,
-  FormGroup,
-  PageHeader
-} from "react-bootstrap";
+import {Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
+
 import FormElement from "../../../../components/UI/Form/FormElement";
 import ModalForm from "../../../../components/UI/Modal/ModalForm";
+import { deleteLang, getLanguage } from "../../../../store/actions/languages";
+import {sortArrayOfObjectsByKey} from "../../../../lib";
+
 class DeleteLanguage extends Component {
   state = {
     langId: "",
@@ -25,9 +22,11 @@ class DeleteLanguage extends Component {
     this.props.deleteLang(this.state.langId);
     this.handleClose();
   };
+
   handleClose = () => {
     this.setState({ show: false });
   };
+
   handleShow = () => {
     this.setState({ show: true });
   };
@@ -84,7 +83,7 @@ class DeleteLanguage extends Component {
 
 const mapStateToProps = state => {
   return {
-    languages: state.languages.languages
+    languages: sortArrayOfObjectsByKey(state.languages.languages, 'title')
   };
 };
 

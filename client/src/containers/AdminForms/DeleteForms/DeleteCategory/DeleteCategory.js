@@ -1,18 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import FormElement from "../../../../components/UI/Form/FormElement";
-import {
-  Button,
-  Col,
-  Form,
-  FormGroup,
-  PageHeader
-} from "react-bootstrap";
-import {
-  deleteCategory,
-  getCategories
-} from "../../../../store/actions/categories";
+import {Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
 import ModalForm from "../../../../components/UI/Modal/ModalForm";
+
+import FormElement from "../../../../components/UI/Form/FormElement";
+import {deleteCategory, getCategories} from "../../../../store/actions/categories";
+import {sortArrayOfObjectsByKey} from "../../../../lib";
 
 class DeleteCategory extends Component {
   state = {
@@ -92,7 +85,7 @@ class DeleteCategory extends Component {
 
 const mapStateToProps = state => {
   return {
-    categories: state.categories.categories
+    categories: sortArrayOfObjectsByKey(state.categories.categories, 'title')
   };
 };
 

@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import FormElement from "../../../../components/UI/Form/FormElement";
 import { Button, Col, Form, FormGroup, PageHeader } from "react-bootstrap";
-import { deleteGroup, getGroups } from "../../../../store/actions/groups";
+
+import FormElement from "../../../../components/UI/Form/FormElement";
 import ModalForm from "../../../../components/UI/Modal/ModalForm";
+import { deleteGroup, getGroups } from "../../../../store/actions/groups";
+import {sortArrayOfObjectsByKey} from "../../../../lib";
 
 class DeleteGroup extends Component {
   state = {
@@ -20,9 +22,11 @@ class DeleteGroup extends Component {
     this.props.deleteGroup(this.state.groupId);
     this.handleClose();
   };
+
   handleClose = () => {
     this.setState({ show: false });
   };
+
   handleShow = () => {
     this.setState({ show: true });
   };
@@ -79,7 +83,7 @@ class DeleteGroup extends Component {
 
 const mapStateToProps = state => {
   return {
-    groups: state.groups.groups
+    groups: sortArrayOfObjectsByKey(state.groups.groups, 'name')
   };
 };
 

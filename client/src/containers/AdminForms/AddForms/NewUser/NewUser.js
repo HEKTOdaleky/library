@@ -26,7 +26,6 @@ class NewUser extends Component {
             this.setState({passError: "Пароли не совпадают"});
         }
         this.props.createNewUser(this.state);
-
     };
 
     render() {

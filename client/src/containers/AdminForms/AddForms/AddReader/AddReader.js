@@ -3,10 +3,10 @@ import { Button, Col, Form, FormGroup, PageHeader } from "react-bootstrap";
 import {connect} from "react-redux";
 import dateFormat from "dateformat";
 
+import FormElement from "../../../../components/UI/Form/FormElement";
 import {getGroups} from "../../../../store/actions/groups";
 import {addNewReader} from "../../../../store/actions/readers";
-import FormElement from "../../../../components/UI/Form/FormElement";
-
+import {sortArrayOfObjectsByKey} from "../../../../lib";
 
 class AddReader extends Component {
 
@@ -111,7 +111,7 @@ class AddReader extends Component {
 
 const mapStateToProps = state => {
   return {
-    groups: state.groups.groups,
+    groups: sortArrayOfObjectsByKey(state.groups.groups, 'name'),
     error: state.readers.error,
     newReader: state.readers.newReader
   }

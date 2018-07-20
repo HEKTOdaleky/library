@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 
 import {getGroups} from "../../../../store/actions/groups";
 import {clearFindingReader, editReader, getReaderByBarcode} from "../../../../store/actions/readers";
+import {sortArrayOfObjectsByKey} from "../../../../lib";
 
 class EditReader extends Component {
 
@@ -146,7 +147,7 @@ class EditReader extends Component {
 
 const mapStateToProps = state => {
   return {
-    groups: state.groups.groups,
+    groups: sortArrayOfObjectsByKey(state.groups.groups, 'name'),
     error: state.readers.error,
     findingReader: state.readers.findingReader
   }

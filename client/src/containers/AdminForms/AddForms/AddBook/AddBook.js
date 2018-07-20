@@ -1,13 +1,14 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
+import {Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
+import dateFormat from 'dateformat';
+
+import FormElement from "../../../../components/UI/Form/FormElement";
 import {getLanguage} from "../../../../store/actions/languages";
 import {getStatus} from "../../../../store/actions/status";
 import {getCategories} from "../../../../store/actions/categories";
-import {Button, Col, Form, FormGroup, PageHeader} from "react-bootstrap";
-import dateFormat from 'dateformat';
-import FormElement from "../../../../components/UI/Form/FormElement";
 import {postBooksData} from "../../../../store/actions/books";
-
+import {sortArrayOfObjectsByKey} from "../../../../lib";
 
 class AddBook extends Component {
     componentDidMount() {
@@ -27,6 +28,7 @@ class AddBook extends Component {
         price: 0,
         language: ""
     };
+
     onChangeHandler = event => {
         this.setState({
             [event.target.name]: event.target.value
@@ -41,7 +43,6 @@ class AddBook extends Component {
     clickHandler = event => {
         event.preventDefault();
         this.props.postBooksData(this.state);
-
     };
 
     render() {
@@ -178,9 +179,9 @@ class AddBook extends Component {
 
 const mapStateToProps = state => {
     return {
-        languages: state.languages.languages,
-        status: state.status.status,
-        categories: state.categories.categories,
+        languages: sortArrayOfObjectsByKey(state.languages.languages, 'title'),
+        status: sortArrayOfObjectsByKey(state.status.status, 'name'),
+        categories: sortArrayOfObjectsByKey(state.categories.categories, 'title'),
         postError: state.books.postError
     };
 };

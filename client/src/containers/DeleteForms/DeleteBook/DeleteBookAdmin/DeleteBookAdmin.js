@@ -5,8 +5,11 @@ import FormElement from "../../../../components/UI/Form/FormElement";
 import {connect} from "react-redux";
 import {getBookForDelete, getBooksFromSearchNull, removeBookForDelete} from "../../../../store/actions/books";
 
-
 class DeleteBookAdmin extends Component {
+    state = {
+      order: ""
+    };
+
     componentDidMount() {
         this.props.getBookForDelete();
     }
@@ -15,22 +18,16 @@ class DeleteBookAdmin extends Component {
         this.props.getBooksFromSearchNull()
     }
 
-    state = {
-        order: ""
-    };
     orderInputChangeHandler = event => {
         this.setState({order: event.target.value})
     };
-    removeAllBooksHandler = () => {
 
+    removeAllBooksHandler = () => {
         this.props.removeBookForDelete({books: this.props.books, order: this.state.order})
     };
 
-
     render() {
         return (
-
-
             <Fragment>
                 {this.props.books.length > 0
                     ? (
@@ -89,8 +86,7 @@ class DeleteBookAdmin extends Component {
                     <div><p className="nothing-delete" style={{textAlign: "center", margin: "50px"}}>Нет книг для
                         удаления</p></div>}</Fragment>)
     }
-};
-
+}
 
 const
     mapStateToProps = state => {

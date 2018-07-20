@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import FormElement from "../../../../components/UI/Form/FormElement";
 import { Button, Col, Form, FormGroup, PageHeader } from "react-bootstrap";
-import { deleteStatus, getStatus } from "../../../../store/actions/status";
+
+import FormElement from "../../../../components/UI/Form/FormElement";
 import ModalForm from "../../../../components/UI/Modal/ModalForm";
+import { deleteStatus, getStatus } from "../../../../store/actions/status";
+import {sortArrayOfObjectsByKey} from "../../../../lib";
 
 class DeleteStatus extends Component {
   state = {
@@ -20,9 +22,11 @@ class DeleteStatus extends Component {
     this.props.deleteStatus(this.state.statusId);
     this.handleClose();
   };
+
   handleClose = () => {
     this.setState({ show: false });
   };
+
   handleShow = () => {
     this.setState({ show: true });
   };
@@ -80,7 +84,7 @@ class DeleteStatus extends Component {
 
 const mapStateToProps = state => {
   return {
-    status: state.status.status
+    status: sortArrayOfObjectsByKey(state.status.status, 'name')
   };
 };
 
