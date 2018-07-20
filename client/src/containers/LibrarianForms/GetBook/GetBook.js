@@ -37,7 +37,8 @@ class GetBook extends Component {
         <Row>
           <GetBookFormForBook
             getBook={this.props.getBookByBarcode}
-            book={this.props.findingBook}/>
+            book={this.props.findingBook}
+            length={6}/>
           <GetBookFormForReader
             getReader={this.props.getReaderByBarcode}
             reader={this.props.findingReader}/>

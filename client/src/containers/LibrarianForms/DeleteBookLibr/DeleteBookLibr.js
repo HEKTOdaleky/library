@@ -28,10 +28,12 @@ class DeleteBookLibr extends Component {
         return (
             <Fragment>
                 <Row>
+                  <GetBookFormForBook
+                  getBook={this.props.getBookByBarcode}
+                  book={this.props.findingBook}
+                  length={12}/>
                     <Col sm={12}>
-                        <GetBookFormForBook
-                            getBook={this.props.getBookByBarcode}
-                            book={this.props.findingBook}/>
+
                         {this.props.findingBook ? <div>
                             <Panel bsStyle="primary">
                                 <Panel.Body>

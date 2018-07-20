@@ -190,7 +190,7 @@ const createRouter = () => {
             if (book) return res.send(book);
             else return res.status(400).send({error: 'Книга с таким штрихкодом не найдена'});
         } catch (e) {
-            return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
+            return res.status(400).send({message: "Не удалось выполнить запрос к БД"});
         }
     });
 
@@ -204,7 +204,7 @@ const createRouter = () => {
             if (book) return res.send(book);
             else return res.status(400).send({error: 'Книга с таким штрихкодом не найдена'});
         } catch (e) {
-            return res.status(400).send({message: "Не удалось выполнить запрос к БД", e});
+            return res.status(400).send({message: "Не удалось выполнить запрос к БД"});
         }
     });
 
