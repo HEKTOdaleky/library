@@ -66,7 +66,7 @@ class DeleteBookLibr extends Component {
             </Fragment>
         )
     }
-};
+}
 
 const mapStateToProps = state => {
     return {
