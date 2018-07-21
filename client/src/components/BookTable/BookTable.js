@@ -24,14 +24,16 @@ class BookTable extends Component {
     };
 
     const book = this.props.book;
-    console.log(book);
 
     return (
       <div>
-        <BootstrapTable data={book} options={options}>
-          <TableHeaderColumn dataField='inventoryCode' isKey dataSort>Product ID</TableHeaderColumn>
-          <TableHeaderColumn dataField='name' dataSort>Product Name</TableHeaderColumn>
-          <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn>
+        <BootstrapTable data={book} pagination options={options}>
+          <TableHeaderColumn width='100' dataField='inventoryCode' isKey dataSort>Номер</TableHeaderColumn>
+          <TableHeaderColumn dataField='author' dataSort>Автор</TableHeaderColumn>
+          <TableHeaderColumn dataField='title' dataSort>Название</TableHeaderColumn>
+          <TableHeaderColumn width='120' dataField='year' dataSort>Год издания</TableHeaderColumn>
+          <TableHeaderColumn dataField='publishHouse' dataSort>Издательство</TableHeaderColumn>
+          <TableHeaderColumn dataField='language' dataSort>Язык</TableHeaderColumn>
         </BootstrapTable>
       </div>
     );
