@@ -8,8 +8,6 @@ import {
   GET_GROUPS_SUCCESS
 } from "./actionTypes";
 
-import {sortArrayOfObjectsByKey} from "../../lib";
-
 const addGroupSuccess = group => {
   return { type: ADD_GROUP_SUCCESS, group };
 };
@@ -80,5 +78,3 @@ export const deleteGroup = id => {
     )
   }
 };
-
-
