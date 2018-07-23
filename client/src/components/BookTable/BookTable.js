@@ -32,7 +32,6 @@ class BookTable extends Component {
     };
 
     const book = this.props.book;
-    console.log(book);
 
     return (
       <div>
