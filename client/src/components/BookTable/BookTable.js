@@ -9,11 +9,19 @@ class BookTable extends Component {
   };
 
   onSortChange = (sortName, sortOrder) => {
-    console.info('onSortChange', arguments);
+    // console.info('onSortChange', arguments);
     this.setState({
       sortName,
       sortOrder
     });
+  };
+
+  languageFormat = (cell, row) => {
+    return row.language.title;
+  };
+
+  categoryFormat = (cell, row) => {
+    return row.categoryId.title;
   };
 
   render() {
@@ -24,16 +32,18 @@ class BookTable extends Component {
     };
 
     const book = this.props.book;
+    console.log(book);
 
     return (
       <div>
-        <BootstrapTable data={book} pagination options={options}>
+        <BootstrapTable data={book} hover pagination options={options} headerStyle={ { background: '#6ab9ff' } }>
           <TableHeaderColumn width='100' dataField='inventoryCode' isKey dataSort>Номер</TableHeaderColumn>
           <TableHeaderColumn dataField='author' dataSort>Автор</TableHeaderColumn>
           <TableHeaderColumn dataField='title' dataSort>Название</TableHeaderColumn>
           <TableHeaderColumn width='120' dataField='year' dataSort>Год издания</TableHeaderColumn>
           <TableHeaderColumn dataField='publishHouse' dataSort>Издательство</TableHeaderColumn>
-          <TableHeaderColumn dataField='language' dataSort>Язык</TableHeaderColumn>
+          <TableHeaderColumn dataFormat={this.categoryFormat} dataField='categoryId' dataSort>Категория</TableHeaderColumn>
+          <TableHeaderColumn width='120' dataFormat={this.languageFormat} dataField='language' dataSort>Язык</TableHeaderColumn>
         </BootstrapTable>
       </div>
     );

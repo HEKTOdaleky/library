@@ -1,22 +1,23 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {Component} from "react";
+import {connect} from "react-redux";
 import BookTable from "../../components/BookTable/BookTable";
 import {getBook} from "../../store/actions/books";
+import {Tab, Tabs} from "react-bootstrap";
 
 class Admin extends Component {
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.getBook();
   }
 
   render() {
     return (
       <div className="container">
-        <h3>Книги в наличии</h3>
-        <BookTable
-          book={this.props.bookForTable}
-          // getBook={this.getBook}
-        />
+        <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
+          <Tab eventKey={1} title="Книги в наличии">
+            <BookTable book={this.props.bookForTable}/>
+          </Tab>
+        </Tabs>
       </div>
     );
   }

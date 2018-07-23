@@ -8,8 +8,9 @@ const createRouter = () => {
     const router = express.Router();
 
   router.get('/', [auth, permit('admin')], async (req, res) => {
-    const books = await Book.find();
-
+    const books = await Book.find()
+      .populate({path: 'categoryId', select: 'title'})
+      .populate({path: 'language', select: 'title'});
     if (books) {
       res.send(books);
     }
