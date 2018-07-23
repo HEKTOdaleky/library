@@ -9,7 +9,7 @@ import {
   GET_BOOKS_FROM_FULLSEARCH_FAILURE,
   GET_BOOKS_FROM_FULLSEARCH_SUCCESS,
   GET_BOOKS_FROM_SEARCH_FAILURE,
-  GET_BOOKS_FROM_SEARCH_SUCCESS
+  GET_BOOKS_FROM_SEARCH_SUCCESS, GET_BOOKS_SUCCESS
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -50,6 +50,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, error: action.error};
     case CLEAR_FINDING_BOOK:
       return {...state, findingBook: null};
+    case GET_BOOKS_SUCCESS:
+      return {...state, bookForTable: action.books};
     default:
       return state;
   }
