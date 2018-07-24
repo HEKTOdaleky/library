@@ -1,42 +1,43 @@
 import React, { Component, Fragment } from "react";
 import {connect} from "react-redux";
+import  './Admin.css';
+import { Tab, Tabs } from "react-bootstrap";
+
 import BookTable from "../../components/BookTable/BookTable";
 import {getBook} from "../../store/actions/books";
-import { Menu, Segment } from "semantic-ui-react";
 
 class Admin extends Component {
-  state = { activeItem: 'Рабочий стол' };
-
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   componentDidMount() {
     this.props.getBook();
   }
 
   render() {
-    const { activeItem } = this.state;
-
     return (
       <Fragment>
-        <Menu attached='top' tabular>
-          <Menu.Item name='Рабочий стол' active={activeItem === 'Рабочий стол'} onClick={this.handleItemClick} />
-          <Menu.Item name='Добавить' active={activeItem === 'Добавить'} onClick={this.handleItemClick} />
-          <Menu.Item name='Удалить' active={activeItem === 'Удалить'} onClick={this.handleItemClick} />
-          <Menu.Item name='Книги' active={activeItem === 'Книги'} onClick={this.handleItemClick} />
-          <Menu.Item name='Читатели' active={activeItem === 'Читатели'} onClick={this.handleItemClick} />
-          <Menu.Item name='Личный кабинет' active={activeItem === 'Личный кабинет'} onClick={this.handleItemClick} />
-        </Menu>
-
-        { this.state.activeItem === 'Рабочий стол' ?
-            <Segment raised textAlign='center' attached='bottom'>
-
-            </Segment> : null }
-
-        { this.state.activeItem === 'Книги' ?
-            <Segment raised>
-                <BookTable book={this.props.bookForTable}/>
-            </Segment> : null }
-
+        <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
+          <Tab eventKey={1} title="Главная">
+            Tab 1 content
+          </Tab>
+          <Tab eventKey={2} title="Добавить">
+            Tab 1 content
+          </Tab>
+          <Tab eventKey={3} title="Удалить">
+            Tab 2 content
+          </Tab>
+          <Tab eventKey={4} title="Книги">
+             <BookTable book={this.props.bookForTable} />
+          </Tab>
+          <Tab eventKey={5} title="Читатели">
+            Tab 3 content
+          </Tab>
+          <Tab eventKey={6} title="Журналы">
+            Tab 3 content
+          </Tab>
+          <Tab eventKey={7} title="Пользователи">
+            Tab 3 content
+          </Tab>
+        </Tabs>
       </Fragment>
     );
   }

@@ -7,29 +7,19 @@ import take from "../../assets/images/book.png"
 import add from "../../assets/images/add.png"
 import remove from "../../assets/images/delete.png"
 import edit from "../../assets/images/edit.png"
-import { Header, Menu, Segment } from "semantic-ui-react";
 import './Librarian.css';
-import { Col, Row, Thumbnail } from "react-bootstrap";
+import { Col, Row, Tab, Tabs, Thumbnail } from "react-bootstrap";
 
 class Librarian extends Component {
 
-  state = { activeItem: 'Книги' };
-
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
-
   render() {
-    const { activeItem } = this.state;
-
     return (
       <Fragment>
-        <Menu attached='top' tabular>
-          <Menu.Item name='Книги' active={activeItem === 'Книги'} onClick={this.handleItemClick} />
-          <Menu.Item name='Читатели' active={activeItem === 'Читатели'} onClick={this.handleItemClick} />
-        </Menu>
-
-        {this.state.activeItem === 'Книги' ?
-          <Segment raised textAlign='center' attached='bottom'>
-            <Header as='h2'>Книги</Header>
+         <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
+          <Tab eventKey={1} title="Главная">
+            Tab 1 content
+          </Tab>
+          <Tab eventKey={2} title="Книги">
             <Row>
               <Col xs={12} sm={6} md={3}>
                 <Thumbnail src={get} alt="Выдать книгу" href="/get-book">
@@ -57,10 +47,8 @@ class Librarian extends Component {
                 </Thumbnail>
               </Col>
             </Row>
-          </Segment> : null}
-        {this.state.activeItem === 'Читатели' ?
-          <Segment raised textAlign='center' attached='bottom'>
-            <Header as='h2'>Читатели</Header>
+          </Tab>
+          <Tab eventKey={3} title="Читатели">
             <Row className="center-block">
               <Col xs={12} sm={6} md={4}>
                 <Thumbnail src={apply} alt="Добавить читателя" href="/add-reader">
@@ -78,7 +66,8 @@ class Librarian extends Component {
                 </Thumbnail>
               </Col>
             </Row>
-          </Segment> : null }
+          </Tab>
+        </Tabs>
       </Fragment>
     );
   }

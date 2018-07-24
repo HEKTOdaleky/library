@@ -10,17 +10,17 @@ class AdminMenu extends Component {
   render() {
     return (
       <Fragment>
-        <Nav pullLeft>
-          <NavItem eventKey={1} href="/admin">
-            Главная
-          </NavItem>
-          <AddAdminMenu/>
-          <DeleteAdminMenu/>
-          <EditAdminMenu/>
-        </Nav>
-        <Nav pullRight>
-          <PersonalAdminMenu/>
-        </Nav>
+        {/*<Nav pullLeft>*/}
+          {/*<NavItem eventKey={1} href="/admin">*/}
+            {/*Главная*/}
+          {/*</NavItem>*/}
+          {/*<AddAdminMenu/>*/}
+          {/*<DeleteAdminMenu/>*/}
+          {/*<EditAdminMenu/>*/}
+        {/*</Nav>*/}
+        {/*<Nav pullRight>*/}
+          {/*<PersonalAdminMenu/>*/}
+        {/*</Nav>*/}
       </Fragment>
     );
   }
