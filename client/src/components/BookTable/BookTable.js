@@ -22,10 +22,8 @@ class BookTable extends Component {
           registerDate
         }
       });
-
       return {books: books};
     }
-
     return {books: []};
   }
 

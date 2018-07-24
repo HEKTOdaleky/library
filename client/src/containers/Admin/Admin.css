@@ -1,0 +1,6 @@
+.nav-tabs>li>a{
+  font-size: 16px;
+}
+.tab-content>.tab-pane{
+  margin-top: 15px;
+}
