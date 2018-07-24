@@ -34,9 +34,9 @@ const createRouter = () => {
 
         const newRecordInJournal = new Journal(data);
         try {
-            await newRecordInJournal.save();
+           const journal= await newRecordInJournal.save();
             const status = await Status.findOne({name: "Выдана"});
-            await Book.findOneAndUpdate({_id: data.bookId}, {$set: {statusId: status}});
+            await Book.findOneAndUpdate({_id: data.bookId}, {$set: {statusId: status,lastRec:journal._id}});
             return res.send({message: "Книга выдана успешно"});
         } catch (e) {
             return res.send({error: "Не удалось сохранить запись в журнал"});
@@ -49,12 +49,16 @@ const createRouter = () => {
             closeDate: req.body.closeDate
         };
 
+        console.log(req.body.closeDate, "CLOSE");
+
         const newRecordTakeBookInJournal = new TakeBookJournal(data);
         try {
             console.log(data);
             await newRecordTakeBookInJournal.save();
             const status = await Status.findOne({name: "В наличии"});
             await Book.findOneAndUpdate({_id: data.bookId}, {$set: {statusId: status}});
+            await Journal.findOneAndUpdate({_id: data.bookId}, {$set: {statusId: status}});
+
             return res.send({message: "Книга принята успешно"});
         } catch (e) {
             return res.send({error: "Не удалось сохранить запись в журнал"});
