@@ -13,7 +13,6 @@ class Admin extends Component {
   }
 
   render() {
-
     return (
       <Fragment>
         <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
