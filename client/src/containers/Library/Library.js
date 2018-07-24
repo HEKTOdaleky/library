@@ -57,7 +57,7 @@ class Library extends Component {
                 <InputGroup bsSize="large">
                   <FormControl
                     type="text"
-                    placeholder="Введите слово для поиска"
+                    placeholder="Введите слово для поиска в названии книги"
                     name="searchKey"
                     value={this.state.searchKey}
                     onChange={this.inputChangeHandler}

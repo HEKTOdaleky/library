@@ -7,7 +7,6 @@ import take from "../../assets/images/book.png"
 import add from "../../assets/images/add.png"
 import remove from "../../assets/images/delete.png"
 import edit from "../../assets/images/edit.png"
-import './Librarian.css';
 import { Col, Row, Tab, Tabs, Thumbnail } from "react-bootstrap";
 
 class Librarian extends Component {
@@ -15,11 +14,8 @@ class Librarian extends Component {
   render() {
     return (
       <Fragment>
-         <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
-          <Tab eventKey={1} title="Главная">
-            Tab 1 content
-          </Tab>
-          <Tab eventKey={2} title="Книги">
+         <Tabs defaultActiveKey={1} id="librarian-tabs">
+          <Tab eventKey={1} title="Книги">
             <Row>
               <Col xs={12} sm={6} md={3}>
                 <Thumbnail src={get} alt="Выдать книгу" href="/get-book">
@@ -48,7 +44,7 @@ class Librarian extends Component {
               </Col>
             </Row>
           </Tab>
-          <Tab eventKey={3} title="Читатели">
+          <Tab eventKey={2} title="Читатели">
             <Row className="center-block">
               <Col xs={12} sm={6} md={4}>
                 <Thumbnail src={apply} alt="Добавить читателя" href="/add-reader">
