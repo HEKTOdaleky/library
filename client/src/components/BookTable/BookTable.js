@@ -3,16 +3,18 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import moment from "moment/moment";
 import {getCategories} from "../../store/actions/categories";
 import {connect} from "react-redux";
-import {Button, Form, FormControl, FormGroup, InputGroup, Panel} from "react-bootstrap";
+import {Form} from "react-bootstrap";
 import FormElement from "../UI/Form/FormElement";
 import {sortArrayOfObjectsByKey} from "../../lib";
 import {getBook} from "../../store/actions/books";
+import {getStatus} from "../../store/actions/status";
 
 class BookTable extends Component {
 
   state = {
     books: [],
     categories: {},
+    statusId: {},
     sortName: undefined,
     sortOrder: undefined,
     categoryId: ''
@@ -20,6 +22,7 @@ class BookTable extends Component {
 
   componentDidMount() {
     this.props.getCategories();
+    this.props.getStatus();
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -39,19 +42,12 @@ class BookTable extends Component {
       nextProps.categories.forEach((category, index) => {
         categories[index] = category.title;
       });
-      console.log(categories);
 
       return {books: books, categories: categories};
     }
 
-
     return {...prevState};
   };
-
-  enumFormatter = (cell, row, enumObject) => {
-    return enumObject[cell];
-  };
-
 
   onSortChange = (sortName, sortOrder) => {
     this.setState({
@@ -63,6 +59,11 @@ class BookTable extends Component {
   categorySubmitHandler = event => {
     event.preventDefault();
     this.props.getCategories(this.state);
+  };
+
+  statusSubmitHandler = event => {
+    event.preventDefault();
+    this.props.getStatus(this.state)
   };
 
   onChangeHandler = event => {
@@ -83,6 +84,11 @@ class BookTable extends Component {
     });
     categories.unshift({id: '', title:  'Выберите категорию ...'});
 
+    const status = this.props.status.map(state => {
+      return {id: state._id, title: state.name};
+    });
+    status.unshift({id: '', title:  'Выберите статус ...'});
+
     return (
       <div>
         <Form horizontal onSubmit={this.categorySubmitHandler}>
@@ -97,6 +103,20 @@ class BookTable extends Component {
           this.props.postError.message}
         />
         </Form>
+
+
+        <Form horizontal onSubmit={this.statusSubmitHandler}>
+        <FormElement
+            propertyName="statusId"
+            title="Статус"
+            type="select"
+            options={status}
+            value={this.state.statusId}
+            changeHandler={this.onChangeHandler}
+            error={this.props.postError &&
+            this.props.postError.message}
+          />
+        </Form>
         <BootstrapTable data={this.state.books} hover pagination options={options} headerStyle={ { background: '#6ab9ff' } }>
           <TableHeaderColumn width='100' dataField='inventoryCode' isKey dataSort>Номер</TableHeaderColumn>
           <TableHeaderColumn dataField='registerDate' dataSort>Дата регистрации</TableHeaderColumn>
@@ -104,14 +124,7 @@ class BookTable extends Component {
           <TableHeaderColumn dataField='title' dataSort>Название</TableHeaderColumn>
           <TableHeaderColumn width='70' dataField='year' dataSort>Год издания</TableHeaderColumn>
           <TableHeaderColumn dataField='publishHouse' dataSort>Издательство</TableHeaderColumn>
-          <TableHeaderColumn
-            dataField='categoryId'
-            // filterFormatted
-            // dataFormat={ this.enumFormatter }
-            // dataSort
-            // formatExtraData={ this.state.categories }
-            // filter={ { type: 'SelectFilter', options: this.state.categories } }
-          >Категория</TableHeaderColumn>
+          <TableHeaderColumn dataField='categoryId'>Категория</TableHeaderColumn>
           <TableHeaderColumn width='120' dataField='language' dataSort>Язык</TableHeaderColumn>
         </BootstrapTable>
       </div>
@@ -121,14 +134,17 @@ class BookTable extends Component {
 
 const mapStateToProps = state => {
   return {
-    categories: sortArrayOfObjectsByKey(state.categories.categories, 'title')
+    categories: sortArrayOfObjectsByKey(state.categories.categories, 'title'),
+    status: sortArrayOfObjectsByKey(state.status.status, 'name')
+
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     getCategories: () => dispatch(getCategories()),
-    getBook: () => dispatch(getBook())
+    getBook: () => dispatch(getBook()),
+    getStatus: () => dispatch(getStatus())
   }
 };
 
