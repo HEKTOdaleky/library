@@ -20,7 +20,7 @@ class editBook extends Component {
     categoryId: '',
     statusId: '',
     publishHouse: '',
-    price: 0,
+    price: "",
     language: '',
     inventoryCode: '',
     isFind: false
@@ -59,11 +59,6 @@ class editBook extends Component {
       [event.target.name]: event.target.value
     });
   };
-
-  getValidationState() {
-    if (this.state.year > 1800 && this.state.year <= new Date().getFullYear()) return null;
-    else return 'error';
-  }
 
   clickHandler = event => {
     event.preventDefault();
