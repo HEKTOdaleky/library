@@ -56,7 +56,7 @@ const createRouter = () => {
             const status = await Status.findOne({name: "В наличии"});
             const book = await Book.findOne({_id: data.bookId});
             const journal = await Journal.findOne({_id: book.lastRec});
-
+console.log(book,'BOOK', journal);
             book.statusId = status;
             book.lastRec = "";
             journal.closeDate = data.closeDate;
