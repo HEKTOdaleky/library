@@ -1,12 +1,15 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
-import {Button, Col, ControlLabel, Form, FormControl, FormGroup} from "react-bootstrap";
+import {Button, Col, ControlLabel, Form, FormControl, FormGroup, Panel} from "react-bootstrap";
 import dateFormat from "dateformat";
 
 class ReportBooks extends Component {
     state = {
         startDate: dateFormat(new Date(), "yyyy-mm-dd"),
         endDate: dateFormat(new Date(), "yyyy-mm-dd"),
+    };
+    changeHandler = event => {
+        this.setState({[event.target.name]: event.target.value});
     };
 
     render() {

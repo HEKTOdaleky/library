@@ -28,6 +28,7 @@ import DeleteBookLibr from "./containers/LibrarianForms/DeleteBookLibr/DeleteBoo
 import DeleteUser from "./containers/AdminForms/DeleteForms/DeleteUser/DeleteUser";
 import ChangePassword from "./containers/AdminForms/AddForms/ChangePassword/ChangePassword";
 import ReaderCardToPrint from "./components/ReaderCardToPrint/ReaderCardToPrint";
+import ReportBooks from "./containers/AdminForms/DisplayForms/ReportBooks/ReportBooks";
 
 const ProtectedRoute = ({isAllowed, ...props}) =>
     isAllowed ? <Route {...props} />
@@ -41,7 +42,8 @@ const Routes = ({user}) => {
                             component={Librarian}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/admin" exact
                             component={Admin}/>
-            <ProtectedRoute isAllowed={user && (user.role === "admin" || user.role === 'librarian')} path="/add-book" exact
+            <ProtectedRoute isAllowed={user && (user.role === "admin" || user.role === 'librarian')} path="/add-book"
+                            exact
                             component={AddBook}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/add-group" exact
                             component={AddGroup}/>
@@ -67,9 +69,11 @@ const Routes = ({user}) => {
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-reader" exact
                             component={DeleteReader}/>
 
-            <ProtectedRoute isAllowed={user && (user.role === "admin" || user.role === 'librarian')} path="/edit-book" exact
+            <ProtectedRoute isAllowed={user && (user.role === "admin" || user.role === 'librarian')} path="/edit-book"
+                            exact
                             component={EditBook}/>
-            <ProtectedRoute isAllowed={user && (user.role === "admin" || user.role === 'librarian')} path="/edit-reader" exact
+            <ProtectedRoute isAllowed={user && (user.role === "admin" || user.role === 'librarian')} path="/edit-reader"
+                            exact
                             component={EditReader}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/delete-book" exact
                             component={DeleteBookAdmin}/>
@@ -77,6 +81,8 @@ const Routes = ({user}) => {
                             component={DeleteUser}/>
             <ProtectedRoute isAllowed={user && user.role === "admin"} path="/change-password" exact
                             component={ChangePassword}/>
+            <ProtectedRoute isAllowed={user && user.role === "admin"} path="/report-books" exact
+                            component={ReportBooks}/>
 
 
             <ProtectedRoute isAllowed={user && user.role === "librarian"} path="/get-book" exact
@@ -87,6 +93,7 @@ const Routes = ({user}) => {
                             component={DeleteReaderLibrarian}/>
             <ProtectedRoute isAllowed={user && user.role === "librarian"} path="/remove-book" exact
                             component={DeleteBookLibr}/>
+
 
             <Route path="/login" exact component={Login}/>
             <Route path="/print-reader-card" exact component={ReaderCardToPrint}/>
