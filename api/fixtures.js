@@ -11,7 +11,7 @@ const Group = require("./models/Group");
 const Journal = require("./models/Journal");
 const Languages = require("./models/Language");
 
-mongoose.connect(config.db.url + "/" + config.db.name);
+mongoose.connect(config.db.url);
 
 const db = mongoose.connection;
 
