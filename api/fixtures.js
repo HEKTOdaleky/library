@@ -11,7 +11,7 @@ const Group = require("./models/Group");
 const Journal = require("./models/Journal");
 const Languages = require("./models/Language");
 
-mongoose.connect(config.db.url + "/" + config.db.name);
+mongoose.connect(config.db.url);
 
 const db = mongoose.connection;
 
@@ -164,7 +164,7 @@ db.once("open", async () => {
         }
     );
 
-    const [b1, b2, b3, b4] = await Book.create(
+    const [b1, b2, b3, b4, b5, b6, b7] = await Book.create(
         {
             inventoryCode: "000001",
             title: "В мире управляющих машин",
@@ -355,10 +355,9 @@ db.once("open", async () => {
             publishHouse: "АСТ",
             language: l2._id
         }
-
     );
 
-    const [r1, r2, r3] = await Reader.create([
+    const [r1, r2, r3,r4,r5,r6] = await Reader.create([
         {
             inventoryCode: "000001",
             firstName: "Иван",
@@ -407,9 +406,54 @@ db.once("open", async () => {
     ]);
 
     await Journal.create({
-        bookId: b2._id,
-        userId: r3._id
-    });
+            bookId: b2._id,
+            userId: r3._id,
+            openDate: '2018-07-20T10:37:53.842Z',
+            closeDate: '2018-07-25T10:37:53.842Z',
+            estimatedDate: '24.07.2018'
+        },
+        {
+            bookId: b1._id,
+            userId: r2._id,
+            openDate: '2018-07-19T10:37:53.842Z',
+            closeDate: '2018-07-21T10:37:53.842Z',
+            estimatedDate: '23.07.2018'
+        },
+        {
+            bookId: b3._id,
+            userId: r1._id,
+            openDate: '2018-07-24T10:37:53.842Z',
+            closeDate: '2018-07-27T10:37:53.842Z',
+            estimatedDate: '27.07.2018'
+        },
+        {
+            bookId: b4._id,
+            userId: r3._id,
+            openDate: '2018-07-20T10:37:53.842Z',
+            closeDate: '2018-07-21T10:37:53.842Z',
+            estimatedDate: '22.07.2018'
+        },
+        {
+            bookId: b6._id,
+            userId: r4._id,
+            openDate: '2018-07-21T10:37:53.842Z',
+            closeDate: '2018-07-21T10:37:53.842Z',
+            estimatedDate: '21.07.2018'
+        },
+        {
+            bookId: b7._id,
+            userId: r5._id,
+            openDate: '2018-07-10T10:37:53.842Z',
+            closeDate: '2018-07-12T10:37:53.842Z',
+            estimatedDate: '27.07.2018'
+        },
+        {
+            bookId: b7._id,
+            userId: r5._id,
+            openDate: '2018-07-15T10:37:53.842Z',
+            closeDate: '2018-07-16T10:37:53.842Z',
+            estimatedDate: '27.07.2018'
+        });
 
     await User.create([
         {

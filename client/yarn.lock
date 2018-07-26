@@ -1625,6 +1625,10 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
+classnames@2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
+
 classnames@^2.1.1, classnames@^2.1.2, classnames@^2.2.5:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
@@ -6467,6 +6471,12 @@ react-bootstrap-select@^0.14.0:
     reactify "^1.0.0"
     vinyl-buffer "^1.0.0"
     vinyl-source-stream "^1.0.0"
+
+react-bootstrap-table-next@^0.1.15:
+  version "0.1.15"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-table-next/-/react-bootstrap-table-next-0.1.15.tgz#ced6b33717d01640d183bfedcb3d123b6a9a851c"
+  dependencies:
+    classnames "2.2.5"
 
 react-bootstrap-table@^4.3.1:
   version "4.3.1"

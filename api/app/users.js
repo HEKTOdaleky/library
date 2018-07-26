@@ -48,7 +48,7 @@ const createRouter = () => {
             }
 
             else {
-                if (req.body.password != req.body.confirmPassword) {
+                if (req.body.password !== req.body.confirmPassword) {
                     res.status(400).send({_message: "Пароли не совпадают"});
                     return;
                 }
