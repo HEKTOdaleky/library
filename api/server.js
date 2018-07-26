@@ -18,8 +18,8 @@ const port = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(express.json());
-
-mongoose.connect(config.db.url + "/" + config.db.name);
+console.log(config.db.url);
+mongoose.connect(config.db.url);
 // mongoose.set('debug', true);
 
 const db = mongoose.connection;
@@ -41,7 +41,5 @@ db.once("open", () => {
       if (error) return console.error(`Server error ${error}`);
         console.log(`Server started on ${port} port!`);
     });
-
-
 });
 
