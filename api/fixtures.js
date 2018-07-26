@@ -446,6 +446,13 @@ db.once("open", async () => {
             openDate: '2018-07-10T10:37:53.842Z',
             closeDate: '2018-07-12T10:37:53.842Z',
             estimatedDate: '27.07.2018'
+        },
+        {
+            bookId: b7._id,
+            userId: r5._id,
+            openDate: '2018-07-15T10:37:53.842Z',
+            closeDate: '2018-07-16T10:37:53.842Z',
+            estimatedDate: '27.07.2018'
         });
 
     await User.create([
