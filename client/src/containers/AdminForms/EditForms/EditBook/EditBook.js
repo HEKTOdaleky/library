@@ -20,7 +20,7 @@ class editBook extends Component {
     categoryId: '',
     statusId: '',
     publishHouse: '',
-    price: 0,
+    price: "",
     language: '',
     inventoryCode: '',
     isFind: false
@@ -59,11 +59,6 @@ class editBook extends Component {
       [event.target.name]: event.target.value
     });
   };
-
-  getValidationState() {
-    if (this.state.year > 1800 && this.state.year <= new Date().getFullYear()) return null;
-    else return 'error';
-  }
 
   clickHandler = event => {
     event.preventDefault();
@@ -109,7 +104,7 @@ class editBook extends Component {
           </FormGroup>
         </Form>
 
-        <Collapse in={this.state.isFind || false}>
+        <Collapse in={this.state.isFind}>
           <Well>
             <Form horizontal onSubmit={this.clickHandler}>
               <FormElement
@@ -117,7 +112,7 @@ class editBook extends Component {
                 title="Название книги"
                 placeholder="Введите Название книги"
                 type="text"
-                value={this.state.title || ''}
+                value={this.state.title}
                 changeHandler={this.onChangeHandler}
                 required
                 error={this.props.updateError &&
@@ -129,7 +124,7 @@ class editBook extends Component {
                 title="Автор"
                 placeholder="Введите автора"
                 type="text"
-                value={this.state.author || ''}
+                value={this.state.author}
                 changeHandler={this.onChangeHandler}
                 error={this.props.updateError &&
                 this.props.updateError.message}
@@ -140,7 +135,7 @@ class editBook extends Component {
                 title="Год издания"
                 placeholder="Введите год издания"
                 type="number"
-                value={this.state.year || new Date().getFullYear()}
+                value={this.state.year}
                 changeHandler={this.onChangeHandler}
                 error={this.props.updateError &&
                 this.props.updateError.message}
@@ -151,7 +146,7 @@ class editBook extends Component {
                 title="Категория"
                 type="select"
                 options={categories}
-                value={this.state.categoryId || ''}
+                value={this.state.categoryId}
                 changeHandler={this.onChangeHandler}
                 error={this.props.updateError &&
                 this.props.updateError.message}
@@ -162,7 +157,7 @@ class editBook extends Component {
                 title="Статус"
                 type="select"
                 options={status}
-                value={this.state.statusId || ''}
+                value={this.state.statusId}
                 changeHandler={this.onChangeHandler}
                 error={this.props.updateError &&
                 this.props.updateError.message}
@@ -173,7 +168,7 @@ class editBook extends Component {
                 title="Издательство"
                 placeholder="Издательский дом"
                 type="text"
-                value={this.state.publishHouse || ''}
+                value={this.state.publishHouse}
                 changeHandler={this.onChangeHandler}
                 error={this.props.updateError &&
                 this.props.updateError.message}
@@ -184,7 +179,7 @@ class editBook extends Component {
                 title="Язык"
                 type="select"
                 options={lang}
-                value={this.state.language || ''}
+                value={this.state.language}
                 changeHandler={this.onChangeHandler}
                 error={this.props.updateError &&
                 this.props.updateError.message}
@@ -195,7 +190,7 @@ class editBook extends Component {
                 title="Стоимость"
                 placeholder="Стоимость"
                 type="number"
-                value={this.state.price || 0}
+                value={this.state.price}
                 changeHandler={this.onChangeHandler}
                 error={this.props.updateError &&
                 this.props.updateError.message}
@@ -206,7 +201,7 @@ class editBook extends Component {
                 title="Дата регистрации книги"
                 placeholder="Дата регистрации книги"
                 type="date"
-                value={this.state.registerDate || dateFormat(new Date(), "yyyy-mm-dd")}
+                value={this.state.registerDate}
                 changeHandler={this.onChangeHandler}
                 error={this.props.updateError &&
                 this.props.updateError.message}

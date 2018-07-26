@@ -8,7 +8,6 @@ module.exports = function () {
   this.Then(/^я вижу форму редактирования данных пользователя$/, function () {
     const form = browser.element('.collapse.in.well');
     form.waitForExist(5000);
-
     return form;
   });
 };

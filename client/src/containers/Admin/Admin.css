@@ -1,0 +1,12 @@
+.nav-tabs>li>a{
+  font-size: 16px;
+}
+.tab-content>.tab-pane{
+  margin-top: 15px;
+}
+.thumbnail{
+  text-align: center;
+}
+.thumbnail .caption{
+  font-size: 16px;
+}

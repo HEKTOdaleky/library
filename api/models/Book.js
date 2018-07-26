@@ -49,7 +49,8 @@ const BookSchema = new Schema({
     },
     mark: {
         type: String
-    }
+    },
+    lastRec: String
 });
 
 BookSchema.pre('save', async function (next) {

@@ -26,20 +26,22 @@ class BookTable extends Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const books = nextProps.book.filter(book => {
-      return ((book.categoryId._id === prevState.categoryId || prevState.categoryId === '') &&
-        (book.statusId._id === prevState.statusId || prevState.statusId === ''));
-    }).map(book => {
-      const registerDate = moment(book.registerDate).format("DD-MM-YYYY h:mm");
-      return {
-        ...book,
-        language: book.language.title,
-        categoryId: book.categoryId.title,
-        registerDate
-      }
-    });
-
-    return {books: books};
+    if (nextProps.book) {
+      const books = nextProps.book.filter(book => {
+        return ((book.categoryId._id === prevState.categoryId || prevState.categoryId === '') &&
+          (book.statusId._id === prevState.statusId || prevState.statusId === ''));
+      }).map(book => {
+        const registerDate = moment(book.registerDate).format("DD-MM-YYYY h:mm");
+        return {
+          ...book,
+          language: book.language.title,
+          categoryId: book.categoryId.title,
+          registerDate
+        }
+      });
+      return {books: books};
+    }
+    return {...prevState};
   };
 
   onSortChange = (sortName, sortOrder) => {
