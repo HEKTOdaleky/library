@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
 import {Button, Col, ControlLabel, Form, FormControl, FormGroup, Panel} from "react-bootstrap";
 import dateFormat from "dateformat";
+import {getFullReport} from "../../../../store/actions/reports";
 
 class ReportBooks extends Component {
     state = {
@@ -10,6 +11,10 @@ class ReportBooks extends Component {
     };
     changeHandler = event => {
         this.setState({[event.target.name]: event.target.value});
+    };
+    sendHandler = event => {
+        event.preventDefault();
+        this.props.getFullReport(this.state.startDate, this.props.endDate);
     };
 
     render() {
@@ -40,7 +45,8 @@ class ReportBooks extends Component {
                                 <Col sm={12}>
                                     <Button
                                         bsStyle="primary" bsSize="large"
-                                        block style={{marginTop: '20px'}} onClick={()=>alert("Hello")}>
+                                        block style={{marginTop: '20px'}}
+                                        onClick={this.sendHandler}>
                                         Сформировать
                                     </Button>
                                 </Col>
@@ -54,12 +60,16 @@ class ReportBooks extends Component {
 };
 const
     mapStateToProps = state => {
-        return {};
+        return {
+            reports: state.reports.list
+        };
     };
 
 const
     mapDispatchToProps = dispatch => {
-        return {};
+        return {
+            getFullReport: (startdate, enddate) => dispatch(getFullReport(startdate, enddate)),
+        };
     };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReportBooks);
