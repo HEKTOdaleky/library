@@ -21,7 +21,7 @@ const createRouter = () => {
         catch (error) {
             res.status(400).send({message: "Ошибка в полуении данных", error})
         }
-        res.send({report});
+        res.send({report,message:"Данные загружены"});
 
     });
 

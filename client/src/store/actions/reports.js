@@ -13,7 +13,7 @@ const getFullReportError = err => {
 export const getFullReport = (startdate, enddate) => {
     return dispatch => {
         axios.post('/journal/report').then(response => {
-                dispatch(getFullReportSuccess(response.data));
+                dispatch(getFullReportSuccess(response.data.report));
                 NotificationManager.success(response.data.message);
 
             },

@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import { Nav, NavItem } from "react-bootstrap";
-import PersonalAdminMenu from "./PersonaAdminMenu/PersonalAdminMenu";
+// import PersonalAdminMenu from "./PersonaAdminMenu/PersonalAdminMenu";
 
 class AdminMenu extends Component {
 
