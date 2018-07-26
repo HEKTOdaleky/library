@@ -3,7 +3,7 @@ module.exports = function() {
   this.Given(/^я захожу на страницу поиска$/, function () {
     const link = browser.element('.navbar-brand');
     link.click();
-    return browser.url('http://localhost:3000');
+    return browser.url('http://localhost:3010');
   });
 
   this.When(/^я ввожу в поле ввода слово "([^"]*)"$/, function (value) {
@@ -32,7 +32,7 @@ module.exports = function() {
   });
 
   this.Given(/^я нахожусь на странице поиска$/, function () {
-    return browser.url('http://localhost:3000');
+    return browser.url('http://localhost:3010');
   });
 
   this.When(/^я нажал на ссылку с названием Расширенный поиск$/, function () {

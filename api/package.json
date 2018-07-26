@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "start:test": "APP_ENV=test PORT=8010 nodemon server.js",
     "dev": "nodemon server.js",
     "seed": "./seed.sh"
   },
